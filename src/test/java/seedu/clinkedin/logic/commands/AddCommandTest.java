@@ -23,6 +23,7 @@ import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.ReadOnlyAddressBook;
 import seedu.clinkedin.model.ReadOnlyUserPrefs;
 import seedu.clinkedin.model.person.Person;
+import seedu.clinkedin.model.person.Phone;
 import seedu.clinkedin.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -51,6 +52,16 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_duplicatePhoneNumber_throwsCommandException() {
+        Person validPerson = new PersonBuilder().withName("Alice").withPhone("87654321").build();
+        Person personWithDuplicatePhone = new PersonBuilder().withName("Bob").withPhone("87654321").build();
+        AddCommand addCommand = new AddCommand(personWithDuplicatePhone);
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PHONE, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -139,6 +150,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPhoneNumber(Phone phone) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -175,6 +191,12 @@ public class AddCommandTest {
             requireNonNull(person);
             return this.person.isSamePerson(person);
         }
+
+        @Override
+        public boolean hasPhoneNumber(Phone phone) {
+            requireNonNull(phone);
+            return this.person.getPhone().equals(phone);
+        }
     }
 
     /**
@@ -187,6 +209,12 @@ public class AddCommandTest {
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public boolean hasPhoneNumber(Phone phone) {
+            requireNonNull(phone);
+            return personsAdded.stream().anyMatch(person -> person.getPhone().equals(phone));
         }
 
         @Override
