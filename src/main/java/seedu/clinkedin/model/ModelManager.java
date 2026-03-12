@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.clinkedin.commons.core.GuiSettings;
 import seedu.clinkedin.commons.core.LogsCenter;
 import seedu.clinkedin.model.person.Person;
+import seedu.clinkedin.model.person.Phone;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -91,6 +92,13 @@ public class ModelManager implements Model {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasPhoneNumber(Phone phone) {
+        requireNonNull(phone);
+        // Note: 'addressBook' might be named 'cLinkedin' depending on how much you renamed
+        return addressBook.hasPhoneNumber(phone);
     }
 
     @Override

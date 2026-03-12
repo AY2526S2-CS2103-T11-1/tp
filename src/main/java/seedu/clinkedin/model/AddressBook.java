@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.clinkedin.commons.util.ToStringBuilder;
 import seedu.clinkedin.model.person.Person;
+import seedu.clinkedin.model.person.Phone;
 import seedu.clinkedin.model.person.UniquePersonList;
 
 /**
@@ -65,6 +66,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    /**
+     * Returns true if a person with the same phone number exists in the address book.
+     */
+    public boolean hasPhoneNumber(Phone phone) {
+        requireNonNull(phone);
+        return persons.containsPhoneNumber(phone);
     }
 
     /**
