@@ -55,6 +55,16 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_duplicatePhoneNumber_throwsCommandException() {
+        Person validPerson = new PersonBuilder().withName("Alice").withPhone("87654321").build();
+        Person personWithDuplicatePhone = new PersonBuilder().withName("Bob").withPhone("87654321").build();
+        AddCommand addCommand = new AddCommand(personWithDuplicatePhone);
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PHONE, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
@@ -180,6 +190,12 @@ public class AddCommandTest {
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return this.person.isSamePerson(person);
+        }
+
+        @Override
+        public boolean hasPhoneNumber(Phone phone) {
+            requireNonNull(phone);
+            return this.person.getPhone().equals(phone);
         }
     }
 
