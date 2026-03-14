@@ -23,6 +23,7 @@ import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.ReadOnlyAddressBook;
 import seedu.clinkedin.model.ReadOnlyUserPrefs;
 import seedu.clinkedin.model.person.Person;
+import seedu.clinkedin.model.tag.Tag;
 import seedu.clinkedin.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -155,6 +156,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
     }

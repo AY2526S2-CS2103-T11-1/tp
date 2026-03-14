@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.clinkedin.commons.core.GuiSettings;
 import seedu.clinkedin.model.person.Person;
+import seedu.clinkedin.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -84,4 +85,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    boolean hasTag(Tag tag);
+
+    void addTag(Tag tag);
 }

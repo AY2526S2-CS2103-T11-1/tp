@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.clinkedin.commons.core.GuiSettings;
 import seedu.clinkedin.commons.core.LogsCenter;
 import seedu.clinkedin.model.person.Person;
+import seedu.clinkedin.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -109,6 +110,18 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return addressBook.hasTag(tag);
+    }
+
+    @Override
+    public void addTag(Tag tag) {
+        requireNonNull(tag);
+        addressBook.addTag(tag);
     }
 
     //=========== Filtered Person List Accessors =============================================================
