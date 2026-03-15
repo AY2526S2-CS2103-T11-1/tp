@@ -24,6 +24,7 @@ import seedu.clinkedin.model.ReadOnlyAddressBook;
 import seedu.clinkedin.model.ReadOnlyUserPrefs;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.tag.Tag;
+import seedu.clinkedin.model.tag.UniqueTagList;
 import seedu.clinkedin.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -58,10 +59,21 @@ public class AddCommandTest {
     public void execute_tagsDoNoExistPerson_throwsCommandException() {
         Person invalidTagsPerson = new PersonBuilder().withTags("Ferrari", "Mercedes").build();
         AddCommand addCommand = new AddCommand(invalidTagsPerson);
-        ModelStubWithPersonInvalidTags modelStub = new ModelStubWithPersonInvalidTags(invalidTagsPerson);
+        ModelStubWithPersonFriendsTag modelStub = new ModelStubWithPersonFriendsTag(invalidTagsPerson);
         String errorMessage = AddCommand.MESSAGE_TAGS_DO_NOT_EXIST + invalidTagsPerson.getTags();
 
         assertThrows(CommandException.class, errorMessage, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_tagsExistPerson_addSuccessful() throws Exception {
+        Person validTagsPerson = new PersonBuilder().withTags("friends").build();
+        ModelStubWithPersonFriendsTag modelStub = new ModelStubWithPersonFriendsTag(validTagsPerson);
+        CommandResult commandResult = new AddCommand(validTagsPerson).execute(modelStub);
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validTagsPerson)),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validTagsPerson), modelStub.personsAdded);
     }
 
     @Test
@@ -201,10 +213,11 @@ public class AddCommandTest {
     /**
      * A model stub that contains a person with tags that do not exist
      */
-    private class ModelStubWithPersonInvalidTags extends ModelStub {
+    private class ModelStubWithPersonFriendsTag extends ModelStub {
         private final Person person;
+        final ArrayList<Person> personsAdded = new ArrayList<>();
 
-        ModelStubWithPersonInvalidTags(Person person) {
+        ModelStubWithPersonFriendsTag(Person person) {
             requireNonNull(person);
             this.person = person;
         }
@@ -216,9 +229,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addPerson(Person person) {
+            requireNonNull(person);
+            personsAdded.add(person);
+        }
+
+        @Override
         public boolean hasTag(Tag tag) {
             requireNonNull(tag);
-            return false;
+            UniqueTagList tags = new UniqueTagList();
+            tags.add(new Tag("friends"));
+            return tags.contains(tag);
         }
     }
 
