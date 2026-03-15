@@ -8,8 +8,6 @@ import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.stream.Collectors;
 
 import seedu.clinkedin.commons.util.ToStringBuilder;
 import seedu.clinkedin.logic.Messages;
