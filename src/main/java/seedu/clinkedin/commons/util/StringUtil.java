@@ -28,15 +28,11 @@ public class StringUtil {
         requireNonNull(sentence);
         requireNonNull(word);
 
-        String preppedWord = word.trim();
+        String preppedWord = word.trim().toLowerCase();
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
 
-        String preppedSentence = sentence;
-        ArrayList<String> wordsInPreppedSentence = new ArrayList<>();
-        Arrays.stream(preppedSentence.split("\\s+")).forEach(x -> wordsInPreppedSentence.add(x));
-        wordsInPreppedSentence.add(preppedSentence);
-
-        return wordsInPreppedSentence.stream().anyMatch(preppedWord::equalsIgnoreCase);
+        String preppedSentence = sentence.toLowerCase();
+        return preppedSentence.contains(preppedWord);
     }
 
     /**
