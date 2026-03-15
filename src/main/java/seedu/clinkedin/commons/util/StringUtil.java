@@ -5,6 +5,7 @@ import static seedu.clinkedin.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -29,13 +30,13 @@ public class StringUtil {
 
         String preppedWord = word.trim();
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
         String preppedSentence = sentence;
-        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+        ArrayList<String> wordsInPreppedSentence = new ArrayList<>();
+        Arrays.stream(preppedSentence.split("\\s+")).forEach(x -> wordsInPreppedSentence.add(x));
+        wordsInPreppedSentence.add(preppedSentence);
 
-        return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(preppedWord::equalsIgnoreCase);
+        return wordsInPreppedSentence.stream().anyMatch(preppedWord::equalsIgnoreCase);
     }
 
     /**
