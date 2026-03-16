@@ -19,6 +19,7 @@ public class Name {
      * and contain only single spaces between words.
      */
     public static final int MAX_LENGTH = 100;
+    public static final String MESSAGE_NULL = "Name cannot be null";
     public static final String MESSAGE_EMPTY =
             "Name cannot be empty.";
 
@@ -51,6 +52,9 @@ public class Name {
      * Returns the error message if the name is invalid, otherwise null.
      */
     public static String getNameValidationError(String test) {
+        if (test == null) {
+            return MESSAGE_NULL;
+        }
         if (test.isEmpty()) {
             return MESSAGE_EMPTY;
         }

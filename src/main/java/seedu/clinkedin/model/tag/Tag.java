@@ -11,6 +11,8 @@ public class Tag {
 
     public static final int MAX_LENGTH = 20;
 
+    public static final String MESSAGE_NULL = "Phone number cannot be null";
+
     public static final String MESSAGE_CONSTRAINTS =
             "Tag must contain only letters and numbers, and cannot exceed 20 characters.";
 
@@ -43,6 +45,10 @@ public class Tag {
      * Returns the error message if the tag name is invalid, otherwise null.
      */
     public static String getTagNameValidationError(String test) {
+        if (test == null) {
+            return MESSAGE_NULL;
+        }
+
         if (test.isEmpty()) {
             return MESSAGE_EMPTY;
         }

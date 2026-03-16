@@ -1,5 +1,6 @@
 package seedu.clinkedin.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinkedin.testutil.Assert.assertThrows;
@@ -17,6 +18,54 @@ public class EmailTest {
     public void constructor_invalidEmail_throwsIllegalArgumentException() {
         String invalidEmail = "";
         assertThrows(IllegalArgumentException.class, () -> new Email(invalidEmail));
+    }
+
+    @Test
+    public void getEmailValidationError() {
+        // null
+        assertEquals(Email.MESSAGE_NULL, Email.getEmailValidationError(null));
+
+        // empty
+        assertEquals(Email.MESSAGE_EMPTY, Email.getEmailValidationError(""));
+
+        // spaces not allowed
+        assertEquals(Email.MESSAGE_SPACE_NOT_ALLOWED,
+                Email.getEmailValidationError("john doe@gmail.com"));
+
+        // invalid @ count
+        assertEquals(Email.MESSAGE_INVALID_AT,
+                Email.getEmailValidationError("johndoegmail.com"));
+        assertEquals(Email.MESSAGE_INVALID_AT,
+                Email.getEmailValidationError("john@@gmail.com"));
+
+        // invalid local part
+        assertEquals(Email.MESSAGE_INVALID_LOCAL_PART,
+                Email.getEmailValidationError("@gmail.com"));
+        assertEquals(Email.MESSAGE_INVALID_LOCAL_PART,
+                Email.getEmailValidationError(".john@gmail.com"));
+        assertEquals(Email.MESSAGE_INVALID_LOCAL_PART,
+                Email.getEmailValidationError("john.@gmail.com"));
+        assertEquals(Email.MESSAGE_INVALID_LOCAL_PART,
+                Email.getEmailValidationError("john!doe@gmail.com"));
+
+        // invalid domain
+        assertEquals(Email.MESSAGE_INVALID_DOMAIN,
+                Email.getEmailValidationError("john@gmailcom"));
+        assertEquals(Email.MESSAGE_INVALID_DOMAIN,
+                Email.getEmailValidationError("john@.com"));
+        assertEquals(Email.MESSAGE_INVALID_DOMAIN,
+                Email.getEmailValidationError("john@gmail."));
+        assertEquals(Email.MESSAGE_INVALID_DOMAIN,
+                Email.getEmailValidationError("john@-gmail.com"));
+        assertEquals(Email.MESSAGE_INVALID_DOMAIN,
+                Email.getEmailValidationError("john@gmail-.com"));
+        assertEquals(Email.MESSAGE_INVALID_DOMAIN,
+                Email.getEmailValidationError("john@gmail.c"));
+
+        // valid email
+        assertEquals(null, Email.getEmailValidationError("john@gmail.com"));
+        assertEquals(null, Email.getEmailValidationError("abc123@test.org"));
+        assertEquals(null, Email.getEmailValidationError("john.doe+tag@test-domain.com"));
     }
 
     @Test

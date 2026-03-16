@@ -1,5 +1,6 @@
 package seedu.clinkedin.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinkedin.testutil.Assert.assertThrows;
@@ -17,6 +18,33 @@ public class PhoneTest {
     public void constructor_invalidPhone_throwsIllegalArgumentException() {
         String invalidPhone = "";
         assertThrows(IllegalArgumentException.class, () -> new Phone(invalidPhone));
+    }
+
+    @Test
+    public void getPhoneValidationError() {
+
+        // null
+        assertEquals(Phone.MESSAGE_NULL, Phone.getPhoneValidationError(null));
+
+        // empty
+        assertEquals(Phone.MESSAGE_EMPTY, Phone.getPhoneValidationError(""));
+
+        // non digit
+        assertEquals(Phone.MESSAGE_NON_DIGIT, Phone.getPhoneValidationError("phone"));
+        assertEquals(Phone.MESSAGE_NON_DIGIT, Phone.getPhoneValidationError("9011p041"));
+        assertEquals(Phone.MESSAGE_NON_DIGIT, Phone.getPhoneValidationError("9312 1534"));
+
+        // too short
+        assertEquals(Phone.MESSAGE_TOO_SHORT, Phone.getPhoneValidationError("1234567"));
+
+        // too long
+        assertEquals(Phone.MESSAGE_TOO_LONG,
+                Phone.getPhoneValidationError("1234567890123456"));
+
+        // valid numbers
+        assertEquals(null, Phone.getPhoneValidationError("12345678"));
+        assertEquals(null, Phone.getPhoneValidationError("93121534"));
+        assertEquals(null, Phone.getPhoneValidationError("123456789012345"));
     }
 
     @Test

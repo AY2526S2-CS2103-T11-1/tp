@@ -1,5 +1,6 @@
 package seedu.clinkedin.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinkedin.testutil.Assert.assertThrows;
@@ -17,6 +18,29 @@ public class NameTest {
     public void constructor_invalidName_throwsIllegalArgumentException() {
         String invalidName = "";
         assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
+    }
+
+    @Test
+    public void getNameValidationError() {
+        //null
+        assertEquals(Name.MESSAGE_NULL, Name.getNameValidationError(null));
+
+        // empty
+        assertEquals(Name.MESSAGE_EMPTY, Name.getNameValidationError(""));
+
+        // too long
+        assertEquals(Name.MESSAGE_TOO_LONG, Name.getNameValidationError("a".repeat(101)));
+
+        // invalid spaces
+        assertEquals(Name.MESSAGE_MULTIPLE_SPACES, Name.getNameValidationError("  Bob"));
+        assertEquals(Name.MESSAGE_MULTIPLE_SPACES, Name.getNameValidationError("Bob  "));
+        assertEquals(Name.MESSAGE_MULTIPLE_SPACES, Name.getNameValidationError("Bob  Tan"));
+
+        // invalid characters
+        assertEquals(Name.MESSAGE_INVALID_CHARACTERS, Name.getNameValidationError("James123*"));
+
+        // valid
+        assertEquals(null, Name.getNameValidationError("Bob Tan"));
     }
 
     @Test

@@ -12,6 +12,8 @@ public class Phone {
     public static final int MIN_LENGTH = 8;
     public static final int MAX_LENGTH = 15;
 
+    public static final String MESSAGE_NULL = "Phone number cannot be null";
+
     public static final String MESSAGE_CONSTRAINTS =
             "Phone number must contain digits only and be between 8 and 15 digits long.";
 
@@ -44,6 +46,10 @@ public class Phone {
      * Returns the error message if the phone number is invalid, otherwise null.
      */
     public static String getPhoneValidationError(String test) {
+        if (test == null) {
+            return MESSAGE_NULL;
+        }
+
         if (test.isEmpty()) {
             return MESSAGE_EMPTY;
         }
