@@ -8,7 +8,7 @@ import static seedu.clinkedin.testutil.Assert.assertThrows;
 import static seedu.clinkedin.testutil.TypicalPersons.ALICE;
 import static seedu.clinkedin.testutil.TypicalPersons.BENSON;
 import static seedu.clinkedin.testutil.TypicalPersons.DANIEL;
-import static seedu.clinkedin.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.clinkedin.testutil.TypicalPersons.getTypicalCLinkedin;
 
 import java.util.Arrays;
 
@@ -25,8 +25,8 @@ import seedu.clinkedin.model.tag.TagContainsKeywordPredicate;
  * Contains integration tests (interaction with the Model) for {@code TagShowCommand}.
  */
 public class TagShowCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCLinkedin(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalCLinkedin(), new UserPrefs());
 
     @Test
     public void equals() {
