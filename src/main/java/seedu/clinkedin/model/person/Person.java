@@ -51,7 +51,9 @@ public class Person {
         return email;
     }
 
-    public Company getCompany() {return company;}
+    public Company getCompany() {
+        return company;
+    }
 
     public Address getAddress() {
         return address;

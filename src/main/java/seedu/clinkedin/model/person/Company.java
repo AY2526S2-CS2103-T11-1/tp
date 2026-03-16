@@ -10,8 +10,8 @@ import static seedu.clinkedin.commons.util.AppUtil.checkArgument;
 public class Company {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Company name must be 1-100 characters long, contain only letters, spaces, apostrophes (') and hyphens (-), "
-                    + "and use only single spaces between words.";
+            "Company name must be 1-100 characters long, contain only letters, spaces, "
+                    + "apostrophes (') and hyphens (-), and use only single spaces between words.";
 
     /**
      * Company name must have a maximum length of 50 characters,
@@ -27,7 +27,8 @@ public class Company {
             "Company name cannot exceed 50 characters.";
 
     public static final String MESSAGE_INVALID_CHARACTERS =
-            "Company name can only contain letters, numbers, spaces, period (.), comma (,), ampersand (&) and hyphens (-).";
+            "Company name can only contain letters, numbers, spaces, period (.), "
+                    + "comma (,), ampersand (&) and hyphens (-).";
 
     public static final String MESSAGE_MULTIPLE_SPACES =
             "Company name can only contain single spaces between words.";
