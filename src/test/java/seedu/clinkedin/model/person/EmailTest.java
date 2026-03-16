@@ -52,6 +52,8 @@ public class EmailTest {
         assertEquals(Email.MESSAGE_INVALID_DOMAIN,
                 Email.getEmailValidationError("john@gmailcom"));
         assertEquals(Email.MESSAGE_INVALID_DOMAIN,
+                Email.getEmailValidationError("john@.domain"));
+        assertEquals(Email.MESSAGE_INVALID_DOMAIN,
                 Email.getEmailValidationError("john@.com"));
         assertEquals(Email.MESSAGE_INVALID_DOMAIN,
                 Email.getEmailValidationError("john@gmail."));
@@ -61,6 +63,7 @@ public class EmailTest {
                 Email.getEmailValidationError("john@gmail-.com"));
         assertEquals(Email.MESSAGE_INVALID_DOMAIN,
                 Email.getEmailValidationError("john@gmail.c"));
+
 
         // valid email
         assertEquals(null, Email.getEmailValidationError("john@gmail.com"));

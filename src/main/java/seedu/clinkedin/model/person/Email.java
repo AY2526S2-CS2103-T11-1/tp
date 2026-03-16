@@ -37,15 +37,6 @@ public class Email {
             "The domain name is invalid.";
     public static final String MESSAGE_CONSECUTIVE_DOT = "Email cannot contain consecutive \".\"";
 
-    /**
-     * General regex for the full email format.
-     * More specific checks are still done in getEmailValidationError for clearer messages.
-     */
-    public static final String VALIDATION_REGEX =
-            "^[A-Za-z0-9](?:[A-Za-z0-9+_.-]*[A-Za-z0-9])?@"
-                    + "[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?"
-                    + "(?:\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$";
-
     public final String value;
 
     /**
@@ -108,10 +99,6 @@ public class Email {
 
         String[] labels = domainPart.split("\\.", -1);
 
-        if (labels.length < 2) {
-            return MESSAGE_INVALID_DOMAIN;
-        }
-
         for (String label : labels) {
             if (label.isEmpty()) {
                 return MESSAGE_INVALID_DOMAIN;
@@ -130,10 +117,6 @@ public class Email {
         String lastLabel = labels[labels.length - 1];
         if (lastLabel.length() < 2) {
             return MESSAGE_INVALID_DOMAIN;
-        }
-
-        if (!test.matches(VALIDATION_REGEX)) {
-            return MESSAGE_CONSTRAINTS;
         }
 
         return null;
