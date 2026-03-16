@@ -11,7 +11,7 @@ public class Tag {
 
     public static final int MAX_LENGTH = 20;
 
-    public static final String MESSAGE_NULL = "Phone number cannot be null";
+    public static final String MESSAGE_NULL = "Tag name cannot be null";
 
     public static final String MESSAGE_CONSTRAINTS =
             "Tag must contain only letters and numbers, and cannot exceed 20 characters.";
