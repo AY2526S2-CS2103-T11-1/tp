@@ -65,7 +65,7 @@ public class AddCommandTest {
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PHONE, () -> addCommand.execute(modelStub));
     }
-  
+
     @Test
     public void execute_tagsDoNoExistPerson_throwsCommandException() {
         Person invalidTagsPerson = new PersonBuilder().withTags("Ferrari", "Mercedes").build();
