@@ -64,7 +64,7 @@ public class AddCommand extends Command {
         if (model.hasPhoneNumber(toAdd.getPhone())) {
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
         }
-      
+
         // Checks if tag exist
         ArrayList<Tag> nonExistentTags = new ArrayList<>();
         for (Tag tag : toAdd.getTags()) {
