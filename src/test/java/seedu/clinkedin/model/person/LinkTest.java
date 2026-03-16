@@ -61,16 +61,16 @@ public class LinkTest {
         assertThrows(NullPointerException.class, () -> Link.isValidLink(null));
 
         // invalid links
-        assertFalse(Link.isValidLink(""));                          // empty string
-        assertFalse(Link.isValidLink("linkedin.com"));              // missing scheme
-        assertFalse(Link.isValidLink("ftp://linkedin.com"));        // wrong scheme
-        assertFalse(Link.isValidLink("https://"));                  // missing domain
-        assertFalse(Link.isValidLink("https://noperiod"));          // no dot in domain
-        assertFalse(Link.isValidLink("https://linked_in.com"));     // underscore in domain
-        assertFalse(Link.isValidLink("https://linkedin.c"));        // TLD too short
-        assertFalse(Link.isValidLink("https://.linkedin.com"));     // domain starts with dot
-        assertFalse(Link.isValidLink("https://linkedin.com."));     // domain ends with dot
-        assertFalse(Link.isValidLink("https://linked..in.com"));    // consecutive dots
+        assertFalse(Link.isValidLink(""));
+        assertFalse(Link.isValidLink("linkedin.com"));
+        assertFalse(Link.isValidLink("ftp://linkedin.com"));
+        assertFalse(Link.isValidLink("https://"));
+        assertFalse(Link.isValidLink("https://noperiod"));
+        assertFalse(Link.isValidLink("https://linked_in.com"));
+        assertFalse(Link.isValidLink("https://linkedin.c"));
+        assertFalse(Link.isValidLink("https://.linkedin.com"));
+        assertFalse(Link.isValidLink("https://linkedin.com."));
+        assertFalse(Link.isValidLink("https://linked..in.com"));
 
         // valid links
         assertTrue(Link.isValidLink("https://linkedin.com"));
