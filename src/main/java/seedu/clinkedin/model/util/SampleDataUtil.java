@@ -6,11 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.clinkedin.model.CLinkedin;
 import seedu.clinkedin.model.ReadOnlyCLinkedin;
-import seedu.clinkedin.model.person.Address;
-import seedu.clinkedin.model.person.Email;
-import seedu.clinkedin.model.person.Name;
-import seedu.clinkedin.model.person.Person;
-import seedu.clinkedin.model.person.Phone;
+import seedu.clinkedin.model.person.*;
 import seedu.clinkedin.model.tag.Tag;
 
 /**
