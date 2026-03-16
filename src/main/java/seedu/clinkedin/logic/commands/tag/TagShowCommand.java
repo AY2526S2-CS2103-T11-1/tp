@@ -2,7 +2,9 @@ package seedu.clinkedin.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.clinkedin.logic.commands.AddCommand;
 import seedu.clinkedin.logic.commands.CommandResult;
+import seedu.clinkedin.logic.commands.FindCommand;
 import seedu.clinkedin.logic.commands.exceptions.CommandException;
 import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.tag.Tag;
@@ -43,5 +45,20 @@ public class TagShowCommand extends TagCommand {
                         model.getFilteredPersonList().size(),
                         tag.toString()));
 
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof TagShowCommand)) {
+            return false;
+        }
+
+        TagShowCommand otherTagShowCommand = (TagShowCommand) other;
+        return predicate.equals(otherTagShowCommand.predicate);
     }
 }

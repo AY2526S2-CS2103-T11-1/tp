@@ -19,5 +19,19 @@ public class TagContainsKeywordPredicate implements Predicate<Person> {
         return person.getTags().contains(keyword);
     }
 
-    //TODO: Implement equals
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof TagContainsKeywordPredicate)) {
+            return false;
+        }
+
+        TagContainsKeywordPredicate otherTagContainsKeywordPredicate = (TagContainsKeywordPredicate) other;
+        return keyword.equals(otherTagContainsKeywordPredicate.keyword);
+    }
+
 }
