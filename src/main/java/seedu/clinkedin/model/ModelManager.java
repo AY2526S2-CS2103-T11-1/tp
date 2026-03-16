@@ -13,6 +13,7 @@ import seedu.clinkedin.commons.core.GuiSettings;
 import seedu.clinkedin.commons.core.LogsCenter;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.person.Phone;
+import seedu.clinkedin.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -97,7 +98,6 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPhoneNumber(Phone phone) {
         requireNonNull(phone);
-        // Note: 'addressBook' might be named 'cLinkedin' depending on how much you renamed
         return cLinkedin.hasPhoneNumber(phone);
     }
 
@@ -117,6 +117,18 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         cLinkedin.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return cLinkedin.hasTag(tag);
+    }
+
+    @Override
+    public void addTag(Tag tag) {
+        requireNonNull(tag);
+        cLinkedin.addTag(tag);
     }
 
     //=========== Filtered Person List Accessors =============================================================

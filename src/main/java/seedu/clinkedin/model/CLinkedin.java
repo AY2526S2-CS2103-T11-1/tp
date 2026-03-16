@@ -9,6 +9,8 @@ import seedu.clinkedin.commons.util.ToStringBuilder;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.person.Phone;
 import seedu.clinkedin.model.person.UniquePersonList;
+import seedu.clinkedin.model.tag.Tag;
+import seedu.clinkedin.model.tag.UniqueTagList;
 
 /**
  * Wraps all data at the address-book level
@@ -17,6 +19,7 @@ import seedu.clinkedin.model.person.UniquePersonList;
 public class CLinkedin implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueTagList tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -27,6 +30,7 @@ public class CLinkedin implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        tags = new UniqueTagList();
     }
 
     public CLinkedin() {}
@@ -103,18 +107,46 @@ public class CLinkedin implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
-    //// util methods
+    //// tag-level operations
+
+    /**
+     * Returns true if the given {@code tag} already exists in the address book.
+     */
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return tags.contains(tag);
+    }
+
+    /**
+     * Adds a tag to the address book.
+     * The tag must not already exist in the address book.
+     */
+    public void addTag(Tag t) {
+        tags.add(t);
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags.setTags(tags);
+    }
+
+    /// / util methods
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("persons", persons)
+                .add("tags", tags)
                 .toString();
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return tags.asUnmodifiableObservableList();
     }
 
     @Override
@@ -129,7 +161,7 @@ public class CLinkedin implements ReadOnlyAddressBook {
         }
 
         CLinkedin otherCLinkedin = (CLinkedin) other;
-        return persons.equals(otherCLinkedin.persons);
+        return persons.equals(otherCLinkedin.persons) && tags.equals(otherCLinkedin.tags);
     }
 
     @Override
