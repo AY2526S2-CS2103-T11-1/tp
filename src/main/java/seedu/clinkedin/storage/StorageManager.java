@@ -17,14 +17,14 @@ import seedu.clinkedin.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private CLinkedinStorage CLinkedinStorage;
+    private CLinkedinStorage cLinkedinStorage;
     private UserPrefsStorage userPrefsStorage;
 
     /**
      * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
      */
-    public StorageManager(CLinkedinStorage CLinkedinStorage, UserPrefsStorage userPrefsStorage) {
-        this.CLinkedinStorage = CLinkedinStorage;
+    public StorageManager(CLinkedinStorage cLinkedinStorage, UserPrefsStorage userPrefsStorage) {
+        this.cLinkedinStorage = cLinkedinStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -50,29 +50,29 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getCLinkedinFilePath() {
-        return CLinkedinStorage.getCLinkedinFilePath();
+        return cLinkedinStorage.getCLinkedinFilePath();
     }
 
     @Override
     public Optional<ReadOnlyCLinkedin> readCLinkedin() throws DataLoadingException {
-        return readCLinkedin(CLinkedinStorage.getCLinkedinFilePath());
+        return readCLinkedin(cLinkedinStorage.getCLinkedinFilePath());
     }
 
     @Override
     public Optional<ReadOnlyCLinkedin> readCLinkedin(Path filePath) throws DataLoadingException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return CLinkedinStorage.readCLinkedin(filePath);
+        return cLinkedinStorage.readCLinkedin(filePath);
     }
 
     @Override
     public void saveCLinkedin(ReadOnlyCLinkedin addressBook) throws IOException {
-        saveCLinkedin(addressBook, CLinkedinStorage.getCLinkedinFilePath());
+        saveCLinkedin(addressBook, cLinkedinStorage.getCLinkedinFilePath());
     }
 
     @Override
     public void saveCLinkedin(ReadOnlyCLinkedin addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        CLinkedinStorage.saveCLinkedin(addressBook, filePath);
+        cLinkedinStorage.saveCLinkedin(addressBook, filePath);
     }
 
 }

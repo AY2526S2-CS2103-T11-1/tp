@@ -251,6 +251,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPhoneNumber(Phone phone) {
+            requireNonNull(phone);
+            return false; // Always return false so the test can proceed to check the tags
+        }
+
+        @Override
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);

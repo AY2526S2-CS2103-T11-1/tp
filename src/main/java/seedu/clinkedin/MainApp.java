@@ -57,8 +57,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        CLinkedinStorage CLinkedinStorage = new JsonCLinkedinStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(CLinkedinStorage, userPrefsStorage);
+        CLinkedinStorage cLinkedinStorage = new JsonCLinkedinStorage(userPrefs.getAddressBookFilePath());
+        storage = new StorageManager(cLinkedinStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
