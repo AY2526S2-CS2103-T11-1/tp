@@ -1,7 +1,7 @@
 package seedu.clinkedin.logic.commands;
 
 import static seedu.clinkedin.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.clinkedin.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.clinkedin.testutil.TypicalPersons.getTypicalCLinkedin;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +22,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalCLinkedin(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalCLinkedin(), new UserPrefs());
         expectedModel.setAddressBook(new CLinkedin());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

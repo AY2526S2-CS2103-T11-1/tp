@@ -28,12 +28,12 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(addressBook, userPrefs);
+    public ModelManager(ReadOnlyCLinkedin cLinkedin, ReadOnlyUserPrefs userPrefs) {
+        requireAllNonNull(cLinkedin, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + cLinkedin + " and user prefs " + userPrefs);
 
-        this.cLinkedin = new CLinkedin(addressBook);
+        this.cLinkedin = new CLinkedin(cLinkedin);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.cLinkedin.getPersonList());
     }
@@ -80,12 +80,12 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.cLinkedin.resetData(addressBook);
+    public void setAddressBook(ReadOnlyCLinkedin cLinkedin) {
+        this.cLinkedin.resetData(cLinkedin);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyCLinkedin getCLinkedin() {
         return cLinkedin;
     }
 

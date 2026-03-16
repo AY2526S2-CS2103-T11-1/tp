@@ -6,7 +6,7 @@ import static seedu.clinkedin.testutil.Assert.assertThrows;
 import static seedu.clinkedin.testutil.TypicalPersons.ALICE;
 import static seedu.clinkedin.testutil.TypicalPersons.HOON;
 import static seedu.clinkedin.testutil.TypicalPersons.IDA;
-import static seedu.clinkedin.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.clinkedin.testutil.TypicalPersons.getTypicalCLinkedin;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.clinkedin.commons.exceptions.DataLoadingException;
 import seedu.clinkedin.model.CLinkedin;
-import seedu.clinkedin.model.ReadOnlyAddressBook;
+import seedu.clinkedin.model.ReadOnlyCLinkedin;
 
 public class JsonCLinkedinStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
@@ -26,12 +26,12 @@ public class JsonCLinkedinStorageTest {
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readCLinkedin_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readCLinkedin(null));
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyCLinkedin> readCLinkedin(String filePath) throws Exception {
+        return new JsonCLinkedinStorage(Paths.get(filePath)).readCLinkedin(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -42,69 +42,69 @@ public class JsonCLinkedinStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readCLinkedin("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataLoadingException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataLoadingException.class, () -> readCLinkedin("notJsonFormatAddressBook.json"));
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataLoadingException() {
-        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
+    public void readAddressBook_invalidPersonCLinkedin_throwDataLoadingException() {
+        assertThrows(DataLoadingException.class, () -> readCLinkedin("invalidPersonAddressBook.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataLoadingException() {
-        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+    public void readAddressBook_invalidAndValidPersonCLinkedin_throwDataLoadingException() {
+        assertThrows(DataLoadingException.class, () -> readCLinkedin("invalidAndValidPersonAddressBook.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveCLinkedin_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        CLinkedin original = getTypicalAddressBook();
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+        CLinkedin original = getTypicalCLinkedin();
+        JsonCLinkedinStorage jsonCLinkedinStorage = new JsonCLinkedinStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonCLinkedinStorage.saveCLinkedin(original, filePath);
+        ReadOnlyCLinkedin readBack = jsonCLinkedinStorage.readCLinkedin(filePath).get();
         assertEquals(original, new CLinkedin(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonCLinkedinStorage.saveCLinkedin(original, filePath);
+        readBack = jsonCLinkedinStorage.readCLinkedin(filePath).get();
         assertEquals(original, new CLinkedin(readBack));
 
         // Save and read without specifying file path
         original.addPerson(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonCLinkedinStorage.saveCLinkedin(original); // file path not specified
+        readBack = jsonCLinkedinStorage.readCLinkedin().get(); // file path not specified
         assertEquals(original, new CLinkedin(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveAddressBook_nullCLinkedin_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveCLinkedin(null, "SomeFile.json"));
     }
 
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveCLinkedin(ReadOnlyCLinkedin addressBook, String filePath) {
         try {
-            new JsonAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new JsonCLinkedinStorage(Paths.get(filePath))
+                    .saveCLinkedin(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new CLinkedin(), null));
+    public void saveCLinkedin_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveCLinkedin(new CLinkedin(), null));
     }
 }

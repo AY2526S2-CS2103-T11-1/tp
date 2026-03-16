@@ -16,7 +16,7 @@ import seedu.clinkedin.model.tag.UniqueTagList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class CLinkedin implements ReadOnlyAddressBook {
+public class CLinkedin implements ReadOnlyCLinkedin {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
@@ -38,7 +38,7 @@ public class CLinkedin implements ReadOnlyAddressBook {
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public CLinkedin(ReadOnlyAddressBook toBeCopied) {
+    public CLinkedin(ReadOnlyCLinkedin toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -56,7 +56,7 @@ public class CLinkedin implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyCLinkedin newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());

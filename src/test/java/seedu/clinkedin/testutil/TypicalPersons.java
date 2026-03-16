@@ -60,9 +60,9 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code CLinkedin} with all the typical persons.
      */
-    public static CLinkedin getTypicalAddressBook() {
+    public static CLinkedin getTypicalCLinkedin() {
         CLinkedin ab = new CLinkedin();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);

@@ -7,7 +7,7 @@ import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.clinkedin.testutil.Assert.assertThrows;
 import static seedu.clinkedin.testutil.TypicalPersons.ALICE;
-import static seedu.clinkedin.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.clinkedin.testutil.TypicalPersons.getTypicalCLinkedin;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,7 +39,7 @@ public class CLinkedinTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        CLinkedin newData = getTypicalAddressBook();
+        CLinkedin newData = getTypicalCLinkedin();
         cLinkedin.resetData(newData);
         assertEquals(newData, cLinkedin);
     }
@@ -50,7 +50,7 @@ public class CLinkedinTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons, Collections.emptyList());
+        CLinkedinStub newData = new CLinkedinStub(newPersons, Collections.emptyList());
 
         assertThrows(DuplicatePersonException.class, () -> cLinkedin.resetData(newData));
     }
@@ -94,11 +94,11 @@ public class CLinkedinTest {
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class CLinkedinStub implements ReadOnlyCLinkedin {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<Tag> tags) {
+        CLinkedinStub(Collection<Person> persons, Collection<Tag> tags) {
             this.persons.setAll(persons);
             this.tags.setAll(tags);
         }

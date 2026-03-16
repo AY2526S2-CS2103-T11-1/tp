@@ -20,7 +20,7 @@ import seedu.clinkedin.logic.Messages;
 import seedu.clinkedin.logic.commands.exceptions.CommandException;
 import seedu.clinkedin.model.CLinkedin;
 import seedu.clinkedin.model.Model;
-import seedu.clinkedin.model.ReadOnlyAddressBook;
+import seedu.clinkedin.model.ReadOnlyCLinkedin;
 import seedu.clinkedin.model.ReadOnlyUserPrefs;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.person.Phone;
@@ -136,12 +136,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyCLinkedin newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyCLinkedin getCLinkedin() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -235,7 +235,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyCLinkedin getCLinkedin() {
             return new CLinkedin();
         }
     }

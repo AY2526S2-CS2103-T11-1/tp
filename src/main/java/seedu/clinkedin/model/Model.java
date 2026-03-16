@@ -49,10 +49,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyCLinkedin addressBook);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyCLinkedin getCLinkedin();
 
     /**
      * Returns true if a person with the same phone number exists in the address book.

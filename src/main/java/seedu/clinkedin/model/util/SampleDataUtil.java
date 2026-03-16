@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.clinkedin.model.CLinkedin;
-import seedu.clinkedin.model.ReadOnlyAddressBook;
+import seedu.clinkedin.model.ReadOnlyCLinkedin;
 import seedu.clinkedin.model.person.Address;
 import seedu.clinkedin.model.person.Email;
 import seedu.clinkedin.model.person.Name;
@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static ReadOnlyCLinkedin getSampleAddressBook() {
         CLinkedin sampleAb = new CLinkedin();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);

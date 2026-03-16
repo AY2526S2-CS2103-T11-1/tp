@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.clinkedin.commons.exceptions.IllegalValueException;
 import seedu.clinkedin.model.CLinkedin;
-import seedu.clinkedin.model.ReadOnlyAddressBook;
+import seedu.clinkedin.model.ReadOnlyCLinkedin;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.tag.Tag;
 
@@ -18,7 +18,7 @@ import seedu.clinkedin.model.tag.Tag;
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+class JsonSerializableCLinkedin {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_TAG = "Tags list contains duplicate tag(s).";
@@ -30,8 +30,8 @@ class JsonSerializableAddressBook {
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                       @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+    public JsonSerializableCLinkedin(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                     @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         if (persons != null) {
             this.persons.addAll(persons);
         }
@@ -45,7 +45,7 @@ class JsonSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableCLinkedin(ReadOnlyCLinkedin source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         tags.addAll(source.getTagList().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
