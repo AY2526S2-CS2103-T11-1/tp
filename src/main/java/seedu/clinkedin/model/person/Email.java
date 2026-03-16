@@ -5,22 +5,15 @@ import static seedu.clinkedin.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's email in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Guarantees: immutable; valid according to {@link #getEmailValidationError(String)}.
  */
 public class Email {
 
     private static final String SPECIAL_CHARACTERS = "+_.-";
-    public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
-            + "and adhere to the following constraints:\n"
-            + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
-            + "the parentheses, (" + SPECIAL_CHARACTERS + "). The local-part may not start or end with any special "
-            + "characters.\n"
-            + "2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels "
-            + "separated by periods.\n"
-            + "The domain name must:\n"
-            + "    - end with a domain label at least 2 characters long\n"
-            + "    - have each domain label start and end with alphanumeric characters\n"
-            + "    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.";
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Email must be in a valid format, like local-part@domain, with no spaces.";
+
     // alphanumeric and special characters
     private static final String ALPHANUMERIC_NO_UNDERSCORE = "[^\\W_]+"; // alphanumeric characters except underscore
     private static final String LOCAL_PART_REGEX = "^" + ALPHANUMERIC_NO_UNDERSCORE + "([" + SPECIAL_CHARACTERS + "]"
@@ -31,6 +24,18 @@ public class Email {
     private static final String DOMAIN_REGEX = "(" + DOMAIN_PART_REGEX + "\\.)*" + DOMAIN_LAST_PART_REGEX;
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX;
 
+    public static final String MESSAGE_EMPTY =
+            "Email cannot be empty.";
+
+    public static final String MESSAGE_SPACE_NOT_ALLOWED =
+            "Email cannot contain spaces.";
+
+    public static final String MESSAGE_INVALID_AT =
+            "Email must contain exactly one '@'.";
+
+    public static final String MESSAGE_INVALID_DOMAIN =
+            "Email must contain at least one '.' after '@'.";
+
     public final String value;
 
     /**
@@ -40,15 +45,46 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
+        String error = getEmailValidationError(email);
+        checkArgument(error == null, error);
         value = email;
     }
 
     /**
+     * Returns the error message if the email is invalid, otherwise null.
+     */
+    public static String getEmailValidationError(String test) {
+        if (test.isEmpty()) {
+            return MESSAGE_EMPTY;
+        }
+
+        if (test.contains(" ")) {
+            return MESSAGE_SPACE_NOT_ALLOWED;
+        }
+
+        long atCount = test.chars().filter(ch -> ch == '@').count();
+        if (atCount != 1) {
+            return MESSAGE_INVALID_AT;
+        }
+
+        int atIndex = test.indexOf('@');
+        String domainPart = test.substring(atIndex + 1);
+
+        if (!domainPart.contains(".")) {
+            return MESSAGE_INVALID_DOMAIN;
+        }
+
+        if (!test.matches(VALIDATION_REGEX)) {
+            return MESSAGE_CONSTRAINTS;
+        }
+
+        return null;
+    }
+    /**
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmail(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return getEmailValidationError(test) == null;
     }
 
     @Override
