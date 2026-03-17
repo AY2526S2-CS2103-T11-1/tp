@@ -13,8 +13,6 @@ import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_LINK_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.clinkedin.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinkedin.logic.parser.CommandParserTestUtil.assertParseSuccess;
