@@ -10,6 +10,7 @@ import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinkedin.logic.commands.AddCommand;
@@ -48,7 +49,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Link link = ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK).get());
+        Optional<Link> link = ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Person person = new Person(name, phone, email, address, link, tagList);
@@ -73,9 +74,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
         if (argumentMultimap.getValue(PREFIX_ADDRESS).isEmpty()) {
             fields.add("ADDRESS");
-        }
-        if (argumentMultimap.getValue(PREFIX_LINK).isEmpty()) {
-            fields.add("LINK");
         }
         if (!fields.isEmpty()) {
             String errorMessage = "Invalid command format! Missing required fields: "

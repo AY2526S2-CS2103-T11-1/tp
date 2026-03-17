@@ -119,11 +119,11 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_nullLink_throwsIllegalValueException() {
+    public void toModelType_nullLink_success() throws Exception {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
                 VALID_EMAIL, VALID_ADDRESS, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Link.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        // null link is allowed — should not throw
+        person.toModelType();
     }
 
     @Test

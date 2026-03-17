@@ -5,6 +5,7 @@ import static seedu.clinkedin.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinkedin.commons.util.ToStringBuilder;
@@ -27,15 +28,16 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Name, phone, email, address and tags must be present and not null.
+     * Link is optional and may be absent.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Link link, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, link, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Optional<Link> link, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.link = link;
+        this.link = link.orElse(null);
         this.tags.addAll(tags);
     }
 
@@ -55,6 +57,9 @@ public class Person {
         return address;
     }
 
+    /**
+     * Returns the link, or null if not provided.
+     */
     public Link getLink() {
         return link;
     }
@@ -90,7 +95,6 @@ public class Person {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof Person)) {
             return false;
         }
@@ -100,13 +104,12 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && link.equals(otherPerson.link)
+                && Objects.equals(link, otherPerson.link)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, phone, email, address, link, tags);
     }
 
