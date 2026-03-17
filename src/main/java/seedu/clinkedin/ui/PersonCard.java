@@ -1,12 +1,15 @@
 package seedu.clinkedin.ui;
 
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.clinkedin.commons.core.LogsCenter;
 import seedu.clinkedin.model.person.Person;
 
 /**
@@ -15,14 +18,7 @@ import seedu.clinkedin.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
+    private static final Logger logger = LogsCenter.getLogger(PersonCard.class);
 
     public final Person person;
 
@@ -41,7 +37,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private Label link;
+    private Hyperlink link;
     @FXML
     private FlowPane tags;
 
@@ -56,7 +52,13 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        link.setText(person.getLink().value);
+        if (person.getLink() != null) {
+            link.setText(person.getLink().value);
+            link.setOnAction(e -> LinkUtil.openLink(person.getLink().value));
+        } else {
+            link.setVisible(false);
+            link.setManaged(false);
+        }
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -70,5 +72,21 @@ public class PersonCard extends UiPart<Region> {
             company.setManaged(true);
             company.setVisible(true);
         }
+    }
+
+    /**
+     * Returns true if the person has a link.
+     * Package-private for testing.
+     */
+    boolean hasLink() {
+        return person.getLink() != null;
+    }
+
+    /**
+     * Returns the link value, or null if no link.
+     * Package-private for testing.
+     */
+    String getLinkValue() {
+        return person.getLink() != null ? person.getLink().value : null;
     }
 }

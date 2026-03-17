@@ -45,8 +45,12 @@ public class Messages {
                 .append("; Company: ")
                 .append(person.getCompany())
                 .append("; Address: ")
-                .append(person.getAddress())
-                .append("; Tags: ");
+                .append(person.getAddress());
+        if (person.getLink() != null) {
+            builder.append("; Link: ")
+                    .append(person.getLink());
+        }
+        builder.append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();
     }

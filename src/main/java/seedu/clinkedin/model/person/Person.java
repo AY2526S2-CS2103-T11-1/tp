@@ -5,6 +5,7 @@ import static seedu.clinkedin.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinkedin.commons.util.ToStringBuilder;
@@ -28,16 +29,18 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Name, phone, email, address and tags must be present and not null.
+     * Link is optional and may be absent.
      */
-    public Person(Name name, Phone phone, Email email, Company company, Address address, Link link, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Company company,
+                  Address address, Optional<Link> link, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, company, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.company = company;
         this.address = address;
-        this.link = link;
+        this.link = link.orElse(null);
         this.tags.addAll(tags);
     }
 
@@ -61,6 +64,9 @@ public class Person {
         return address;
     }
 
+    /**
+     * Returns the link, or null if not provided.
+     */
     public Link getLink() {
         return link;
     }
@@ -98,7 +104,7 @@ public class Person {
         Set<Tag> updatedTags = new HashSet<>(tags);
         updatedTags.remove(tagToRemove);
 
-        return new Person(name, phone, email, company, address, link, updatedTags);
+        return new Person(name, phone, email, company, address, Optional.of(link), updatedTags);
     }
 
     /**
@@ -111,7 +117,6 @@ public class Person {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof Person)) {
             return false;
         }
@@ -122,7 +127,7 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && company.equals(otherPerson.company)
                 && address.equals(otherPerson.address)
-                && link.equals(otherPerson.link)
+                && Objects.equals(link, otherPerson.link)
                 && tags.equals(otherPerson.tags);
     }
 
