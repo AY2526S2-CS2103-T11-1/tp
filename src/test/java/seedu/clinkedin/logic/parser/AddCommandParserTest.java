@@ -96,10 +96,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, EMAIL_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EMAIL));
 
-        // multiple companies
-        assertParseFailure(parser, COMPANY_DESC_AMY + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY));
-
         // multiple addresses
         assertParseFailure(parser, ADDRESS_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
@@ -197,11 +193,6 @@ public class AddCommandParserTest {
                          + COMPANY_DESC_BOB + ADDRESS_DESC_BOB + LINK_DESC_BOB,
                 expectedMessage + "EMAIL.\n" + AddCommand.MESSAGE_USAGE);
 
-        // missing company prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + VALID_COMPANY_BOB + ADDRESS_DESC_BOB + LINK_DESC_BOB,
-                expectedMessage + "COMPANY.\n" + AddCommand.MESSAGE_USAGE);
-
         // missing address prefix
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + COMPANY_DESC_BOB + VALID_ADDRESS_BOB + LINK_DESC_BOB,
@@ -214,7 +205,7 @@ public class AddCommandParserTest {
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB
                         + VALID_COMPANY_BOB + VALID_ADDRESS_BOB + VALID_LINK_BOB,
-                expectedMessage + "NAME, PHONE, EMAIL, COMPANY, ADDRESS.\n" + AddCommand.MESSAGE_USAGE);
+                expectedMessage + "NAME, PHONE, EMAIL, ADDRESS, LINK.\n" + AddCommand.MESSAGE_USAGE);
     }
 
     @Test

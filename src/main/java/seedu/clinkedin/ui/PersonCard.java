@@ -54,12 +54,21 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        company.setText(person.getCompany().companyName);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         link.setText(person.getLink().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        String companyName = person.getCompany().companyName;
+        if (companyName.isEmpty()) {
+            company.setManaged(false);
+            company.setVisible(false);
+        } else {
+            company.setText(companyName);
+            company.setManaged(true);
+            company.setVisible(true);
+        }
     }
 }

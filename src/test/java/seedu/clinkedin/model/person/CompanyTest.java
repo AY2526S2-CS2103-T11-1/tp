@@ -15,18 +15,20 @@ public class CompanyTest {
     }
 
     @Test
-    public void constructor_invalidCompany_throwsIllegalArgumentException() {
-        String invalidCompany = "";
-        assertThrows(IllegalArgumentException.class, () -> new Company(invalidCompany));
+    public void constructor_validCompany_success() {
+        // empty string is now allowed
+        Company emptyCompany = new Company("");
+        assertEquals("", emptyCompany.companyName);
+
+        // normal valid company
+        Company company = new Company("Google");
+        assertEquals("Google", company.companyName);
     }
 
     @Test
     public void getCompanyNameValidationError() {
-        // null
-        assertEquals(Company.MESSAGE_NULL, Company.getCompanyNameValidationError(null));
-
-        // empty
-        assertEquals(Company.MESSAGE_EMPTY, Company.getCompanyNameValidationError(""));
+        // empty string is now VALID
+        assertEquals(null, Company.getCompanyNameValidationError(""));
 
         // too long
         assertEquals(Company.MESSAGE_TOO_LONG,
@@ -57,11 +59,13 @@ public class CompanyTest {
 
     @Test
     public void isValidCompanyName() {
-        // null company
+        // null company still invalid (since method uses requireNonNull)
         assertThrows(NullPointerException.class, () -> Company.isValidCompanyName(null));
 
+        // empty string is now VALID
+        assertTrue(Company.isValidCompanyName(""));
+
         // invalid company
-        assertFalse(Company.isValidCompanyName("")); // empty string
         assertFalse(Company.isValidCompanyName(" ")); // spaces only
         assertFalse(Company.isValidCompanyName(" Google")); // leading space
         assertFalse(Company.isValidCompanyName("Google ")); // trailing space

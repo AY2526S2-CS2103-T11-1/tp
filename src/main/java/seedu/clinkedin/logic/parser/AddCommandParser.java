@@ -45,12 +45,12 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_COMPANY, PREFIX_ADDRESS, PREFIX_LINK);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_COMPANY,
+                PREFIX_ADDRESS, PREFIX_LINK);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Company company = ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get());
+        Company company = ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).orElse(""));
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Link link = ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
@@ -74,9 +74,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
         if (argumentMultimap.getValue(PREFIX_EMAIL).isEmpty()) {
             fields.add("EMAIL");
-        }
-        if (argumentMultimap.getValue(PREFIX_COMPANY).isEmpty()) {
-            fields.add("COMPANY");
         }
         if (argumentMultimap.getValue(PREFIX_ADDRESS).isEmpty()) {
             fields.add("ADDRESS");
