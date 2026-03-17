@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.ReadOnlyCLinkedin;
+import seedu.clinkedin.model.person.Person;
 
 public class SampleDataUtilTest {
 
