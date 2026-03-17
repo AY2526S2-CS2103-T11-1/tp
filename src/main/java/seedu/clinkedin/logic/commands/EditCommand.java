@@ -52,7 +52,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_LINK + "https://www.websiteforjohndoe.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -106,7 +107,8 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Company updatedCompany = editPersonDescriptor.getCompany().orElse(personToEdit.getCompany());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Link updatedLink = editPersonDescriptor.getLink().orElse(personToEdit.getLink());
+        Optional<Link> updatedLink = editPersonDescriptor.getLink()
+                .or(() -> Optional.ofNullable(personToEdit.getLink()));
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedCompany, updatedAddress,

@@ -22,7 +22,6 @@
     "email" : "heinz@example.com",
     "company" : "Grab",
     "address" : "wall street",
-    "link" : "https://linkedin.com/in/carlkurz",
     "tags" : [ ]
   }, {
     "name" : "Daniel Meier",
@@ -38,7 +37,6 @@
     "email" : "werner@example.com",
     "company" : "DBS",
     "address" : "michegan ave",
-    "link" : "https://linkedin.com/in/ellemeyer",
     "tags" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -54,7 +52,6 @@
     "email" : "anna@example.com",
     "company" : "Sea",
     "address" : "4th street",
-    "link" : "https://linkedin.com/in/georgebest",
     "tags" : [ ]
   } ]
 }
