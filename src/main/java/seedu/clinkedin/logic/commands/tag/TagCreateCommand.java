@@ -2,6 +2,7 @@ package seedu.clinkedin.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.clinkedin.logic.commands.AddCommand;
 import seedu.clinkedin.logic.commands.CommandResult;
 import seedu.clinkedin.logic.commands.exceptions.CommandException;
 import seedu.clinkedin.model.Model;
@@ -40,5 +41,20 @@ public class TagCreateCommand extends TagCommand {
 
         model.addTag(newTag);
         return new CommandResult(String.format(MESSAGE_SUCCESS, newTag.tagName));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof TagCreateCommand)) {
+            return false;
+        }
+
+        TagCreateCommand otherTagCreateCommand = (TagCreateCommand) other;
+        return newTag.equals(otherTagCreateCommand.newTag);
     }
 }
