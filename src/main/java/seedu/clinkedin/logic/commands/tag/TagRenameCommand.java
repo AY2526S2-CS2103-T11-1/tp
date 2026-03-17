@@ -89,7 +89,7 @@ public class TagRenameCommand extends TagCommand {
                 personToEdit.getEmail(),
                 personToEdit.getCompany(),
                 personToEdit.getAddress(),
-                personToEdit.getLink(),
+                java.util.Optional.ofNullable(personToEdit.getLink()),
                 updatedTags
         );
     }
