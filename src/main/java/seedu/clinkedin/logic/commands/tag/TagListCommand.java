@@ -43,4 +43,12 @@ public class TagListCommand extends TagCommand {
                 .map(tag -> tag.tagName)
                 .collect(Collectors.joining("\n"));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        return other instanceof TagListCommand;
+    }
 }

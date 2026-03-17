@@ -1,9 +1,6 @@
 package seedu.clinkedin.logic.commands.tag;
 
 import static seedu.clinkedin.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.clinkedin.testutil.TypicalPersons.getTypicalCLinkedin;
-
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,20 +9,23 @@ import seedu.clinkedin.model.CLinkedin;
 import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.ModelManager;
 import seedu.clinkedin.model.UserPrefs;
+import seedu.clinkedin.model.tag.Tag;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code TagListCommand}.
  */
 public class TagListCommandTest {
-    private Model model = new ModelManager(getTypicalCLinkedin(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCLinkedin(), new UserPrefs());
 
     @Test
     public void execute_tagListExist_showsTagList() {
-        String expectedTagStr = expectedModel.getCLinkedin().getTagList().stream()
-                .map(tag -> tag.tagName)
-                .sorted()
-                .collect(Collectors.joining("\n"));
+        CLinkedin clinkedin = new CLinkedin();
+        clinkedin.addTag(new Tag("colleagues"));
+        clinkedin.addTag(new Tag("friends"));
+
+        Model model = new ModelManager(clinkedin, new UserPrefs());
+        Model expectedModel = new ModelManager(clinkedin, new UserPrefs());
+
+        String expectedTagStr = "colleagues\nfriends";
         String expectedMsg = String.format(TagListCommand.MESSAGE_SUCCESS, expectedTagStr);
 
         assertCommandSuccess(new TagListCommand(), model, new CommandResult(expectedMsg), expectedModel);
