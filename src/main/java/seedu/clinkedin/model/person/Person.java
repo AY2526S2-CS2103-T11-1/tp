@@ -98,7 +98,7 @@ public class Person {
         Set<Tag> updatedTags = new HashSet<>(tags);
         updatedTags.remove(tagToRemove);
 
-        return new Person(name, phone, email, address, link, updatedTags);
+        return new Person(name, phone, email, company, address, link, updatedTags);
     }
 
     /**
