@@ -65,6 +65,9 @@ public class SampleDataUtilTest {
         assertEquals(1, SampleDataUtil.getTagSet("friends").size());
         assertEquals(2, SampleDataUtil.getTagSet("friends", "colleagues").size());
         assertEquals(0, SampleDataUtil.getTagSet().size());
+    }
+
+    @Test
     public void getSampleData_success() {
         ReadOnlyCLinkedin sampleAb = SampleDataUtil.getSampleAddressBook();
         assertNotNull(sampleAb);
