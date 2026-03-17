@@ -32,7 +32,7 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_COMPANY + "COMPANY "
             + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_LINK + "LINK "
+            + "[" + PREFIX_LINK + "LINK] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "

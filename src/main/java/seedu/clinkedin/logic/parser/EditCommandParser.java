@@ -19,7 +19,9 @@ import seedu.clinkedin.commons.core.index.Index;
 import seedu.clinkedin.logic.commands.EditCommand;
 import seedu.clinkedin.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.clinkedin.logic.parser.exceptions.ParseException;
+import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.tag.Tag;
+
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -65,7 +67,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         if (argMultimap.getValue(PREFIX_LINK).isPresent()) {
-            editPersonDescriptor.setLink(ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK).get()));
+            Optional<Link> parsedLink = ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK));
+            parsedLink.ifPresent(editPersonDescriptor::setLink);
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

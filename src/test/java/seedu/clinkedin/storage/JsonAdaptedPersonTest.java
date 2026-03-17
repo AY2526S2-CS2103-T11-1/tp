@@ -135,16 +135,16 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_COMPANY,
                         VALID_ADDRESS, INVALID_LINK, VALID_TAGS);
-        String expectedMessage = Link.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        String expectedMessage = Link.MESSAGE_INVALID_SCHEME;
+        assertThrows(IllegalArgumentException.class, expectedMessage, person::toModelType);
     }
 
     @Test
-    public void toModelType_nullLink_throwsIllegalValueException() {
+    public void toModelType_nullLink_success() throws Exception {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
                 VALID_EMAIL, VALID_COMPANY, VALID_ADDRESS, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Link.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        // null link is allowed — should not throw
+        person.toModelType();
     }
 
     @Test

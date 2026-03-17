@@ -1,6 +1,7 @@
 package seedu.clinkedin.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinkedin.model.person.Address;
@@ -23,18 +24,18 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_COMPANY = "AWS";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_LINK = "https://linkedin.com/in/amybee";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Company company;
     private Address address;
-    private Link link;
+    private Link link; // null if not provided
     private Set<Tag> tags;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
+     * Link is not set by default.
      */
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -42,7 +43,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         company = new Company(DEFAULT_COMPANY);
         address = new Address(DEFAULT_ADDRESS);
-        link = new Link(DEFAULT_LINK);
+        link = null;
         tags = new HashSet<>();
     }
 
@@ -116,7 +117,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, company, address, link, tags);
+        return new Person(name, phone, email, company, address, Optional.ofNullable(link), tags);
     }
 
 }

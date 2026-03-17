@@ -3,6 +3,7 @@ package seedu.clinkedin.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,7 +63,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         company = source.getCompany().companyName;
         address = source.getAddress().value;
-        link = source.getLink().value;
+        link = source.getLink() != null ? source.getLink().value : null;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -125,13 +126,7 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        if (link == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Link.class.getSimpleName()));
-        }
-        if (!Link.isValidLink(link)) {
-            throw new IllegalValueException(Link.MESSAGE_CONSTRAINTS);
-        }
-        final Link modelLink = new Link(link);
+        Optional<Link> modelLink = (link == null) ? Optional.empty() : Optional.of(new Link(link));
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelCompany, modelAddress, modelLink, modelTags);

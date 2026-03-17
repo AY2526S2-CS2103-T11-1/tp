@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinkedin.commons.core.index.Index;
@@ -139,14 +140,17 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code link} is invalid.
      */
-    public static Link parseLink(String link) throws ParseException {
+    public static Optional<Link> parseLink(Optional<String> link) throws ParseException {
         requireNonNull(link);
-        String trimmedLink = link.trim();
-        String linkError = Link.getLinkValidationError(trimmedLink);
-        if (linkError != null) {
-            throw new ParseException(linkError);
+        if (link.isEmpty()) {
+            return Optional.empty();
         }
-        return new Link(trimmedLink);
+        String trimmedLink = link.get().trim();
+        String error = Link.getLinkValidationError(trimmedLink);
+        if (error != null) {
+            throw new ParseException(error);
+        }
+        return Optional.of(new Link(trimmedLink));
     }
 
     /**
