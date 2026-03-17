@@ -33,6 +33,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private Label company;
+    @FXML
     private Label address;
     @FXML
     private Label email;
@@ -52,11 +54,42 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        link.setText(person.getLink().value);
-        link.setOnAction(e -> openLink(person.getLink().value));
+        if (person.getLink() != null) {
+            link.setText(person.getLink().value);
+            link.setOnAction(e -> LinkUtil.openLink(person.getLink().value));
+        } else {
+            link.setVisible(false);
+            link.setManaged(false);
+        }
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        String companyName = person.getCompany().companyName;
+        if (companyName.isEmpty()) {
+            company.setManaged(false);
+            company.setVisible(false);
+        } else {
+            company.setText(companyName);
+            company.setManaged(true);
+            company.setVisible(true);
+        }
+    }
+
+    /**
+     * Returns true if the person has a link.
+     * Package-private for testing.
+     */
+    boolean hasLink() {
+        return person.getLink() != null;
+    }
+
+    /**
+     * Returns the link value, or null if no link.
+     * Package-private for testing.
+     */
+    String getLinkValue() {
+        return person.getLink() != null ? person.getLink().value : null;
     }
 
     /**

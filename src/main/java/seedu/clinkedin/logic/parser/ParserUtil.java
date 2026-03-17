@@ -4,12 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinkedin.commons.core.index.Index;
 import seedu.clinkedin.commons.util.StringUtil;
 import seedu.clinkedin.logic.parser.exceptions.ParseException;
 import seedu.clinkedin.model.person.Address;
+import seedu.clinkedin.model.person.Company;
 import seedu.clinkedin.model.person.Email;
 import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
@@ -69,6 +71,22 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String company} into a {@code Company}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code company} is invalid.
+     */
+    public static Company parseCompany(String company) throws ParseException {
+        requireNonNull(company);
+        String trimmedCompanyName = company.trim();
+        String companyNameError = Company.getCompanyNameValidationError(trimmedCompanyName);
+        if (companyNameError != null) {
+            throw new ParseException(companyNameError);
+        }
+        return new Company(trimmedCompanyName);
+    }
+
+    /**
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -122,14 +140,17 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code link} is invalid.
      */
-    public static Link parseLink(String link) throws ParseException {
+    public static Optional<Link> parseLink(Optional<String> link) throws ParseException {
         requireNonNull(link);
-        String trimmedLink = link.trim();
-        String linkError = Link.getLinkValidationError(trimmedLink);
-        if (linkError != null) {
-            throw new ParseException(linkError);
+        if (link.isEmpty()) {
+            return Optional.empty();
         }
-        return new Link(trimmedLink);
+        String trimmedLink = link.get().trim();
+        String error = Link.getLinkValidationError(trimmedLink);
+        if (error != null) {
+            throw new ParseException(error);
+        }
+        return Optional.of(new Link(trimmedLink));
     }
 
     /**

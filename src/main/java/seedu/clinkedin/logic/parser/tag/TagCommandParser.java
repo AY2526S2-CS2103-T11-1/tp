@@ -9,6 +9,9 @@ import java.util.regex.Pattern;
 import seedu.clinkedin.logic.commands.HelpCommand;
 import seedu.clinkedin.logic.commands.tag.TagCommand;
 import seedu.clinkedin.logic.commands.tag.TagCreateCommand;
+import seedu.clinkedin.logic.commands.tag.TagDeleteCommand;
+import seedu.clinkedin.logic.commands.tag.TagListCommand;
+import seedu.clinkedin.logic.commands.tag.TagShowCommand;
 import seedu.clinkedin.logic.parser.Parser;
 import seedu.clinkedin.logic.parser.exceptions.ParseException;
 
@@ -44,7 +47,12 @@ public class TagCommandParser implements Parser<TagCommand> {
 
         case TagCreateCommand.COMMAND_WORD:
             return new TagCreateCommandParser().parse(arguments);
-
+        case TagShowCommand.COMMAND_WORD:
+            return new TagShowCommandParser().parse(arguments);
+        case TagDeleteCommand.COMMAND_WORD:
+            return new TagDeleteCommandParser().parse(arguments);
+        case TagListCommand.COMMAND_WORD:
+            return new TagListCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_TAG_COMMAND);
         }
