@@ -26,6 +26,7 @@ import static seedu.clinkedin.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -170,8 +171,11 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
+        // zero tags
+        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY
-            + ADDRESS_DESC_AMY + LINK_DESC_AMY, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_AMY + LINK_DESC_AMY, new AddCommand(expectedPerson));
 
         // no link
         Person expectedPersonNoLink = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
