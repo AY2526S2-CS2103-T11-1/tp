@@ -2,7 +2,6 @@ package seedu.clinkedin.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.clinkedin.logic.commands.AddCommand;
 import seedu.clinkedin.logic.commands.CommandResult;
 import seedu.clinkedin.logic.commands.exceptions.CommandException;
 import seedu.clinkedin.model.Model;
