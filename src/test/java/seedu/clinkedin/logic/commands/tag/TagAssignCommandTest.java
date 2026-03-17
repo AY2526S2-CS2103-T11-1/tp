@@ -42,7 +42,12 @@ public class TagAssignCommandTest {
 
     @Test
     public void execute_tagAlreadyAssigned_throwsCommandException() {
+        // ensure the tag exists in the model first
         Tag tag = new Tag("friends");
+        if (!model.hasTag(tag)) {
+            model.addTag(tag);
+        }
+        // ALICE (first person) already has "friends" tag
         TagAssignCommand command = new TagAssignCommand(INDEX_FIRST_PERSON, tag);
         assertThrows(CommandException.class,
                 TagAssignCommand.MESSAGE_TAG_ALREADY_ASSIGNED, () -> command.execute(model));
