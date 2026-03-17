@@ -114,7 +114,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
                         VALID_ADDRESS, INVALID_LINK, VALID_TAGS);
-        String expectedMessage = Link.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Link.MESSAGE_INVALID_SCHEME;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
