@@ -1,7 +1,5 @@
 package seedu.clinkedin.ui;
 
-import java.awt.Desktop;
-import java.net.URI;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
@@ -56,7 +54,7 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         if (person.getLink() != null) {
             link.setText(person.getLink().value);
-            link.setOnAction(e -> openLink(person.getLink().value));
+            link.setOnAction(e -> LinkUtil.openLink(person.getLink().value));
         } else {
             link.setVisible(false);
             link.setManaged(false);
@@ -90,24 +88,5 @@ public class PersonCard extends UiPart<Region> {
      */
     String getLinkValue() {
         return person.getLink() != null ? person.getLink().value : null;
-    }
-
-    /**
-     * Opens the given URL in the system's default web browser.
-     * Package-private for testing.
-     */
-    boolean openLink(String url) {
-        try {
-            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                Desktop.getDesktop().browse(new URI(url));
-                return true;
-            } else {
-                logger.warning("Desktop browsing is not supported on this system.");
-                return false;
-            }
-        } catch (Exception e) {
-            logger.warning("Failed to open link: " + url + " — " + e.getMessage());
-            return false;
-        }
     }
 }

@@ -58,26 +58,37 @@ public class PersonCardTest {
     }
 
     @Test
-    public void openLink_validUrl_parsesSuccessfully() {
-        boolean result = false;
-        try {
-            new java.net.URI("https://linkedin.com/in/johndoe");
-            result = true;
-        } catch (Exception e) {
-            result = false;
-        }
-        assertTrue(result);
+    public void linkUtil_validUrl_isValidUri() {
+        assertTrue(LinkUtil.isValidUri("https://linkedin.com/in/johndoe"));
     }
 
     @Test
-    public void openLink_malformedUrl_throwsException() {
-        boolean result = true;
-        try {
-            new java.net.URI("not a valid uri with spaces");
-            result = true;
-        } catch (Exception e) {
-            result = false;
-        }
-        assertFalse(result);
+    public void linkUtil_malformedUrl_isNotValidUri() {
+        assertFalse(LinkUtil.isValidUri("not a valid uri with spaces"));
+    }
+
+    @Test
+    public void linkUtil_httpUrl_isValidUri() {
+        assertTrue(LinkUtil.isValidUri("http://example.com"));
+    }
+
+    @Test
+    public void linkUtil_emptyUrl_isValidUri() {
+        assertTrue(LinkUtil.isValidUri(""));
+    }
+
+    @Test
+    public void linkUtil_nullHandling_personWithLink_hasCorrectValue() {
+        String url = "https://linkedin.com/in/johndoe";
+        Person person = buildPerson(url);
+        String linkValue = person.getLink() != null ? person.getLink().value : null;
+        assertEquals(url, linkValue);
+    }
+
+    @Test
+    public void linkUtil_nullHandling_personWithoutLink_returnsNull() {
+        Person person = buildPerson(null);
+        String linkValue = person.getLink() != null ? person.getLink().value : null;
+        assertNull(linkValue);
     }
 }
