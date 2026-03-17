@@ -65,17 +65,37 @@ public class PersonCard extends UiPart<Region> {
     }
 
     /**
-     * Opens the given URL in the system's default web browser.
+     * Returns true if the person has a link.
+     * Package-private for testing.
      */
-    private void openLink(String url) {
+    boolean hasLink() {
+        return person.getLink() != null;
+    }
+
+    /**
+     * Returns the link value, or null if no link.
+     * Package-private for testing.
+     */
+    String getLinkValue() {
+        return person.getLink() != null ? person.getLink().value : null;
+    }
+
+    /**
+     * Opens the given URL in the system's default web browser.
+     * Package-private for testing.
+     */
+    boolean openLink(String url) {
         try {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 Desktop.getDesktop().browse(new URI(url));
+                return true;
             } else {
                 logger.warning("Desktop browsing is not supported on this system.");
+                return false;
             }
         } catch (Exception e) {
             logger.warning("Failed to open link: " + url + " — " + e.getMessage());
+            return false;
         }
     }
 }
