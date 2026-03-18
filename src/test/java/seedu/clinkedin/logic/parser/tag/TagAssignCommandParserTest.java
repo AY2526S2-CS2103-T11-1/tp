@@ -3,6 +3,7 @@ package seedu.clinkedin.logic.parser.tag;
 import static seedu.clinkedin.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinkedin.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinkedin.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.clinkedin.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.clinkedin.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
@@ -40,8 +41,8 @@ public class TagAssignCommandParserTest {
 
     @Test
     public void parse_invalidIndex_throwsParseException() {
-        assertParseFailure(parser, "0 friends",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagAssignCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "0 friends", MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "-1 friends", MESSAGE_INVALID_INDEX);
     }
 
     @Test
