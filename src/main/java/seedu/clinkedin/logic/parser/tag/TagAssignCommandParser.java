@@ -28,8 +28,7 @@ public class TagAssignCommandParser implements Parser<TagAssignCommand> {
         try {
             index = ParserUtil.parseIndex(parts[0]);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagAssignCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(pe.getMessage(), pe);
         }
 
         String tagNameError = Tag.getTagNameValidationError(parts[1]);
