@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.clinkedin.model.person.Address;
 import seedu.clinkedin.model.person.Company;
+import seedu.clinkedin.model.person.DateAdded;
 import seedu.clinkedin.model.person.Email;
 import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
@@ -24,6 +25,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_COMPANY = "AWS";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DATEADDED = "20-03-2026";
 
     private Name name;
     private Phone phone;
@@ -31,6 +33,7 @@ public class PersonBuilder {
     private Company company;
     private Address address;
     private Link link; // null if not provided
+    private DateAdded dateAdded;
     private Set<Tag> tags;
 
     /**
@@ -44,6 +47,7 @@ public class PersonBuilder {
         company = new Company(DEFAULT_COMPANY);
         address = new Address(DEFAULT_ADDRESS);
         link = null;
+        dateAdded = new DateAdded(DEFAULT_DATEADDED);
         tags = new HashSet<>();
     }
 
@@ -57,6 +61,7 @@ public class PersonBuilder {
         company = personToCopy.getCompany();
         address = personToCopy.getAddress();
         link = personToCopy.getLink();
+        dateAdded = personToCopy.getDateAdded();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -117,7 +122,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, company, address, Optional.ofNullable(link), tags);
+        return new Person(name, phone, email, company, address, Optional.ofNullable(link), dateAdded, tags);
     }
 
 }

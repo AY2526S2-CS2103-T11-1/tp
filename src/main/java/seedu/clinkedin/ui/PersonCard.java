@@ -41,6 +41,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Hyperlink link;
     @FXML
+    private Label dateAdded;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -61,6 +63,7 @@ public class PersonCard extends UiPart<Region> {
             link.setVisible(false);
             link.setManaged(false);
         }
+        dateAdded.setText("Added on: " + person.getDateAdded().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

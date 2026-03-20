@@ -7,6 +7,7 @@
     "company" : "Google",
     "address" : "123, Jurong West Ave 6, #08-111",
     "link" : "https://linkedin.com/in/alicepauline",
+    "dateAdded": "20-03-2026",
     "tags" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
@@ -15,6 +16,7 @@
     "company" : "Shopee",
     "address" : "311, Clementi Ave 2, #02-25",
     "link" : "https://linkedin.com/in/bensonmeier",
+    "dateAdded": "20-03-2026",
     "tags" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
@@ -22,6 +24,7 @@
     "email" : "heinz@example.com",
     "company" : "Grab",
     "address" : "wall street",
+    "dateAdded": "20-03-2026",
     "tags" : [ ]
   }, {
     "name" : "Daniel Meier",
@@ -30,6 +33,7 @@
     "company" : "GovTech",
     "address" : "10th street",
     "link" : "https://linkedin.com/in/danielmeier",
+    "dateAdded": "20-03-2026",
     "tags" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
@@ -37,6 +41,7 @@
     "email" : "werner@example.com",
     "company" : "DBS",
     "address" : "michegan ave",
+    "dateAdded": "20-03-2026",
     "tags" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -45,6 +50,7 @@
     "company" : "NUS Computing",
     "address" : "little tokyo",
     "link" : "https://linkedin.com/in/fionakunz",
+    "dateAdded": "20-03-2026",
     "tags" : [ ]
   }, {
     "name" : "George Best",
@@ -52,6 +58,7 @@
     "email" : "anna@example.com",
     "company" : "Sea",
     "address" : "4th street",
+    "dateAdded": "20-03-2026",
     "tags" : [ ]
   } ]
 }
