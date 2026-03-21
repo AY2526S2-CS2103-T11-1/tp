@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.clinkedin.commons.core.GuiSettings;
 import seedu.clinkedin.commons.core.LogsCenter;
+import seedu.clinkedin.model.person.DeletedPersonRecord;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.person.Phone;
 import seedu.clinkedin.model.tag.Tag;
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final CLinkedin cLinkedin;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<DeletedPersonRecord> filteredDeletedPersonRecords;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,6 +38,7 @@ public class ModelManager implements Model {
         this.cLinkedin = new CLinkedin(cLinkedin);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.cLinkedin.getPersonList());
+        filteredDeletedPersonRecords = new FilteredList<>(this.cLinkedin.getDeletedPersonRecords());
     }
 
     public ModelManager() {
@@ -151,6 +154,19 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    @Override
+    public ObservableList<DeletedPersonRecord> getFilteredDeletedPersonRecordList() {
+        return filteredDeletedPersonRecords;
+    }
+
+    @Override
+    public void updateFilteredDeletedPersonRecordList(Predicate<DeletedPersonRecord> predicate) {
+        requireNonNull(predicate);
+        filteredDeletedPersonRecords.setPredicate(predicate);
     }
 
     @Override

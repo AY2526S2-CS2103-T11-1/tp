@@ -160,7 +160,7 @@ public class CLinkedinTest {
      */
     private static class CLinkedinStub implements ReadOnlyCLinkedin {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
-        private final List<DeletedPersonRecord> deletedPersonRecords = FXCollections.observableArrayList();
+        private final ObservableList<DeletedPersonRecord> deletedPersonRecords = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
 
         CLinkedinStub(Collection<Person> persons, List<DeletedPersonRecord> deletedPersonRecords,
@@ -176,7 +176,7 @@ public class CLinkedinTest {
         }
 
         @Override
-        public List<DeletedPersonRecord> getDeletedPersonRecords() {
+        public ObservableList<DeletedPersonRecord> getDeletedPersonRecords() {
             return deletedPersonRecords;
         }
 

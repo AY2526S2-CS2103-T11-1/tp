@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.clinkedin.commons.exceptions.IllegalValueException;
+import seedu.clinkedin.model.person.Address;
 import seedu.clinkedin.model.person.DeletedPersonRecord;
 import seedu.clinkedin.model.person.Person;
 
@@ -13,6 +14,9 @@ import seedu.clinkedin.model.person.Person;
  * Jackson-friendly version of {@link DeletedPersonRecord}.
  */
 public class JsonAdaptedDeletedPersonRecord {
+
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "DeletedPersonRecord's %s field is missing!";
+
     private final JsonAdaptedPerson person;
     private final String deletedDateTime;
 
@@ -42,8 +46,16 @@ public class JsonAdaptedDeletedPersonRecord {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public DeletedPersonRecord toModelType() throws IllegalValueException {
+        if (person == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "person"));
+        }
+
+        if (deletedDateTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "deletedDateTime"));
+        }
+
         Person modelPerson = person.toModelType();
-        LocalDateTime modelDateTime = LocalDateTime.parse(deletedDateTime);
-        return new DeletedPersonRecord(modelPerson, modelDateTime);
+        LocalDateTime modelDeletedDateTime = LocalDateTime.parse(deletedDateTime);
+        return new DeletedPersonRecord(modelPerson, modelDeletedDateTime);
     }
 }

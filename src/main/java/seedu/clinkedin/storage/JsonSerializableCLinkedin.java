@@ -86,6 +86,8 @@ class JsonSerializableCLinkedin {
             }
             cLinkedin.addTag(tag);
         }
+
+        cLinkedin.pruneExpiredDeletedPersonRecords();
         return cLinkedin;
     }
 
