@@ -227,6 +227,10 @@ public class CLinkedin implements ReadOnlyCLinkedin {
         return Objects.hash(persons, deletedPersonRecords, tags);
     }
 
+    /**
+     * Removes all deleted person records that are older than 7 days
+     * from the current date and time.
+     */
     public void pruneExpiredDeletedPersonRecords() {
         deletedPersonRecords.removeIf(record ->
                 record.getDeletedDateTime().isBefore(LocalDateTime.now().minusDays(7)));
