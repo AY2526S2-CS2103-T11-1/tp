@@ -34,6 +34,7 @@ public class CLinkedin implements ReadOnlyCLinkedin {
      */
     {
         persons = new UniquePersonList();
+        deletedPersonRecords = new ArrayList<>();
         tags = new UniqueTagList();
     }
 
