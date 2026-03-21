@@ -32,7 +32,8 @@ class JsonSerializableCLinkedin {
      */
     @JsonCreator
     public JsonSerializableCLinkedin(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                     @JsonProperty("deletedPersonRecords") List<JsonAdaptedDeletedPersonRecord> deletedPersonRecords,
+                                     @JsonProperty("deletedPersonRecords")
+                                     List<JsonAdaptedDeletedPersonRecord> deletedPersonRecords,
                                      @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         if (persons != null) {
             this.persons.addAll(persons);
