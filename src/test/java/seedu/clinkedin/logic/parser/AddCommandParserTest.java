@@ -179,7 +179,7 @@ public class AddCommandParserTest {
         Person expectedPersonNoLink = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY).withCompany(VALID_COMPANY_AMY).withAddress(VALID_ADDRESS_AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY
-                + ADDRESS_DESC_AMY, new AddCommand(expectedPersonNoLink));  
+                + ADDRESS_DESC_AMY, new AddCommand(expectedPersonNoLink));
     }
 
     @Test
