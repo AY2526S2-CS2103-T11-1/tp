@@ -68,7 +68,7 @@ public class CLinkedin implements ReadOnlyCLinkedin {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
-        deletedPersonRecords.addAll(newData.getDeletedPersonRecords());
+        deletedPersonRecords.setAll(newData.getDeletedPersonRecords());
         setTags(newData.getTagList());
     }
 
