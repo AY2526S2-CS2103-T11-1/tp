@@ -35,6 +35,7 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_COMPANY = BENSON.getCompany().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final String VALID_LINK = BENSON.getLink().toString();
+    private static final String VALID_TAG = "friends";
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
@@ -152,6 +153,16 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG, INVALID_COLOR));
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_COMPANY, VALID_ADDRESS,
+                        VALID_LINK, invalidTags);
+        assertThrows(IllegalValueException.class, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidColor_throwsIllegalValueException() {
+        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
+        invalidTags.add(new JsonAdaptedTag(VALID_TAG, INVALID_COLOR));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_COMPANY, VALID_ADDRESS,
                         VALID_LINK, invalidTags);

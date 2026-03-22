@@ -65,6 +65,6 @@ public class TagTest {
     @Test
     public void isValidColorName() {
         // null color name
-        assertThrows(NullPointerException.class, () -> Tag.isValidTagName(null));
+        assertThrows(NullPointerException.class, () -> Tag.isValidColorName(null));
     }
 }
