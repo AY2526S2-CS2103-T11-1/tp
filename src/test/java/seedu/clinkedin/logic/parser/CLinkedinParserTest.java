@@ -23,6 +23,7 @@ import seedu.clinkedin.logic.commands.ExitCommand;
 import seedu.clinkedin.logic.commands.FindCommand;
 import seedu.clinkedin.logic.commands.HelpCommand;
 import seedu.clinkedin.logic.commands.ListCommand;
+import seedu.clinkedin.logic.commands.RestoreCommand;
 import seedu.clinkedin.logic.commands.tag.TagCommand;
 import seedu.clinkedin.logic.commands.tag.TagShowCommand;
 import seedu.clinkedin.logic.parser.exceptions.ParseException;
@@ -95,6 +96,13 @@ public class CLinkedinParserTest {
     public void parseCommand_deleted() throws Exception {
         assertTrue(parser.parseCommand(DeletedCommand.COMMAND_WORD) instanceof DeletedCommand);
         assertTrue(parser.parseCommand(DeletedCommand.COMMAND_WORD + " 3") instanceof DeletedCommand);
+    }
+
+    @Test
+    public void parseCommand_restore() throws Exception {
+        RestoreCommand command = (RestoreCommand) parser.parseCommand(
+                RestoreCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new RestoreCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

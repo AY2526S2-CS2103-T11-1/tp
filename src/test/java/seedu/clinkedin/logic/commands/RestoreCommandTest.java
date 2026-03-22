@@ -21,6 +21,8 @@ import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.ModelManager;
 import seedu.clinkedin.model.UserPrefs;
 import seedu.clinkedin.model.person.DeletedPersonRecord;
+import seedu.clinkedin.model.person.Person;
+import seedu.clinkedin.testutil.PersonBuilder;
 
 public class RestoreCommandTest {
 
@@ -61,6 +63,23 @@ public class RestoreCommandTest {
         RestoreCommand restoreCommand = new RestoreCommand(Index.fromZeroBased(0));
 
         assertCommandFailure(restoreCommand, model, RestoreCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
+    public void execute_duplicatePhoneNumber_throwsCommandException() {
+        Person personWithSamePhone = new PersonBuilder()
+                .withName("Different Person")
+                .withPhone(ALICE.getPhone().value)
+                .withEmail("different@example.com")
+                .withAddress("123, Clementi Rd, 1234665")
+                .withTags("friends")
+                .build();
+
+        model.addPerson(personWithSamePhone);
+
+        RestoreCommand restoreCommand = new RestoreCommand(Index.fromZeroBased(0));
+
+        assertCommandFailure(restoreCommand, model, RestoreCommand.MESSAGE_DUPLICATE_PHONE);
     }
 
     @Test
