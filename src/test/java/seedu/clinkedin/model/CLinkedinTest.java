@@ -148,14 +148,14 @@ public class CLinkedinTest {
 
     @Test
     public void addDeletedPersonRecord_nullRecord_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> cLinkedin.addDeletedPersonRecord(null));
+        assertThrows(NullPointerException.class, ()
+                -> cLinkedin.addDeletedPersonRecord(null));
     }
 
     @Test
     public void getDeletedPersonRecords_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> cLinkedin.getDeletedPersonRecords().remove(0));
+        assertThrows(UnsupportedOperationException.class, ()
+                -> cLinkedin.getDeletedPersonRecords().remove(0));
     }
 
     @Test

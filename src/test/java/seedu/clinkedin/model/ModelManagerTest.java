@@ -114,8 +114,8 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredDeletedPersonRecordList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> modelManager.getFilteredDeletedPersonRecordList().remove(0));
+        assertThrows(UnsupportedOperationException.class, ()
+                -> modelManager.getFilteredDeletedPersonRecordList().remove(0));
     }
 
     @Test
@@ -128,6 +128,7 @@ public class ModelManagerTest {
 
         assertEquals(0, modelManager.getFilteredDeletedPersonRecordList().size());
     }
+
     // ================= TAG TESTS =================
     @Test
     public void hasTag_nullTag_throwsNullPointerException() {

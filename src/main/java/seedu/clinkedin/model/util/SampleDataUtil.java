@@ -10,11 +10,11 @@ import seedu.clinkedin.model.CLinkedin;
 import seedu.clinkedin.model.ReadOnlyCLinkedin;
 import seedu.clinkedin.model.person.Address;
 import seedu.clinkedin.model.person.Company;
+import seedu.clinkedin.model.person.DeletedPersonRecord;
 import seedu.clinkedin.model.person.Email;
 import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
 import seedu.clinkedin.model.person.Person;
-import seedu.clinkedin.model.person.DeletedPersonRecord;
 import seedu.clinkedin.model.person.Phone;
 import seedu.clinkedin.model.tag.Tag;
 
@@ -58,21 +58,21 @@ public class SampleDataUtil {
      */
     public static DeletedPersonRecord[] getSampleDeletedPersonRecords() {
         return new DeletedPersonRecord[] {
-                new DeletedPersonRecord(
+            new DeletedPersonRecord(
                         new Person(new Name("Brandon Lee"), new Phone("93334444"), new Email("brandon@example.com"),
                                 new Company("Sea"), new Address("21 Jurong West Street 52"),
                                 Optional.empty(),
                                 getTagSet("colleagues")),
                         LocalDateTime.now().minusDays(3)
                 ),
-                new DeletedPersonRecord(
+            new DeletedPersonRecord(
                         new Person(new Name("Cheryl Ng"), new Phone("97778888"), new Email("cheryl@example.com"),
                                 new Company("GovTech"), new Address("8 Clementi Avenue 2"),
                                 Optional.of(new Link("https://www.linkedin.com/in/cherylng")),
                                 getTagSet("classmates")),
                         LocalDateTime.now().minusHours(2)
                 ),
-                new DeletedPersonRecord(
+            new DeletedPersonRecord(
                         new Person(new Name("Brandon Lee"), new Phone("93334444"), new Email("brandon.old@example.com"),
                                 new Company("Sea"), new Address("21 Jurong West Street 52"),
                                 Optional.empty(),
