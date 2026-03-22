@@ -33,8 +33,7 @@ public class CLinkedin implements ReadOnlyCLinkedin {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         persons = new UniquePersonList();
         deletedPersonRecords = FXCollections.observableArrayList();
         tags = new UniqueTagList();
@@ -118,6 +117,21 @@ public class CLinkedin implements ReadOnlyCLinkedin {
         pruneExpiredDeletedPersonRecords();
         persons.remove(key);
         deletedPersonRecords.add(new DeletedPersonRecord(key));
+    }
+
+    /**
+     * Restores a deleted person record back into the address book.
+     * The person will be added back to the person list,
+     * and the deleted record will be removed.
+     *
+     * @param record The deleted person record to restore.
+     */
+    public void restorePerson(DeletedPersonRecord record, Person personToRestore) {
+        requireNonNull(record);
+        requireNonNull(personToRestore);
+
+        persons.add(personToRestore);
+        deletedPersonRecords.remove(record);
     }
 
     //// deleted person operations

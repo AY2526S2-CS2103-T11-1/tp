@@ -95,6 +95,13 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Restores the given deleted person record.
+     * The person in the record will be added back to the address book,
+     * and the deleted person record will be removed.
+     */
+    void restorePerson(DeletedPersonRecord deletedPersonRecord, Person cleanedPerson);
+
+    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
