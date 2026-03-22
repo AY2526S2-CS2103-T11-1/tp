@@ -27,12 +27,16 @@ public class Tag {
     public static final String MESSAGE_INVALID_CHARACTERS =
             "Tag must contain only letters and numbers.";
 
+    public static final String MESSAGE_INVALID_COLOR_NAME =
+            "Invalid color name. Valid formats are in plain name, hexadecimal, or rgb() values.\n" +
+                    "Example: #ff6688, orange, rgb(255,102,136)";
+
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public static final Color DEFAULT_COLOR = Color.web("#3e7b91");
+    public static final String DEFAULT_COLOR = "#3e7b91";
 
     public final String tagName;
-    public final Color tagColor;
+    public final String tagColor;
 
     /**
      * Constructs a {@code Tag}.
@@ -40,24 +44,22 @@ public class Tag {
      * @param tagName A valid tag name.
      */
     public Tag(String tagName) {
-        requireNonNull(tagName);
-        String error = getTagNameValidationError(tagName);
-        checkArgument(error == null, error);
-        this.tagName = tagName;
-        this.tagColor = DEFAULT_COLOR;
+        this(tagName, DEFAULT_COLOR);
     }
 
     /**
      * Constructs a {@code Tag} with a specified color
      *
      * @param tagName A valid tag name.
-     * @param tagColor A valid Color object.
+     * @param tagColor A valid color.
      */
-    public Tag(String tagName, Color tagColor) {
+    public Tag(String tagName, String tagColor) {
         requireNonNull(tagName);
         requireNonNull(tagColor);
-        String error = getTagNameValidationError(tagName);
-        checkArgument(error == null, error);
+        String tagNameError = getTagNameValidationError(tagName);
+        String tagColorError = getColorNameValidationError(tagColor);
+        checkArgument(tagNameError == null, tagNameError);
+        checkArgument(tagColorError == null, tagColorError);
         this.tagName = tagName;
         this.tagColor = tagColor;
     }
@@ -91,6 +93,26 @@ public class Tag {
     public static boolean isValidTagName(String test) {
         requireNonNull(test);
         return getTagNameValidationError(test) == null;
+    }
+
+    /**
+     * Returns error message if the color is invalid, otherwise null.
+     */
+    public static String getColorNameValidationError(String color) {
+        try {
+            Color.web(color);
+        } catch (IllegalArgumentException e) {
+            return MESSAGE_INVALID_COLOR_NAME;
+        }
+        return null;
+    }
+
+    /**
+     * Returns true if a given string is a valid color.
+     */
+    public static boolean isValidColorName(String color) {
+       requireNonNull(color);
+       return getColorNameValidationError(color) == null;
     }
 
     @Override
