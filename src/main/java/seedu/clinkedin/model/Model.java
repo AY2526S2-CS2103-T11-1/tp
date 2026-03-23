@@ -1,6 +1,7 @@
 package seedu.clinkedin.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -15,8 +16,6 @@ import seedu.clinkedin.model.tag.Tag;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
-    Predicate<Person> PREDICATE_SHOW_NONE = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -99,4 +98,6 @@ public interface Model {
     void addTag(Tag tag);
 
     void deleteTag(Tag tag);
+
+    void setTags(List<Tag> tags);
 }

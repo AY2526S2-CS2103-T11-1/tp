@@ -33,7 +33,11 @@ public class TagUtil {
      */
     public static String tagColorToHexString(String color) {
         Color value = Color.web(color);
-        return "#" + (format(value.getRed()) + format(value.getGreen()) + format(value.getBlue()) + format(value.getOpacity()))
+        return "#" + (
+                format(value.getRed())
+                        + format(value.getGreen())
+                        + format(value.getBlue())
+                        + format(value.getOpacity()))
                 .toUpperCase();
     }
 }

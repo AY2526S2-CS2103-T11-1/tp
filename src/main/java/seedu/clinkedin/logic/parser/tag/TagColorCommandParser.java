@@ -2,14 +2,23 @@ package seedu.clinkedin.logic.parser.tag;
 
 import static seedu.clinkedin.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.clinkedin.logic.commands.tag.TagAssignCommand;
 import seedu.clinkedin.logic.commands.tag.TagColorCommand;
 import seedu.clinkedin.logic.parser.Parser;
 import seedu.clinkedin.logic.parser.ParserUtil;
 import seedu.clinkedin.logic.parser.exceptions.ParseException;
 import seedu.clinkedin.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new TagColorCommand object
+ */
 public class TagColorCommandParser implements Parser<TagColorCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the TagColorCommand
+     * and returns a TagColorCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform to the expected format
+     */
     @Override
     public TagColorCommand parse(String args) throws ParseException {
         String trimmed = args.trim();

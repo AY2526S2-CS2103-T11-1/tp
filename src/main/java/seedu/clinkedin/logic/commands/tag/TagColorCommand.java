@@ -2,8 +2,10 @@ package seedu.clinkedin.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinkedin.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.clinkedin.model.Model.PREDICATE_SHOW_NONE;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.clinkedin.logic.commands.CommandResult;
@@ -47,17 +49,49 @@ public class TagColorCommand extends TagCommand {
             throw new CommandException(MESSAGE_TAG_NOT_FOUND);
         }
 
-        for (Person p : model.getCLinkedin().getPersonList()) {
-            for (Tag t : p.getTags()) {
-                if (t.tagName.equalsIgnoreCase(tag.tagName)) {
-                    t.tagColor = color;
-                    break;
-                }
-            }
-        }
+        // Replaces current list of Tags with the new Tag
+        List<Tag> tagList = new ArrayList<>(model.getCLinkedin().getTagList());
+        int index = tagList.indexOf(tag);
+        tagList.set(index, new Tag(tag.tagName, color));
+        model.setTags(tagList);
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_NONE);
+        updateWithNewTag(model);
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    /**
+     * Replaces all contacts with old tags with the new tag.
+     */
+    private void updateWithNewTag(Model model) {
+        List<Person> personList = new ArrayList<>(model.getCLinkedin().getPersonList());
+
+        for (Person person : personList) {
+            if (person.getTags().contains(tag)) {
+                Person editedPerson = editPerson(person, tag, new Tag(tag.tagName, color));
+                model.setPerson(person, editedPerson);
+            }
+        }
+    }
+
+    /**
+     * Returns a new Person with the old tag replaced by the new tag.
+     */
+    private static Person editPerson(Person personToEdit, Tag oldTag, Tag newTag) {
+        assert personToEdit != null;
+        Set<Tag> updatedTags = new HashSet<>(personToEdit.getTags());
+        updatedTags.remove(oldTag);
+        updatedTags.add(newTag);
+
+        return new Person(
+                personToEdit.getName(),
+                personToEdit.getPhone(),
+                personToEdit.getEmail(),
+                personToEdit.getCompany(),
+                personToEdit.getAddress(),
+                java.util.Optional.ofNullable(personToEdit.getLink()),
+                updatedTags
+        );
     }
 }

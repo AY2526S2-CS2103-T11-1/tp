@@ -36,7 +36,7 @@ public class Tag {
     public static final String DEFAULT_COLOR = "#3e7b91";
 
     public final String tagName;
-    public String tagColor;
+    public final String tagColor;
 
     /**
      * Constructs a {@code Tag}.
