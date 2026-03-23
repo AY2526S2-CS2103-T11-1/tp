@@ -1,16 +1,12 @@
 package seedu.clinkedin.ui;
 
-import java.util.logging.Logger;
-
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
-import seedu.clinkedin.commons.core.LogsCenter;
 
 /**
  * Utility class for tag-related operations
  */
 public class TagUtil {
-    private static final Logger logger = LogsCenter.getLogger(TagUtil.class);
 
     /**
      * Returns a Label for tag styled with its color.
