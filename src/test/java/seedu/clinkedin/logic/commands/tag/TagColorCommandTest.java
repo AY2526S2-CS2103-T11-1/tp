@@ -65,7 +65,4 @@ public class TagColorCommandTest {
         assertThrows(CommandException.class,
                 TagColorCommand.MESSAGE_TAG_NOT_FOUND, () -> command.execute(model));
     }
-
-    @Test
-    public void
 }
