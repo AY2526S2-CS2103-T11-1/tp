@@ -88,6 +88,7 @@ public class TagAssignCommand extends TagCommand {
                     currentPerson.getCompany(),
                     currentPerson.getAddress(),
                     Optional.ofNullable(currentPerson.getLink()),
+                    currentPerson.getDateAdded(),
                     updatedTags
             );
             model.setPerson(personToEdit, editedPerson);
