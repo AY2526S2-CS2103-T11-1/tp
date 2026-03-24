@@ -1,11 +1,11 @@
 package seedu.clinkedin.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.Optional.ofNullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinkedin.logic.commands.CommandResult;
@@ -88,10 +88,10 @@ public class TagRenameCommand extends TagCommand {
                 personToEdit.getName(),
                 personToEdit.getPhone(),
                 personToEdit.getEmail(),
-                ofNullable(personToEdit.getCompany()),
+                Optional.ofNullable(personToEdit.getCompany()),
                 personToEdit.getAddress(),
-                ofNullable(personToEdit.getRemark()),
-                ofNullable(personToEdit.getLink()),
+                Optional.ofNullable(personToEdit.getRemark()),
+                Optional.ofNullable(personToEdit.getLink()),
                 personToEdit.getDateAdded(),
                 updatedTags
         );

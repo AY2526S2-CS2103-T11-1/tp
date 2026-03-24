@@ -27,6 +27,7 @@ public class CompanyTest {
 
     @Test
     public void getCompanyNameValidationError() {
+        assertEquals(Company.MESSAGE_NULL, Company.getCompanyNameValidationError(null));
         assertEquals(Company.MESSAGE_EMPTY, Company.getCompanyNameValidationError(""));
 
         assertEquals(Company.MESSAGE_TOO_LONG,

@@ -3,13 +3,7 @@ package seedu.clinkedin.model.person;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
-import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_LINK_BOB;
-import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.clinkedin.logic.commands.CommandTestUtil.*;
 import static seedu.clinkedin.testutil.Assert.assertThrows;
 import static seedu.clinkedin.testutil.TypicalPersons.ALICE;
 import static seedu.clinkedin.testutil.TypicalPersons.BOB;
@@ -85,6 +79,10 @@ public class PersonTest {
 
         // different company -> returns false
         editedAlice = new PersonBuilder(ALICE).withCompany(VALID_COMPANY_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different remark -> return false
+        editedAlice = new PersonBuilder(ALICE).withRemark(VALID_REMARK_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false

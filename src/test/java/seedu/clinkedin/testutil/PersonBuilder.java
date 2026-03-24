@@ -139,6 +139,14 @@ public class PersonBuilder {
         this.dateAdded = new DateAdded(dateAdded);
         return this;
     }
+    public PersonBuilder withoutCompany() {
+        this.company = null;
+        return this;
+    }
+    public PersonBuilder withoutRemark() {
+        this.remark = null;
+        return this;
+    }
     /**
      * Builds and returns a {@code Person} with the current state of this builder.
      */

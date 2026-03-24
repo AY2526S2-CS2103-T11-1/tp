@@ -232,6 +232,29 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseCompany_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCompany(null));
+    }
+
+    @Test
+    public void parseCompany_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCompany(Optional.of(INVALID_COMPANY)));
+    }
+
+    @Test
+    public void parseCompany_validValueWithoutWhitespace_returnsCompany() throws Exception {
+        Company expectedCompany = new Company(VALID_COMPANY);
+        assertEquals(expectedCompany, ParserUtil.parseCompany(Optional.of(VALID_COMPANY)).get());
+    }
+
+    @Test
+    public void parseCompany_validValueWithWhitespace_returnsTrimmedCompany() throws Exception {
+        String companyWithWhitespace = WHITESPACE + VALID_COMPANY + WHITESPACE;
+        Company expectedCompany = new Company(VALID_COMPANY);
+        assertEquals(expectedCompany, ParserUtil.parseCompany(Optional.of(companyWithWhitespace)).get());
+    }
+
+    @Test
     public void parseCompanyForAdd_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseCompanyForAdd(null));
     }
