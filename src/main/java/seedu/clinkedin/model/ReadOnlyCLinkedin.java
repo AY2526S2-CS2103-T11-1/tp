@@ -1,7 +1,5 @@
 package seedu.clinkedin.model;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import seedu.clinkedin.model.person.DeletedPersonRecord;
 import seedu.clinkedin.model.person.Person;
@@ -21,7 +19,7 @@ public interface ReadOnlyCLinkedin {
     /**
      * Returns an unmodifiable view of the deleted person records list.
      */
-    List<DeletedPersonRecord> getDeletedPersonRecords();
+    ObservableList<DeletedPersonRecord> getDeletedPersonRecords();
 
     /**
      * Returns an unmodifiable view of the tags list.
