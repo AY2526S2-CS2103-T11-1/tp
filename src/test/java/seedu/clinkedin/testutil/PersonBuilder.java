@@ -139,10 +139,17 @@ public class PersonBuilder {
         this.dateAdded = new DateAdded(dateAdded);
         return this;
     }
+    /**
+     * Removes the {@code Company} of the {@code Person} that we are building.
+     */
     public PersonBuilder withoutCompany() {
         this.company = null;
         return this;
     }
+
+    /**
+     * Removes the {@code Remark} of the {@code Person} that we are building.
+     */
     public PersonBuilder withoutRemark() {
         this.remark = null;
         return this;
