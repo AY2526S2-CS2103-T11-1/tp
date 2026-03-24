@@ -12,6 +12,8 @@ import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
+import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -32,6 +34,7 @@ public class TypicalPersons {
             .withEmail("alice@example.com")
             .withCompany("Google")
             .withAddress("123, Jurong West Ave 6, #08-111")
+            .withRemark("Enjoys networking events")
             .withLink("https://linkedin.com/in/alicepauline")
             .withTags("friends")
             .build();
@@ -41,6 +44,7 @@ public class TypicalPersons {
             .withEmail("johnd@example.com")
             .withCompany("Shopee")
             .withAddress("311, Clementi Ave 2, #02-25")
+            .withRemark("Met during internship")
             .withLink("https://linkedin.com/in/bensonmeier")
             .withTags("owesMoney", "friends")
             .build();
@@ -50,6 +54,7 @@ public class TypicalPersons {
             .withEmail("heinz@example.com")
             .withCompany("Grab")
             .withAddress("wall street")
+            .withRemark("Prefers email contact")
             .build();
 
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier")
@@ -57,6 +62,7 @@ public class TypicalPersons {
             .withEmail("cornelia@example.com")
             .withCompany("GovTech")
             .withAddress("10th street")
+            .withRemark("Interested in public sector tech")
             .withLink("https://linkedin.com/in/danielmeier")
             .withTags("friends")
             .build();
@@ -66,6 +72,7 @@ public class TypicalPersons {
             .withEmail("werner@example.com")
             .withCompany("DBS")
             .withAddress("michegan ave")
+            .withRemark("Works in finance")
             .build();
 
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
@@ -73,6 +80,7 @@ public class TypicalPersons {
             .withEmail("lydia@example.com")
             .withCompany("NUS Computing")
             .withAddress("little tokyo")
+            .withRemark("Coursemate from CS2103")
             .withLink("https://linkedin.com/in/fionakunz")
             .build();
 
@@ -81,6 +89,7 @@ public class TypicalPersons {
             .withEmail("anna@example.com")
             .withCompany("Sea")
             .withAddress("4th street")
+            .withRemark("Interested in product roles")
             .build();
 
     // Manually added
@@ -89,6 +98,7 @@ public class TypicalPersons {
             .withEmail("stefan@example.com")
             .withCompany("Grab")
             .withAddress("little india")
+            .withRemark("Reach out about internships")
             .withLink("https://linkedin.com/in/hoonmeier")
             .build();
 
@@ -97,22 +107,24 @@ public class TypicalPersons {
             .withEmail("hans@example.com")
             .withCompany("Google")
             .withAddress("chicago ave")
+            .withRemark("Met at career fair")
             .withLink("https://linkedin.com/in/idamueller")
             .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withCompany(VALID_COMPANY_AMY).withAddress(VALID_ADDRESS_AMY)
-            .withLink(VALID_LINK_AMY).withTags(VALID_TAG_FRIEND)
+            .withRemark(VALID_REMARK_AMY).withLink(VALID_LINK_AMY).withTags(VALID_TAG_FRIEND)
             .build();
+
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withCompany(VALID_COMPANY_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withLink(VALID_LINK_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withRemark(VALID_REMARK_BOB).withLink(VALID_LINK_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalPersons() {}
 
     /**
      * Returns an {@code CLinkedin} with all the typical persons.

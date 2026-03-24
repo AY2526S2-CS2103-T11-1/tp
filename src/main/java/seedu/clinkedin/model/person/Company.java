@@ -19,6 +19,13 @@ public class Company {
      * and contain only single spaces between words.
      */
     public static final int MAX_LENGTH = 50;
+
+    public static final String MESSAGE_NULL =
+            "Company cannot be null.";
+
+    public static final String MESSAGE_EMPTY =
+            "Company cannot be empty.";
+
     public static final String MESSAGE_TOO_LONG =
             "Company name cannot exceed 50 characters.";
 
@@ -50,11 +57,11 @@ public class Company {
      */
     public static String getCompanyNameValidationError(String test) {
         if (test == null) {
-            return null; // OPTIONAL → null is allowed
+            return MESSAGE_NULL;
         }
 
         if (test.isEmpty()) {
-            return null; // OPTIONAL → empty is allowed
+            return MESSAGE_EMPTY;
         }
 
         if (test.length() > MAX_LENGTH) {

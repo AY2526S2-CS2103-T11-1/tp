@@ -9,6 +9,7 @@ import static seedu.clinkedin.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import seedu.clinkedin.model.person.Address;
 import seedu.clinkedin.model.person.Email;
 import seedu.clinkedin.model.person.Name;
 import seedu.clinkedin.model.person.Phone;
+import seedu.clinkedin.model.person.Remark;
 import seedu.clinkedin.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -33,6 +35,8 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_REMARK = "Met during career fair";
+    private static final String EMPTY_REMARK = "   ";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -162,6 +166,63 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseRemarkForAdd_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRemarkForAdd(null));
+    }
+
+    @Test
+    public void parseRemarkForAdd_emptyOptional_returnsEmptyOptional() throws Exception {
+        assertEquals(Optional.empty(), ParserUtil.parseRemarkForAdd(Optional.empty()));
+    }
+
+    @Test
+    public void parseRemarkForAdd_blankRemark_throwsParseException() {
+        assertThrows(ParseException.class, Remark.MESSAGE_EMPTY, () ->
+                ParserUtil.parseRemarkForAdd(Optional.of(EMPTY_REMARK)));
+    }
+
+    @Test
+    public void parseRemarkForAdd_validRemarkWithoutWhitespace_returnsRemark() throws Exception {
+        Optional<Remark> expectedRemark = Optional.of(new Remark(VALID_REMARK));
+        assertEquals(expectedRemark, ParserUtil.parseRemarkForAdd(Optional.of(VALID_REMARK)));
+    }
+
+    @Test
+    public void parseRemarkForAdd_validRemarkWithWhitespace_returnsTrimmedRemark() throws Exception {
+        String remarkWithWhitespace = WHITESPACE + VALID_REMARK + WHITESPACE;
+        Optional<Remark> expectedRemark = Optional.of(new Remark(VALID_REMARK));
+        assertEquals(expectedRemark, ParserUtil.parseRemarkForAdd(Optional.of(remarkWithWhitespace)));
+    }
+
+    @Test
+    public void parseRemarkForEdit_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRemarkForEdit(null));
+    }
+
+    @Test
+    public void parseRemarkForEdit_emptyOptional_returnsEmptyOptional() throws Exception {
+        assertEquals(Optional.empty(), ParserUtil.parseRemarkForEdit(Optional.empty()));
+    }
+
+    @Test
+    public void parseRemarkForEdit_blankRemark_returnsEmptyOptional() throws Exception {
+        assertEquals(Optional.empty(), ParserUtil.parseRemarkForEdit(Optional.of(EMPTY_REMARK)));
+    }
+
+    @Test
+    public void parseRemarkForEdit_validRemarkWithoutWhitespace_returnsRemark() throws Exception {
+        Optional<Remark> expectedRemark = Optional.of(new Remark(VALID_REMARK));
+        assertEquals(expectedRemark, ParserUtil.parseRemarkForEdit(Optional.of(VALID_REMARK)));
+    }
+
+    @Test
+    public void parseRemarkForEdit_validRemarkWithWhitespace_returnsTrimmedRemark() throws Exception {
+        String remarkWithWhitespace = WHITESPACE + VALID_REMARK + WHITESPACE;
+        Optional<Remark> expectedRemark = Optional.of(new Remark(VALID_REMARK));
+        assertEquals(expectedRemark, ParserUtil.parseRemarkForEdit(Optional.of(remarkWithWhitespace)));
     }
 
     @Test

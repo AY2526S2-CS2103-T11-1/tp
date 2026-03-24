@@ -10,6 +10,7 @@ import static seedu.clinkedin.testutil.TypicalPersons.getTypicalCLinkedin;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -61,9 +62,10 @@ public class TagRenameCommandTest {
                         person.getName(),
                         person.getPhone(),
                         person.getEmail(),
-                        person.getCompany(),
+                        Optional.ofNullable(person.getCompany()),
                         person.getAddress(),
-                        java.util.Optional.ofNullable(person.getLink()),
+                        Optional.ofNullable(person.getRemark()),
+                        Optional.ofNullable(person.getLink()),
                         updatedTags
                 );
                 expectedModel.setPerson(person, editedPerson);

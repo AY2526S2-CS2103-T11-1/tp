@@ -46,7 +46,9 @@ public class Messages {
                 .append("; Company: ")
                 .append(person.getCompany())
                 .append("; Address: ")
-                .append(person.getAddress());
+                .append(person.getAddress())
+                .append("; Remark: ")
+                .append(person.getRemark());
         if (person.getLink() != null) {
             builder.append("; Link: ")
                     .append(person.getLink());

@@ -70,8 +70,9 @@ public class TagAssignCommand extends TagCommand {
                 personToEdit.getName(),
                 personToEdit.getPhone(),
                 personToEdit.getEmail(),
-                personToEdit.getCompany(),
+                Optional.ofNullable(personToEdit.getCompany()),
                 personToEdit.getAddress(),
+                Optional.ofNullable(personToEdit.getRemark()),
                 Optional.ofNullable(personToEdit.getLink()),
                 updatedTags
         );

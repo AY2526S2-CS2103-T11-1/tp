@@ -8,6 +8,7 @@ import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -19,7 +20,9 @@ import seedu.clinkedin.commons.core.index.Index;
 import seedu.clinkedin.logic.commands.EditCommand;
 import seedu.clinkedin.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.clinkedin.logic.parser.exceptions.ParseException;
+import seedu.clinkedin.model.person.Company;
 import seedu.clinkedin.model.person.Link;
+import seedu.clinkedin.model.person.Remark;
 import seedu.clinkedin.model.tag.Tag;
 
 
@@ -36,7 +39,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_COMPANY, PREFIX_ADDRESS, PREFIX_LINK, PREFIX_TAG);
+                PREFIX_COMPANY, PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_LINK, PREFIX_TAG);
 
         Index index;
 
@@ -47,7 +50,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_COMPANY,
-                PREFIX_ADDRESS, PREFIX_LINK);
+                PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_LINK);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -61,10 +64,19 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
-            editPersonDescriptor.setCompany(ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get()));
+            Optional<Company> parsedCompany = ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY));
+            parsedCompany.ifPresent(editPersonDescriptor::setCompany);
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+            Optional<Remark> parsedRemark = ParserUtil.parseRemarkForEdit(argMultimap.getValue(PREFIX_REMARK));
+            if (parsedRemark.isPresent()) {
+                editPersonDescriptor.setRemark(parsedRemark.get());
+            } else {
+                editPersonDescriptor.clearRemark();
+            }
         }
         if (argMultimap.getValue(PREFIX_LINK).isPresent()) {
             Optional<Link> parsedLink = ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK));

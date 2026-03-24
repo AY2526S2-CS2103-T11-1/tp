@@ -11,6 +11,7 @@ import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.person.Phone;
+import seedu.clinkedin.model.person.Remark;
 import seedu.clinkedin.model.tag.Tag;
 import seedu.clinkedin.model.util.SampleDataUtil;
 
@@ -30,6 +31,7 @@ public class PersonBuilder {
     private Email email;
     private Company company;
     private Address address;
+    private Remark remark;
     private Link link; // null if not provided
     private Set<Tag> tags;
 
@@ -43,6 +45,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         company = new Company(DEFAULT_COMPANY);
         address = new Address(DEFAULT_ADDRESS);
+        remark = null;
         link = null;
         tags = new HashSet<>();
     }
@@ -56,6 +59,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         company = personToCopy.getCompany();
         address = personToCopy.getAddress();
+        remark = personToCopy.getRemark();
         link = personToCopy.getLink();
         tags = new HashSet<>(personToCopy.getTags());
     }
@@ -109,6 +113,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Remark} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRemark(String remark) {
+        this.remark = new Remark(remark);
+        return this;
+    }
+
+    /**
      * Sets the {@code Link} of the {@code Person} that we are building.
      */
     public PersonBuilder withLink(String link) {
@@ -116,8 +128,12 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns a {@code Person} with the current state of this builder.
+     */
     public Person build() {
-        return new Person(name, phone, email, company, address, Optional.ofNullable(link), tags);
+        return new Person(name, phone, email, Optional.ofNullable(company), address,
+                Optional.ofNullable(remark), Optional.ofNullable(link), tags);
     }
 
 }
