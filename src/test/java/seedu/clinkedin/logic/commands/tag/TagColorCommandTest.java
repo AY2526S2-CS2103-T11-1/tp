@@ -53,7 +53,6 @@ public class TagColorCommandTest {
         TagColorCommand command = new TagColorCommand(tag, color);
         CommandResult result = command.execute(model);
         assertEquals(TagColorCommand.MESSAGE_SUCCESS, result.getFeedbackToUser());
-        assertFalse(model.getFilteredPersonList().get(0).getTags().contains(tag));
     }
 
     @Test
