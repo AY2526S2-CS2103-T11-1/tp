@@ -90,6 +90,7 @@ public class TagColorCommand extends TagCommand {
                 personToEdit.getCompany(),
                 personToEdit.getAddress(),
                 java.util.Optional.ofNullable(personToEdit.getLink()),
+                personToEdit.getDateAdded(),
                 updatedTags
         );
     }
