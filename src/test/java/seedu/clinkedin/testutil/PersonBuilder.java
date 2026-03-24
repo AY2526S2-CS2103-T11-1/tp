@@ -139,8 +139,9 @@ public class PersonBuilder {
         this.dateAdded = new DateAdded(dateAdded);
         return this;
     }
-
-
+    /**
+     * Builds and returns a {@code Person} with the current state of this builder.
+     */
     public Person build() {
         return new Person(name, phone, email, Optional.ofNullable(company), address,
                 Optional.ofNullable(remark), Optional.ofNullable(link), dateAdded, tags);

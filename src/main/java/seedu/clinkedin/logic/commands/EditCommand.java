@@ -114,8 +114,9 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Optional<Company> updatedCompany = editPersonDescriptor.getCompany()
-                .or(() -> Optional.ofNullable(personToEdit.getCompany()));
+        Optional<Company> updatedCompany = editPersonDescriptor.isCompanyEdited()
+                ? editPersonDescriptor.getCompany()
+                : Optional.ofNullable(personToEdit.getCompany());
         Optional<Remark> updatedRemark = editPersonDescriptor.isRemarkEdited()
                 ? editPersonDescriptor.getRemark()
                 : Optional.ofNullable(personToEdit.getRemark());
@@ -162,6 +163,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Company company;
+        private boolean isCompanyEdited;
         private Address address;
         private Remark remark;
         private boolean isRemarkEdited;
@@ -178,7 +180,8 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setCompany(toCopy.company);
+            this.company = toCopy.company;
+            this.isCompanyEdited = toCopy.isCompanyEdited;
             setAddress(toCopy.address);
             this.remark = toCopy.remark;
             this.isRemarkEdited = toCopy.isRemarkEdited;
@@ -191,7 +194,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email, company, address, remark, link, tags)
-                    || isRemarkEdited;
+                    || isRemarkEdited || isCompanyEdited;
         }
 
         public void setName(Name name) {
@@ -228,6 +231,19 @@ public class EditCommand extends Command {
 
         public void setCompany(Company company) {
             this.company = company;
+            this.isCompanyEdited = true;
+        }
+
+        /**
+         * Clears the company (i.e., removes any existing company).
+         */
+        public void clearCompany() {
+            this.company = null;
+            this.isCompanyEdited = true;
+        }
+
+        public boolean isCompanyEdited() {
+            return isCompanyEdited;
         }
 
         public Optional<Company> getCompany() {

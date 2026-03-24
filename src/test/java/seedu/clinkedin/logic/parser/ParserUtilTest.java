@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.clinkedin.logic.parser.exceptions.ParseException;
 import seedu.clinkedin.model.person.Address;
+import seedu.clinkedin.model.person.Company;
 import seedu.clinkedin.model.person.Email;
 import seedu.clinkedin.model.person.Name;
 import seedu.clinkedin.model.person.Phone;
@@ -35,8 +36,13 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+
     private static final String VALID_REMARK = "Met during career fair";
     private static final String EMPTY_REMARK = "   ";
+
+    private static final String INVALID_COMPANY = "G@ogle";
+    private static final String VALID_COMPANY = "Google";
+    private static final String EMPTY_COMPANY = "   ";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -223,6 +229,63 @@ public class ParserUtilTest {
         String remarkWithWhitespace = WHITESPACE + VALID_REMARK + WHITESPACE;
         Optional<Remark> expectedRemark = Optional.of(new Remark(VALID_REMARK));
         assertEquals(expectedRemark, ParserUtil.parseRemarkForEdit(Optional.of(remarkWithWhitespace)));
+    }
+
+    @Test
+    public void parseCompanyForAdd_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCompanyForAdd(null));
+    }
+
+    @Test
+    public void parseCompanyForAdd_emptyOptional_returnsEmptyOptional() throws Exception {
+        assertEquals(Optional.empty(), ParserUtil.parseCompanyForAdd(Optional.empty()));
+    }
+
+    @Test
+    public void parseCompanyForAdd_blankCompany_throwsParseException() {
+        assertThrows(ParseException.class, Company.MESSAGE_EMPTY, () ->
+                ParserUtil.parseCompanyForAdd(Optional.of(EMPTY_COMPANY)));
+    }
+
+    @Test
+    public void parseCompanyForAdd_validCompanyWithoutWhitespace_returnsCompany() throws Exception {
+        Optional<Company> expectedCompany = Optional.of(new Company(VALID_COMPANY));
+        assertEquals(expectedCompany, ParserUtil.parseCompanyForAdd(Optional.of(VALID_COMPANY)));
+    }
+
+    @Test
+    public void parseCompanyForAdd_validCompanyWithWhitespace_returnsTrimmedCompany() throws Exception {
+        String companyWithWhitespace = WHITESPACE + VALID_COMPANY + WHITESPACE;
+        Optional<Company> expectedCompany = Optional.of(new Company(VALID_COMPANY));
+        assertEquals(expectedCompany, ParserUtil.parseCompanyForAdd(Optional.of(companyWithWhitespace)));
+    }
+
+    @Test
+    public void parseCompanyForEdit_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCompanyForEdit(null));
+    }
+
+    @Test
+    public void parseCompanyForEdit_emptyOptional_returnsEmptyOptional() throws Exception {
+        assertEquals(Optional.empty(), ParserUtil.parseCompanyForEdit(Optional.empty()));
+    }
+
+    @Test
+    public void parseCompanyForEdit_blankCompany_returnsEmptyOptional() throws Exception {
+        assertEquals(Optional.empty(), ParserUtil.parseCompanyForEdit(Optional.of(EMPTY_COMPANY)));
+    }
+
+    @Test
+    public void parseCompanyForEdit_validCompanyWithoutWhitespace_returnsCompany() throws Exception {
+        Optional<Company> expectedCompany = Optional.of(new Company(VALID_COMPANY));
+        assertEquals(expectedCompany, ParserUtil.parseCompanyForEdit(Optional.of(VALID_COMPANY)));
+    }
+
+    @Test
+    public void parseCompanyForEdit_validCompanyWithWhitespace_returnsTrimmedCompany() throws Exception {
+        String companyWithWhitespace = WHITESPACE + VALID_COMPANY + WHITESPACE;
+        Optional<Company> expectedCompany = Optional.of(new Company(VALID_COMPANY));
+        assertEquals(expectedCompany, ParserUtil.parseCompanyForEdit(Optional.of(companyWithWhitespace)));
     }
 
     @Test

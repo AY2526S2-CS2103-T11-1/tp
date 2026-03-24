@@ -72,7 +72,7 @@ public class SampleDataUtil {
      */
     public static DeletedPersonRecord[] getSampleDeletedPersonRecords() {
         return new DeletedPersonRecord[] {
-                new DeletedPersonRecord(
+            new DeletedPersonRecord(
                         new Person(new Name("Brandon Lee"), new Phone("93334444"), new Email("brandon@example.com"),
                                 Optional.of(new Company("Sea")), new Address("21 Jurong West Street 52"),
                                 Optional.empty(),
@@ -80,8 +80,8 @@ public class SampleDataUtil {
                                 new DateAdded("15-03-2026"),
                                 getTagSet("colleagues")),
                         LocalDateTime.now().minusDays(3)
-                ),
-                new DeletedPersonRecord(
+            ),
+            new DeletedPersonRecord(
                         new Person(new Name("Cheryl Ng"), new Phone("97778888"), new Email("cheryl@example.com"),
                                 Optional.of(new Company("GovTech")), new Address("8 Clementi Avenue 2"),
                                 Optional.empty(),
@@ -89,8 +89,8 @@ public class SampleDataUtil {
                                 new DateAdded("15-03-2026"),
                                 getTagSet("classmates")),
                         LocalDateTime.now().minusHours(2)
-                ),
-                new DeletedPersonRecord(
+            ),
+            new DeletedPersonRecord(
                         new Person(new Name("Brandon Lee"), new Phone("93334444"), new Email("brandon.old@example.com"),
                                 Optional.of(new Company("Sea")), new Address("21 Jurong West Street 52"),
                                 Optional.empty(),
@@ -98,7 +98,7 @@ public class SampleDataUtil {
                                 new DateAdded("15-03-2026"),
                                 getTagSet("colleagues")),
                         LocalDateTime.now().minusMinutes(45)
-                )
+            )
         };
     }
 

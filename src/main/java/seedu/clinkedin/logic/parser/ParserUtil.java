@@ -165,6 +165,58 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String company} into a {@code Company} when adding contact.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code company} is invalid.
+     */
+    public static Optional<Company> parseCompanyForAdd(Optional<String> company) throws ParseException {
+        requireNonNull(company);
+
+        if (company.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String trimmedCompany = company.get().trim();
+        if (trimmedCompany.isEmpty()) {
+            throw new ParseException(Company.MESSAGE_EMPTY);
+        }
+
+        String companyError = Company.getCompanyNameValidationError(trimmedCompany);
+        if (companyError != null) {
+            throw new ParseException(companyError);
+        }
+
+        return Optional.of(new Company(trimmedCompany));
+    }
+
+    /**
+     * Parses a {@code String company} into a {@code Company} when editing contact.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code company} is invalid.
+     */
+    public static Optional<Company> parseCompanyForEdit(Optional<String> company) throws ParseException {
+        requireNonNull(company);
+
+        if (company.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String trimmedCompany = company.get().trim();
+        if (trimmedCompany.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String companyError = Company.getCompanyNameValidationError(trimmedCompany);
+        if (companyError != null) {
+            throw new ParseException(companyError);
+        }
+
+        return Optional.of(new Company(trimmedCompany));
+    }
+
+    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
