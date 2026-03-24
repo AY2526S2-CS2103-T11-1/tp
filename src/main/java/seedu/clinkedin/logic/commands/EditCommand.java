@@ -25,6 +25,7 @@ import seedu.clinkedin.logic.commands.exceptions.CommandException;
 import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.person.Address;
 import seedu.clinkedin.model.person.Company;
+import seedu.clinkedin.model.person.DateAdded;
 import seedu.clinkedin.model.person.Email;
 import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
@@ -109,10 +110,11 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Optional<Link> updatedLink = editPersonDescriptor.getLink()
                 .or(() -> Optional.ofNullable(personToEdit.getLink()));
+        DateAdded dateAdded = personToEdit.getDateAdded();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedCompany, updatedAddress,
-                updatedLink, updatedTags);
+                updatedLink, dateAdded, updatedTags);
     }
 
     @Override
