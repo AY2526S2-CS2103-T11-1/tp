@@ -1,6 +1,7 @@
 package seedu.clinkedin.model.person;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Represents a record of a deleted {@code Person}, together with the time of deletion.
@@ -44,5 +45,33 @@ public class DeletedPersonRecord {
      */
     public LocalDateTime getDeletedDateTime() {
         return deletedDateTime;
+    }
+
+    /**
+     * Returns true if both deleted person records have the same person and deletion timestamp.
+     * This defines a stronger notion of equality between two deleted person records.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof DeletedPersonRecord)) {
+            return false;
+        }
+
+        DeletedPersonRecord otherRecord = (DeletedPersonRecord) other;
+        return person.equals(otherRecord.person)
+                && deletedDateTime.equals(otherRecord.deletedDateTime);
+    }
+
+    /**
+     * Generates a hash code based on the person and the deletion timestamp.
+     * This ensures consistency with {@code equals(Object)}.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(person, deletedDateTime);
     }
 }
