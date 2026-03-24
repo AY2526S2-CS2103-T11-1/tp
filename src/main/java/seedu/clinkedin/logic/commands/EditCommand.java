@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.clinkedin.commons.core.index.Index;
 import seedu.clinkedin.commons.util.CollectionUtil;
@@ -96,9 +97,11 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        Person editedPersonWithTags = getPersonWithTags(editedPerson, model);
+
+        model.setPerson(personToEdit, editedPersonWithTags);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPersonWithTags)));
     }
 
     /**
@@ -120,6 +123,28 @@ public class EditCommand extends Command {
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedCompany, updatedAddress,
                 updatedLink, dateAdded, updatedTags);
+    }
+
+    private static Person getPersonWithTags(Person person, Model model) {
+        assert person != null;
+
+        Set<Tag> existingTags = model.getCLinkedin()
+                .getTagList()
+                .stream()
+                .filter(x -> person.getTags().contains(x))
+                .collect(Collectors.toSet());
+
+
+        return new Person(
+                person.getName(),
+                person.getPhone(),
+                person.getEmail(),
+                person.getCompany(),
+                person.getAddress(),
+                java.util.Optional.ofNullable(person.getLink()),
+                person.getDateAdded(),
+                existingTags
+        );
     }
 
     @Override

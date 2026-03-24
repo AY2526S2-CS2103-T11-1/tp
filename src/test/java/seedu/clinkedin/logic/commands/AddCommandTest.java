@@ -265,10 +265,20 @@ public class AddCommandTest {
     private class ModelStubWithPersonFriendsTag extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
         private final Person person;
+        private final CLinkedin clinkedin = new CLinkedin();
+        private final UniqueTagList tags = new UniqueTagList();
+        private final List<Tag> tagList = List.of(new Tag("friends"));
 
         ModelStubWithPersonFriendsTag(Person person) {
             requireNonNull(person);
             this.person = person;
+            tags.setTags(tagList);
+            clinkedin.setTags(tagList);
+        }
+
+        @Override
+        public ReadOnlyCLinkedin getCLinkedin() {
+            return this.clinkedin;
         }
 
         @Override
@@ -292,8 +302,6 @@ public class AddCommandTest {
         @Override
         public boolean hasTag(Tag tag) {
             requireNonNull(tag);
-            UniqueTagList tags = new UniqueTagList();
-            tags.add(new Tag("friends"));
             return tags.contains(tag);
         }
     }
