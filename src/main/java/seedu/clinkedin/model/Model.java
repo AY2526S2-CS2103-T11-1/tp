@@ -95,6 +95,17 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Restores the given deleted person record.
+     * The person in the record is re-added to the address book with only
+     * tags that currently exist retained, and the corresponding deleted
+     * person record is removed from the deleted list.
+     *
+     * @param deletedPersonRecord The deleted person record to restore. Must not be null.
+     * @return The restored {@code Person} with non-existent tags removed.
+     */
+    Person restorePerson(DeletedPersonRecord deletedPersonRecord);
+
+    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.

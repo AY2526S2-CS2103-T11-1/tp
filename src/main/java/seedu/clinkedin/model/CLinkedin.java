@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -118,6 +121,41 @@ public class CLinkedin implements ReadOnlyCLinkedin {
         pruneExpiredDeletedPersonRecords();
         persons.remove(key);
         deletedPersonRecords.add(new DeletedPersonRecord(key));
+    }
+
+    /**
+     * Restores a deleted person record back into the address book.
+     * The associated person is re-added to the main person list after
+     * filtering out any tags that no longer exist in the address book.
+     * The corresponding deleted record is then removed from the deleted list.
+     *
+     * @param record The deleted person record to restore. Must not be null.
+     * @return The restored {@code Person} instance with only existing tags retained.
+     */
+    public Person restorePerson(DeletedPersonRecord record) {
+        requireNonNull(record);
+
+        Person originalPerson = record.getPerson();
+
+        Set<Tag> existingTags = originalPerson.getTags().stream()
+                .filter(tags::contains)
+                .collect(Collectors.toSet());
+
+        Person cleanedPerson = new Person(
+                originalPerson.getName(),
+                originalPerson.getPhone(),
+                originalPerson.getEmail(),
+                originalPerson.getCompany(),
+                originalPerson.getAddress(),
+                Optional.ofNullable(originalPerson.getLink()),
+                originalPerson.getDateAdded(),
+                existingTags
+        );
+
+        persons.add(cleanedPerson);
+        deletedPersonRecords.remove(record);
+
+        return cleanedPerson;
     }
 
     //// deleted person operations

@@ -14,10 +14,17 @@ public class DeletedCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all deleted contacts";
 
+    public static final String MESSAGE_NO_DELETED_RECORDS = "0 deleted person records found.";
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredDeletedPersonRecordList(PREDICATE_SHOW_ALL_DELETED_PERSON_RECORDS);
+
+        if (model.getFilteredDeletedPersonRecordList().isEmpty()) {
+            return new CommandResult(MESSAGE_NO_DELETED_RECORDS);
+        }
+
         return new CommandResult(MESSAGE_SUCCESS, false, true, false);
     }
 }

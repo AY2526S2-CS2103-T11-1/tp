@@ -110,6 +110,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person restorePerson(DeletedPersonRecord deletedPersonRecord) {
+        requireNonNull(deletedPersonRecord);
+        Person cleanedPerson = cLinkedin.restorePerson(deletedPersonRecord);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredDeletedPersonRecordList(PREDICATE_SHOW_ALL_DELETED_PERSON_RECORDS);
+        return cleanedPerson;
+    }
+
+    @Override
     public void addPerson(Person person) {
         cLinkedin.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -156,7 +165,7 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Deleted Person List Accessors =============================================================
 
     @Override
     public ObservableList<DeletedPersonRecord> getFilteredDeletedPersonRecordList() {
