@@ -20,6 +20,7 @@ import seedu.clinkedin.logic.commands.FindCommand;
 import seedu.clinkedin.logic.commands.HelpCommand;
 import seedu.clinkedin.logic.commands.ListCommand;
 import seedu.clinkedin.logic.commands.RestoreCommand;
+import seedu.clinkedin.logic.commands.SortComCommand;
 import seedu.clinkedin.logic.commands.tag.TagCommand;
 import seedu.clinkedin.logic.parser.exceptions.ParseException;
 import seedu.clinkedin.logic.parser.tag.TagCommandParser;
@@ -93,6 +94,9 @@ public class AddressBookParser {
 
         case TagCommand.COMMAND_WORD:
             return new TagCommandParser().parse(arguments);
+
+        case SortComCommand.COMMAND_WORD:
+            return new SortComCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

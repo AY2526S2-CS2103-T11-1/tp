@@ -274,4 +274,15 @@ public class CLinkedin implements ReadOnlyCLinkedin {
         deletedPersonRecords.removeIf(record ->
                 record.getDeletedDateTime().isBefore(LocalDateTime.now().minusDays(7)));
     }
+
+    /**
+     * Sorts the person list by company name alphabetically, case-insensitively.
+     */
+    public void sortPersonsByCompany() {
+        persons.sort((p1, p2) -> {
+            String company1 = p1.getCompany() != null ? p1.getCompany().companyName : "";
+            String company2 = p2.getCompany() != null ? p2.getCompany().companyName : "";
+            return company1.compareToIgnoreCase(company2);
+        });
+    }
 }
