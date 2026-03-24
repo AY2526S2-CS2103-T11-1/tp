@@ -148,6 +148,7 @@ public class CLinkedin implements ReadOnlyCLinkedin {
                 originalPerson.getCompany(),
                 originalPerson.getAddress(),
                 Optional.ofNullable(originalPerson.getLink()),
+                originalPerson.getDateAdded(),
                 existingTags
         );
 
