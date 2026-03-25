@@ -209,7 +209,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_clearCompany_success() {
+        // Add friends tag to clinkedin
         model.setTags(List.of(new Tag("friends")));
+
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
@@ -230,7 +232,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_clearRemark_success() {
+        // Add friends tag to clinkedin
         model.setTags(List.of(new Tag("friends")));
+
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
