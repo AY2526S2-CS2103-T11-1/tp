@@ -7,6 +7,7 @@ import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinkedin.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -31,6 +32,7 @@ import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.person.Phone;
+import seedu.clinkedin.model.person.Remark;
 import seedu.clinkedin.model.tag.Tag;
 
 /**
@@ -50,6 +52,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_COMPANY + "COMPANY] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_LINK + "LINK] "
+            + "[" + PREFIX_REMARK + "REMARK] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -111,7 +114,12 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Company updatedCompany = editPersonDescriptor.getCompany().orElse(personToEdit.getCompany());
+        Optional<Company> updatedCompany = editPersonDescriptor.isCompanyEdited()
+                ? editPersonDescriptor.getCompany()
+                : Optional.ofNullable(personToEdit.getCompany());
+        Optional<Remark> updatedRemark = editPersonDescriptor.isRemarkEdited()
+                ? editPersonDescriptor.getRemark()
+                : Optional.ofNullable(personToEdit.getRemark());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Optional<Link> updatedLink = editPersonDescriptor.getLink()
                 .or(() -> Optional.ofNullable(personToEdit.getLink()));
@@ -119,7 +127,7 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedCompany, updatedAddress,
-                updatedLink, dateAdded, updatedTags);
+                updatedRemark, updatedLink, dateAdded, updatedTags);
     }
 
     @Override
@@ -155,7 +163,10 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Company company;
+        private boolean isCompanyEdited;
         private Address address;
+        private Remark remark;
+        private boolean isRemarkEdited;
         private Link link;
         private Set<Tag> tags;
 
@@ -169,8 +180,11 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setCompany(toCopy.company);
+            this.company = toCopy.company;
+            this.isCompanyEdited = toCopy.isCompanyEdited;
             setAddress(toCopy.address);
+            this.remark = toCopy.remark;
+            this.isRemarkEdited = toCopy.isRemarkEdited;
             setLink(toCopy.link);
             setTags(toCopy.tags);
         }
@@ -179,7 +193,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, company, address, link, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, company, address, remark, link, tags)
+                    || isRemarkEdited || isCompanyEdited;
         }
 
         public void setName(Name name) {
@@ -216,12 +231,60 @@ public class EditCommand extends Command {
 
         public void setCompany(Company company) {
             this.company = company;
+            this.isCompanyEdited = true;
+        }
+
+        /**
+         * Clears the company (i.e., removes any existing company).
+         */
+        public void clearCompany() {
+            this.company = null;
+            this.isCompanyEdited = true;
+        }
+
+        public boolean isCompanyEdited() {
+            return isCompanyEdited;
         }
 
         public Optional<Company> getCompany() {
             return Optional.ofNullable(company);
         }
 
+        /**
+         * Sets the remark to be edited.
+         *
+         * @param remark The new remark to set.
+         */
+        public void setRemark(Remark remark) {
+            this.remark = remark;
+            this.isRemarkEdited = true;
+        }
+
+        /**
+         * Clears the remark (i.e., removes any existing remark).
+         */
+        public void clearRemark() {
+            this.remark = null;
+            this.isRemarkEdited = true;
+        }
+
+        /**
+         * Returns the edited remark if present.
+         *
+         * @return An {@code Optional} containing the remark if it has been set, otherwise empty.
+         */
+        public Optional<Remark> getRemark() {
+            return Optional.ofNullable(remark);
+        }
+
+        /**
+         * Returns true if the remark field has been edited.
+         *
+         * @return True if remark was set or cleared, false otherwise.
+         */
+        public boolean isRemarkEdited() {
+            return isRemarkEdited;
+        }
 
         public void setLink(Link link) {
             this.link = link;
@@ -265,6 +328,7 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(company, otherEditPersonDescriptor.company)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
+                    && Objects.equals(remark, otherEditPersonDescriptor.remark)
                     && Objects.equals(link, otherEditPersonDescriptor.link)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
@@ -277,6 +341,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("company", company)
                     .add("address", address)
+                    .add("remark", remark)
                     .add("link", link)
                     .add("tags", tags)
                     .toString();

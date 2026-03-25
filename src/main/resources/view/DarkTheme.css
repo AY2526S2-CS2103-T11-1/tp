@@ -139,6 +139,16 @@
     -fx-text-fill: #010504;
 }
 
+.list-cell .remark-text {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12px;
+    -fx-background-color: #444444;
+    -fx-text-fill: #ffd166;
+    -fx-padding: 4 8 4 8;
+    -fx-background-radius: 6;
+    -fx-font-style: italic;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }

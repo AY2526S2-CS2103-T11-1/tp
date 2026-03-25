@@ -9,17 +9,20 @@ import static seedu.clinkedin.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.LINK_DESC_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.clinkedin.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static seedu.clinkedin.testutil.Assert.assertThrows;
 import static seedu.clinkedin.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.util.logging.Logger;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.clinkedin.commons.core.LogsCenter;
 import seedu.clinkedin.logic.commands.AddCommand;
 import seedu.clinkedin.logic.commands.CommandResult;
 import seedu.clinkedin.logic.commands.ListCommand;
@@ -38,7 +41,7 @@ import seedu.clinkedin.testutil.PersonBuilder;
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
     private static final IOException DUMMY_AD_EXCEPTION = new AccessDeniedException("dummy access denied exception");
-
+    private static final Logger logger = LogsCenter.getLogger(LogicManagerTest.class);
     @TempDir
     public Path temporaryFolder;
 
@@ -80,6 +83,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsAdException_throwsCommandException() {
+
         assertCommandFailureForExceptionFromStorage(DUMMY_AD_EXCEPTION, String.format(
                 LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
     }
@@ -150,6 +154,15 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
+        logger.info("Expected model: " + expectedModel);
+        logger.info("Actual model: " + model);
+
+        if (!model.getFilteredPersonList().isEmpty()) {
+            logger.info("Actual person: " + model.getFilteredPersonList().get(0));
+        }
+        if (!expectedModel.getFilteredPersonList().isEmpty()) {
+            logger.info("Expected person: " + expectedModel.getFilteredPersonList().get(0));
+        }
         assertEquals(expectedModel, model);
     }
 
@@ -179,7 +192,7 @@ public class LogicManagerTest {
 
         // Triggers the saveAddressBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + COMPANY_DESC_AMY + ADDRESS_DESC_AMY + LINK_DESC_AMY;
+                + EMAIL_DESC_AMY + COMPANY_DESC_AMY + ADDRESS_DESC_AMY + REMARK_DESC_AMY + LINK_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

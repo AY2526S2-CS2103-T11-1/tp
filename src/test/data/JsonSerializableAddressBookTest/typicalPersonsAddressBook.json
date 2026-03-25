@@ -6,6 +6,7 @@
     "email" : "alice@example.com",
     "company" : "Google",
     "address" : "123, Jurong West Ave 6, #08-111",
+    "remark" : "Enjoys networking events",
     "link" : "https://linkedin.com/in/alicepauline",
     "dateAdded": "20-03-2026",
     "tags" : [ {
@@ -18,6 +19,7 @@
     "email" : "johnd@example.com",
     "company" : "Shopee",
     "address" : "311, Clementi Ave 2, #02-25",
+    "remark" : "Met during internship",
     "link" : "https://linkedin.com/in/bensonmeier",
     "dateAdded": "20-03-2026",
     "tags" : [ {
@@ -32,6 +34,7 @@
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "company" : "Grab",
+    "remark" : "Prefers email contact",
     "address" : "wall street",
     "dateAdded": "20-03-2026",
     "tags" : [ ]
@@ -41,6 +44,7 @@
     "email" : "cornelia@example.com",
     "company" : "GovTech",
     "address" : "10th street",
+    "remark" : "Interested in public sector tech",
     "link" : "https://linkedin.com/in/danielmeier",
     "dateAdded": "20-03-2026",
     "tags" : [ {
@@ -53,6 +57,7 @@
     "email" : "werner@example.com",
     "company" : "DBS",
     "address" : "michegan ave",
+    "remark" : "Works in finance",
     "dateAdded": "20-03-2026",
     "tags" : [ ]
   }, {
@@ -61,6 +66,7 @@
     "email" : "lydia@example.com",
     "company" : "NUS Computing",
     "address" : "little tokyo",
+    "remark" : "Coursemate from CS2103",
     "link" : "https://linkedin.com/in/fionakunz",
     "dateAdded": "20-03-2026",
     "tags" : [ ]
@@ -70,6 +76,7 @@
     "email" : "anna@example.com",
     "company" : "Sea",
     "address" : "4th street",
+    "remark" : "Interested in product roles",
     "dateAdded": "20-03-2026",
     "tags" : [ ]
   } ]

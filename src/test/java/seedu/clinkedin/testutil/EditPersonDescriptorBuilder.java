@@ -12,6 +12,7 @@ import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.person.Phone;
+import seedu.clinkedin.model.person.Remark;
 import seedu.clinkedin.model.tag.Tag;
 
 /**
@@ -39,6 +40,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setCompany(person.getCompany());
         descriptor.setAddress(person.getAddress());
+        descriptor.setRemark(person.getRemark());
         descriptor.setLink(person.getLink());
         descriptor.setTags(person.getTags());
     }
@@ -80,6 +82,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withRemark(String remark) {
+        descriptor.setRemark(new Remark(remark));
         return this;
     }
 

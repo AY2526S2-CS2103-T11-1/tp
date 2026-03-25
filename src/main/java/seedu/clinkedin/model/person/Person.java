@@ -25,6 +25,7 @@ public class Person {
     // Data fields
     private final Company company;
     private final Address address;
+    private final Remark remark;
     private final Link link;
     private final DateAdded dateAdded;
     private final Set<Tag> tags = new HashSet<>();
@@ -33,14 +34,15 @@ public class Person {
      * Name, phone, email, address and tags must be present and not null.
      * Link is optional and may be absent.
      */
-    public Person(Name name, Phone phone, Email email, Company company,
-                  Address address, Optional<Link> link, DateAdded dateAdded, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, company, address, dateAdded, tags);
+    public Person(Name name, Phone phone, Email email, Optional<Company> company,
+                  Address address, Optional<Remark> remark, Optional<Link> link, DateAdded dateAdded, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, dateAdded, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.company = company;
+        this.company = company.orElse(null);
         this.address = address;
+        this.remark = remark.orElse(null);
         this.link = link.orElse(null);
         this.dateAdded = dateAdded;
         this.tags.addAll(tags);
@@ -66,6 +68,9 @@ public class Person {
         return address;
     }
 
+    public Remark getRemark() {
+        return remark;
+    }
     /**
      * Returns the link, or null if not provided.
      */
@@ -110,7 +115,8 @@ public class Person {
         Set<Tag> updatedTags = new HashSet<>(tags);
         updatedTags.remove(tagToRemove);
 
-        return new Person(name, phone, email, company, address, Optional.ofNullable(link), dateAdded, updatedTags);
+        return new Person(name, phone, email, Optional.ofNullable(company), address, Optional.ofNullable(remark),
+                Optional.ofNullable(link), dateAdded, updatedTags);
     }
 
     /**
@@ -131,8 +137,9 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
-                && company.equals(otherPerson.company)
+                && Objects.equals(company, otherPerson.company)
                 && address.equals(otherPerson.address)
+                && Objects.equals(remark, otherPerson.remark)
                 && Objects.equals(link, otherPerson.link)
                 && dateAdded.equals(otherPerson.dateAdded)
                 && tags.equals(otherPerson.tags);
@@ -141,7 +148,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, company, address, link, dateAdded, tags);
+        return Objects.hash(name, phone, email, company, address, remark, link, dateAdded, tags);
     }
 
     @Override
@@ -152,6 +159,7 @@ public class Person {
                 .add("email", email)
                 .add("company", company)
                 .add("address", address)
+                .add("remark", remark)
                 .add("link", link)
                 .add("dateAdded", dateAdded)
                 .add("tags", tags)

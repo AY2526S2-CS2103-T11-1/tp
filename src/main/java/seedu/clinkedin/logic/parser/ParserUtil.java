@@ -16,6 +16,7 @@ import seedu.clinkedin.model.person.Email;
 import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
 import seedu.clinkedin.model.person.Phone;
+import seedu.clinkedin.model.person.Remark;
 import seedu.clinkedin.model.tag.Tag;
 
 /**
@@ -24,6 +25,7 @@ import seedu.clinkedin.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index must be a positive non-zero integer.";
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
@@ -76,14 +78,22 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code company} is invalid.
      */
-    public static Company parseCompany(String company) throws ParseException {
+    public static Optional<Company> parseCompany(Optional<String> company) throws ParseException {
         requireNonNull(company);
-        String trimmedCompanyName = company.trim();
+        if (company.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String trimmedCompanyName = company.get().trim();
+        if (trimmedCompanyName.isEmpty()) {
+            return Optional.empty();
+        }
+
         String companyNameError = Company.getCompanyNameValidationError(trimmedCompanyName);
         if (companyNameError != null) {
             throw new ParseException(companyNameError);
         }
-        return new Company(trimmedCompanyName);
+        return Optional.of(new Company(trimmedCompanyName));
     }
 
     /**
@@ -100,6 +110,110 @@ public class ParserUtil {
             throw new ParseException(addressError);
         }
         return new Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String remark} into a {@code Remark} when adding contact.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remark} is invalid.
+     */
+    public static Optional<Remark> parseRemarkForAdd(Optional<String> remark) throws ParseException {
+        requireNonNull(remark);
+
+        if (remark.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String trimmedRemark = remark.get().trim();
+        if (trimmedRemark.isEmpty()) {
+            throw new ParseException(Remark.MESSAGE_EMPTY);
+        }
+
+        String remarkError = Remark.getRemarkValidationError(trimmedRemark);
+        if (remarkError != null) {
+            throw new ParseException(remarkError);
+        }
+
+        return Optional.of(new Remark(trimmedRemark));
+    }
+
+    /**
+     * Parses a {@code String remark} into a {@code Remark} when editing contact.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remark} is invalid.
+     */
+    public static Optional<Remark> parseRemarkForEdit(Optional<String> remark) throws ParseException {
+        requireNonNull(remark);
+
+        if (remark.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String trimmedRemark = remark.get().trim();
+        if (trimmedRemark.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String remarkError = Remark.getRemarkValidationError(trimmedRemark);
+        if (remarkError != null) {
+            throw new ParseException(remarkError);
+        }
+
+        return Optional.of(new Remark(trimmedRemark));
+    }
+
+    /**
+     * Parses a {@code String company} into a {@code Company} when adding contact.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code company} is invalid.
+     */
+    public static Optional<Company> parseCompanyForAdd(Optional<String> company) throws ParseException {
+        requireNonNull(company);
+
+        if (company.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String trimmedCompany = company.get().trim();
+        if (trimmedCompany.isEmpty()) {
+            throw new ParseException(Company.MESSAGE_EMPTY);
+        }
+
+        String companyError = Company.getCompanyNameValidationError(trimmedCompany);
+        if (companyError != null) {
+            throw new ParseException(companyError);
+        }
+
+        return Optional.of(new Company(trimmedCompany));
+    }
+
+    /**
+     * Parses a {@code String company} into a {@code Company} when editing contact.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code company} is invalid.
+     */
+    public static Optional<Company> parseCompanyForEdit(Optional<String> company) throws ParseException {
+        requireNonNull(company);
+
+        if (company.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String trimmedCompany = company.get().trim();
+        if (trimmedCompany.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String companyError = Company.getCompanyNameValidationError(trimmedCompany);
+        if (companyError != null) {
+            throw new ParseException(companyError);
+        }
+
+        return Optional.of(new Company(trimmedCompany));
     }
 
     /**

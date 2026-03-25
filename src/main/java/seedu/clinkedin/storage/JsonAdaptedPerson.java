@@ -19,6 +19,7 @@ import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.person.Phone;
+import seedu.clinkedin.model.person.Remark;
 import seedu.clinkedin.model.tag.Tag;
 
 /**
@@ -33,6 +34,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String company;
     private final String address;
+    private final String remark;
     private final String link;
     private final String dateAdded;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
@@ -43,14 +45,15 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("company") String company,
-            @JsonProperty("address") String address, @JsonProperty("link") String link,
-                             @JsonProperty("dateAdded") String dateAdded,
+            @JsonProperty("address") String address, @JsonProperty("remark") String remark,
+                             @JsonProperty("link") String link, @JsonProperty("dateAdded") String dateAdded,
                              @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.company = company;
         this.address = address;
+        this.remark = remark;
         this.link = link;
         this.dateAdded = dateAdded;
         if (tags != null) {
@@ -65,8 +68,9 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        company = source.getCompany().companyName;
+        company = source.getCompany() != null ? source.getCompany().companyName : null;
         address = source.getAddress().value;
+        remark = source.getRemark() != null ? source.getRemark().value : null;
         link = source.getLink() != null ? source.getLink().value : null;
         dateAdded = source.getDateAdded().value;
         tags.addAll(source.getTags().stream()
@@ -112,14 +116,16 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
+        Optional<Company> modelCompany;
         if (company == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName()));
+            modelCompany = Optional.empty();
+        } else {
+            String companyError = Company.getCompanyNameValidationError(company);
+            if (companyError != null) {
+                throw new IllegalValueException(companyError);
+            }
+            modelCompany = Optional.of(new Company(company));
         }
-        String companyError = Company.getCompanyNameValidationError(company);
-        if (companyError != null) {
-            throw new IllegalValueException(companyError);
-        }
-        final Company modelCompany = new Company(company);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
@@ -130,6 +136,17 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(addressError);
         }
         final Address modelAddress = new Address(address);
+
+        Optional<Remark> modelRemark;
+        if (remark == null) {
+            modelRemark = Optional.empty();
+        } else {
+            String remarkError = Remark.getRemarkValidationError(remark);
+            if (remarkError != null) {
+                throw new IllegalValueException(remarkError);
+            }
+            modelRemark = Optional.of(new Remark(remark));
+        }
 
         Optional<Link> modelLink = (link == null) ? Optional.empty() : Optional.of(new Link(link));
 
@@ -143,8 +160,8 @@ class JsonAdaptedPerson {
         final DateAdded modelDateAdded = new DateAdded(dateAdded);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelCompany, modelAddress, modelLink, modelDateAdded,
-                modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelCompany, modelAddress, modelRemark,
+                modelLink, modelDateAdded, modelTags);
     }
 
 }

@@ -2,18 +2,24 @@ package seedu.clinkedin.logic.parser;
 
 import static seedu.clinkedin.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.clinkedin.logic.commands.CommandTestUtil.COMPANY_DESC_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.INVALID_LINK_DESC;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.LINK_DESC_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.LINK_DESC_BOB;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.clinkedin.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_LINK_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
+import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_LINK;
+import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinkedin.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinkedin.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinkedin.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -142,5 +148,65 @@ public class EditCommandParserTest {
         userInput = targetIndex.getOneBased() + LINK_DESC_AMY;
         descriptor = new EditPersonDescriptorBuilder().withLink(VALID_LINK_AMY).build();
         assertParseSuccess(parser, userInput, new EditCommand(targetIndex, descriptor));
+    }
+
+    @Test
+    public void parse_companyFieldSpecified_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + COMPANY_DESC_AMY;
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withCompany(VALID_COMPANY_AMY).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_remarkFieldSpecified_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + REMARK_DESC_AMY;
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withRemark(VALID_REMARK_AMY).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_clearCompany_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + " c/";
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+        descriptor.clearCompany();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_clearRemark_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + " r/";
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+        descriptor.clearRemark();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_duplicateCompany_failure() {
+        assertParseFailure(parser, "1" + COMPANY_DESC_AMY + COMPANY_DESC_AMY,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY));
+    }
+
+    @Test
+    public void parse_duplicateRemark_failure() {
+        assertParseFailure(parser, "1" + REMARK_DESC_AMY + REMARK_DESC_AMY,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_REMARK));
     }
 }

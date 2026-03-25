@@ -43,6 +43,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label remark;
+    @FXML
     private Hyperlink link;
     @FXML
     private Label dateAdded;
@@ -74,14 +76,18 @@ public class PersonCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
-        String companyName = person.getCompany().companyName;
-        if (companyName.isEmpty()) {
-            company.setManaged(false);
-            company.setVisible(false);
+        if (person.getCompany() != null) {
+            company.setText(person.getCompany().companyName);
         } else {
-            company.setText(companyName);
-            company.setManaged(true);
-            company.setVisible(true);
+            company.setVisible(false);
+            company.setManaged(false);
+        }
+
+        if (person.getRemark() != null) {
+            remark.setText(person.getRemark().value);
+        } else {
+            remark.setVisible(false);
+            remark.setManaged(false);
         }
 
         deletedDateTime.setVisible(false);

@@ -45,10 +45,16 @@ public class Messages {
                 .append(person.getPhone())
                 .append("; Email: ")
                 .append(person.getEmail())
-                .append("; Company: ")
-                .append(person.getCompany())
                 .append("; Address: ")
                 .append(person.getAddress());
+        if (person.getCompany() != null) {
+            builder.append("; Company Name: ")
+                    .append(person.getCompany());
+        }
+        if (person.getRemark() != null) {
+            builder.append("; Remark: ")
+                    .append(person.getRemark());
+        }
         if (person.getLink() != null) {
             builder.append("; Link: ")
                     .append(person.getLink());

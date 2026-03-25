@@ -17,6 +17,7 @@ import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.person.Phone;
+import seedu.clinkedin.model.person.Remark;
 import seedu.clinkedin.model.util.SampleDataUtil;
 
 public class PersonCardTest {
@@ -26,8 +27,9 @@ public class PersonCardTest {
                 new Name("John Doe"),
                 new Phone("91234567"),
                 new Email("john@example.com"),
-                new Company("Google"),
+                Optional.of(new Company("Google")),
                 new Address("123 Street"),
+                Optional.of(new Remark("Play basketball")),
                 link != null ? Optional.of(new Link(link)) : Optional.empty(),
                 new DateAdded("20-03-2026"),
                 SampleDataUtil.getTagSet()

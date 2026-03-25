@@ -211,7 +211,7 @@
 
     <module name="FallThrough">
       <!-- Warn about falling through to the next case statement.  Similar to
-      javac -Xlint:fallthrough, but the check is suppressed if a single-line comment
+      javac -Xlint:fallthrough, but the check is suppressed if a single-line remark
       on the last non-blank line preceding the fallen-into case contains 'fall through' (or
       some other variants which we don't publicized to promote consistency).
       -->
@@ -369,14 +369,14 @@
     <module name="SingleSpaceSeparator">
       <!-- Validate whitespace surrounding comments as well.
 
-           a = 1; // Allowed (single space before start of comment)
-           a = 1; /* Allowed (single space before start of comment) */
-           /* Allowed (single space after end of comment) */ a = 1;
-           a = 1;  // Not allowed (more than one space before start of comment)
-           a = 1;  /* Not allowed (more than one space before start of comment) */
-           /* Not allowed (more than one space after end of comment) */  a = 1;
+           a = 1; // Allowed (single space before start of remark)
+           a = 1; /* Allowed (single space before start of remark) */
+           /* Allowed (single space after end of remark) */ a = 1;
+           a = 1;  // Not allowed (more than one space before start of remark)
+           a = 1;  /* Not allowed (more than one space before start of remark) */
+           /* Not allowed (more than one space after end of remark) */  a = 1;
 
-           This doesn't validate whitespace within comments so a comment /* like  this */ is allowed.
+           This doesn't validate whitespace within comments so a remark /* like  this */ is allowed.
       -->
       <property name="validateComments" value="true"/>
     </module>
@@ -420,14 +420,14 @@
 
     <module name="InvalidJavadocPosition"/>
 
-    <!-- Checks that every public method (excluding getters, setters and constructors) has a header comment. -->
+    <!-- Checks that every public method (excluding getters, setters and constructors) has a header remark. -->
     <module name="MissingJavadocMethodCheck">
       <property name="minLineCount" value="1"/>
       <property name="allowMissingPropertyJavadoc" value="true"/>
       <property name="ignoreMethodNamesRegex" value="(set.*|get.*|main)"/>
     </module>
 
-    <!-- Checks that every public class, enumeration and interface has a header comment. -->
+    <!-- Checks that every public class, enumeration and interface has a header remark. -->
     <module name="MissingJavadocType"/>
 
   </module>

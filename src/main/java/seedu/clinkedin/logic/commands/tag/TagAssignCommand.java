@@ -85,8 +85,9 @@ public class TagAssignCommand extends TagCommand {
                     currentPerson.getName(),
                     currentPerson.getPhone(),
                     currentPerson.getEmail(),
-                    currentPerson.getCompany(),
+                    Optional.ofNullable(currentPerson.getCompany()),
                     currentPerson.getAddress(),
+                    Optional.ofNullable(currentPerson.getRemark()),
                     Optional.ofNullable(currentPerson.getLink()),
                     currentPerson.getDateAdded(),
                     updatedTags

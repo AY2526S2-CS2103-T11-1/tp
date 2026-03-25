@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinkedin.logic.commands.CommandResult;
@@ -87,9 +88,10 @@ public class TagRenameCommand extends TagCommand {
                 personToEdit.getName(),
                 personToEdit.getPhone(),
                 personToEdit.getEmail(),
-                personToEdit.getCompany(),
+                Optional.ofNullable(personToEdit.getCompany()),
                 personToEdit.getAddress(),
-                java.util.Optional.ofNullable(personToEdit.getLink()),
+                Optional.ofNullable(personToEdit.getRemark()),
+                Optional.ofNullable(personToEdit.getLink()),
                 personToEdit.getDateAdded(),
                 updatedTags
         );

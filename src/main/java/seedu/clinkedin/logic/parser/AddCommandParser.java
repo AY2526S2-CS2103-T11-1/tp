@@ -7,6 +7,7 @@ import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import seedu.clinkedin.model.person.Link;
 import seedu.clinkedin.model.person.Name;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.person.Phone;
+import seedu.clinkedin.model.person.Remark;
 import seedu.clinkedin.model.tag.Tag;
 
 /**
@@ -39,7 +41,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_COMPANY, PREFIX_ADDRESS, PREFIX_LINK, PREFIX_TAG);
+                        PREFIX_COMPANY, PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_LINK, PREFIX_TAG);
 
         checkFields(argMultimap);
 
@@ -52,12 +54,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Company company = ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get());
+        Optional<Company> company = ParserUtil.parseCompanyForAdd(argMultimap.getValue(PREFIX_COMPANY));
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Optional<Remark> remark = ParserUtil.parseRemarkForAdd(argMultimap.getValue(PREFIX_REMARK));
         Optional<Link> link = ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, company, address, link, new DateAdded(), tagList);
+        Person person = new Person(name, phone, email, company, address, remark, link, new DateAdded(), tagList);
 
         return new AddCommand(person);
     }
@@ -76,9 +79,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
         if (argumentMultimap.getValue(PREFIX_EMAIL).isEmpty()) {
             fields.add("EMAIL");
-        }
-        if (argumentMultimap.getValue(PREFIX_COMPANY).isEmpty()) {
-            fields.add("COMPANY");
         }
         if (argumentMultimap.getValue(PREFIX_ADDRESS).isEmpty()) {
             fields.add("ADDRESS");
