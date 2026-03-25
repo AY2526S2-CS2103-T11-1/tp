@@ -132,4 +132,10 @@ public interface Model {
     void deleteTag(Tag tag);
 
     void setTags(List<Tag> tags);
+
+    /**
+     * Sorts the filtered person list by company name alphabetically, case-insensitively.
+     */
+    void sortFilteredPersonListByCompany();
+    void resetFilteredPersonListSorting();
 }

@@ -18,6 +18,10 @@
     "company": "Shopee",
     "address": "4th street",
     "link": "https://linkedin.com/in/alicepauline2",
-    "dateAdded": "20-03-2026"
+    "dateAdded": "20-03-2026",
+    "tags" : [ {
+      "tagName" : "friends",
+      "tagColor" : "#3e7b91"
+    } ]
   } ]
 }

@@ -2,6 +2,9 @@ package seedu.clinkedin.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.clinkedin.commons.core.LogsCenter;
 import seedu.clinkedin.commons.util.ToStringBuilder;
 import seedu.clinkedin.logic.Messages;
 import seedu.clinkedin.model.Model;
@@ -20,16 +23,30 @@ public class FindComCommand extends Command {
             + "Parameters: COMPANY\n"
             + "Example: " + COMMAND_WORD + " Google";
 
+    private static final Logger logger = LogsCenter.getLogger(FindComCommand.class);
+
     private final CompanyContainsKeywordsPredicate predicate;
 
+    /**
+     * Creates a FindComCommand with the given predicate.
+     *
+     * @param predicate Predicate used to filter persons by company keywords.
+     */
     public FindComCommand(CompanyContainsKeywordsPredicate predicate) {
+        assert predicate != null : "Predicate should not be null";
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        logger.info("Executing findcom with keywords: " + predicate.getKeywordsString());
+
         model.updateFilteredPersonList(predicate);
+
+        assert model.getFilteredPersonList() != null : "Filtered person list should not be null";
+        logger.info("findcom matched contacts count: " + model.getFilteredPersonList().size());
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_COMPANIES_LISTED_OVERVIEW, model.getFilteredPersonList().size(),
                         predicate.getKeywordsString()));
@@ -41,7 +58,6 @@ public class FindComCommand extends Command {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof FindComCommand)) {
             return false;
         }
@@ -57,4 +73,3 @@ public class FindComCommand extends Command {
                 .toString();
     }
 }
-

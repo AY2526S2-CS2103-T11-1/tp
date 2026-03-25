@@ -3,6 +3,7 @@ package seedu.clinkedin.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.clinkedin.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -155,5 +156,12 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
         return true;
+    }
+
+    /**
+     * Sorts the internal list with the given comparator.
+     */
+    public void sort(Comparator<Person> comparator) {
+        internalList.sort(comparator);
     }
 }

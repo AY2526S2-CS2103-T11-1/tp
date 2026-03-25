@@ -274,4 +274,5 @@ public class CLinkedin implements ReadOnlyCLinkedin {
         deletedPersonRecords.removeIf(record ->
                 record.getDeletedDateTime().isBefore(LocalDateTime.now().minusDays(7)));
     }
+
 }

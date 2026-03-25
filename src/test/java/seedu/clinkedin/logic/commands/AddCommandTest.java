@@ -233,6 +233,16 @@ public class AddCommandTest {
         public void setTags(List<Tag> tags) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void sortFilteredPersonListByCompany() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetFilteredPersonListSorting() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -302,6 +312,8 @@ public class AddCommandTest {
         @Override
         public boolean hasTag(Tag tag) {
             requireNonNull(tag);
+            UniqueTagList tags = new UniqueTagList();
+            tags.add(new Tag("friends"));
             return tags.contains(tag);
         }
     }
