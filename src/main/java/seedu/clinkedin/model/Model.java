@@ -1,6 +1,7 @@
 package seedu.clinkedin.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -129,6 +130,8 @@ public interface Model {
     void addTag(Tag tag);
 
     void deleteTag(Tag tag);
+
+    void setTags(List<Tag> tags);
 
     /**
      * Sorts the filtered person list by company name alphabetically, case-insensitively.

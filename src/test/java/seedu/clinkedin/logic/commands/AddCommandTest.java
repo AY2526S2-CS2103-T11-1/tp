@@ -10,6 +10,7 @@ import static seedu.clinkedin.testutil.TypicalPersons.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -229,6 +230,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setTags(List<Tag> tags) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void sortFilteredPersonListByCompany() {
             throw new AssertionError("This method should not be called.");
         }
@@ -269,10 +275,20 @@ public class AddCommandTest {
     private class ModelStubWithPersonFriendsTag extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
         private final Person person;
+        private final CLinkedin clinkedin = new CLinkedin();
+        private final UniqueTagList tags = new UniqueTagList();
+        private final List<Tag> tagList = List.of(new Tag("friends"));
 
         ModelStubWithPersonFriendsTag(Person person) {
             requireNonNull(person);
             this.person = person;
+            tags.setTags(tagList);
+            clinkedin.setTags(tagList);
+        }
+
+        @Override
+        public ReadOnlyCLinkedin getCLinkedin() {
+            return this.clinkedin;
         }
 
         @Override

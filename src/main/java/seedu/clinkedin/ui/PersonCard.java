@@ -74,7 +74,7 @@ public class PersonCard extends UiPart<Region> {
         dateAdded.setText("Added on: " + person.getDateAdded().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> tags.getChildren().add(TagUtil.tagLabel(tag.tagName, tag.tagColor)));
 
         if (person.getCompany() != null) {
             company.setText(person.getCompany().companyName);

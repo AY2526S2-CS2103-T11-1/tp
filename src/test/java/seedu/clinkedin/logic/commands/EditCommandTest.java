@@ -15,6 +15,8 @@ import static seedu.clinkedin.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.clinkedin.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.clinkedin.testutil.TypicalPersons.getTypicalCLinkedin;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.clinkedin.commons.core.index.Index;
@@ -25,6 +27,7 @@ import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.ModelManager;
 import seedu.clinkedin.model.UserPrefs;
 import seedu.clinkedin.model.person.Person;
+import seedu.clinkedin.model.tag.Tag;
 import seedu.clinkedin.testutil.EditPersonDescriptorBuilder;
 import seedu.clinkedin.testutil.PersonBuilder;
 
@@ -54,6 +57,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
+        // Add husband tag to clinkedin
+        model.setTags(List.of(new Tag("husband")));
+
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
@@ -75,6 +81,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
+        // Add friends tag to clinkedin
+        model.setTags(List.of(new Tag("friends")));
+
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
         Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
@@ -87,6 +96,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
+        // Add friends tag to clinkedin
+        model.setTags(List.of(new Tag("friends")));
+
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -197,6 +209,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_clearCompany_success() {
+        model.setTags(List.of(new Tag("friends")));
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
@@ -217,6 +230,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_clearRemark_success() {
+        model.setTags(List.of(new Tag("friends")));
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
