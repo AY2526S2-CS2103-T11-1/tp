@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinkedin.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -147,6 +148,12 @@ public class ModelManager implements Model {
     public void deleteTag(Tag tag) {
         requireNonNull(tag);
         cLinkedin.removeTag(tag);
+    }
+
+    @Override
+    public void setTags(List<Tag> tags) {
+        requireNonNull(tags);
+        cLinkedin.setTags(tags);
     }
     //=========== Filtered Person List Accessors =============================================================
 

@@ -10,6 +10,8 @@ import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.clinkedin.commons.util.ToStringBuilder;
 import seedu.clinkedin.logic.Messages;
@@ -78,12 +80,37 @@ public class AddCommand extends Command {
                 nonExistentTags.add(tag);
             }
         }
+
         if (!nonExistentTags.isEmpty()) {
             throw new CommandException(MESSAGE_TAGS_DO_NOT_EXIST + nonExistentTags.toString());
         }
 
-        model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        Person toAddWithExistingTags = getPersonWithTags(toAdd, model);
+
+        model.addPerson(toAddWithExistingTags);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAddWithExistingTags)));
+    }
+
+    private static Person getPersonWithTags(Person person, Model model) {
+        assert person != null;
+
+        Set<Tag> existingTags = model.getCLinkedin()
+                .getTagList()
+                .stream()
+                .filter(x -> person.getTags().contains(x))
+                .collect(Collectors.toSet());
+
+
+        return new Person(
+                person.getName(),
+                person.getPhone(),
+                person.getEmail(),
+                person.getCompany(),
+                person.getAddress(),
+                java.util.Optional.ofNullable(person.getLink()),
+                person.getDateAdded(),
+                existingTags
+        );
     }
 
     @Override
