@@ -6,13 +6,13 @@ import seedu.clinkedin.commons.util.ToStringBuilder;
 import seedu.clinkedin.model.Model;
 
 /**
- * Sorts the contact list alphabetically by company name, case-insensitively.
+ * Sorts the displayed contact list alphabetically by company name, case-insensitively.
  */
 public class SortComCommand extends Command {
 
     public static final String COMMAND_WORD = "sortcom";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all contacts by company name "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all displayed contacts by company name "
             + "alphabetically (case-insensitive).\n"
             + "Example: " + COMMAND_WORD;
 

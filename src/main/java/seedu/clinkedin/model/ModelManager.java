@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.clinkedin.commons.core.GuiSettings;
 import seedu.clinkedin.commons.core.LogsCenter;
 import seedu.clinkedin.model.person.DeletedPersonRecord;
@@ -26,6 +27,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<DeletedPersonRecord> filteredDeletedPersonRecords;
+    private final SortedList<Person> sortedPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +41,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.cLinkedin.getPersonList());
         filteredDeletedPersonRecords = new FilteredList<>(this.cLinkedin.getDeletedPersonRecords());
+        sortedPersons = new SortedList<>(filteredPersons);
     }
 
     public ModelManager() {
@@ -156,7 +159,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+        return sortedPersons;
     }
 
     @Override
@@ -180,8 +183,11 @@ public class ModelManager implements Model {
 
     @Override
     public void sortFilteredPersonListByCompany() {
-        cLinkedin.sortPersonsByCompany();
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        sortedPersons.setComparator((p1, p2) -> {
+            String company1 = p1.getCompany() != null ? p1.getCompany().companyName : "";
+            String company2 = p2.getCompany() != null ? p2.getCompany().companyName : "";
+            return company1.compareToIgnoreCase(company2);
+        });
     }
 
     @Override
@@ -199,6 +205,7 @@ public class ModelManager implements Model {
         return cLinkedin.equals(otherModelManager.cLinkedin)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons)
+                && sortedPersons.equals(otherModelManager.sortedPersons)
                 && filteredDeletedPersonRecords.equals(otherModelManager.filteredDeletedPersonRecords);
     }
 

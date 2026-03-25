@@ -17,8 +17,10 @@ import org.junit.jupiter.api.Test;
 import seedu.clinkedin.commons.core.GuiSettings;
 import seedu.clinkedin.model.person.DeletedPersonRecord;
 import seedu.clinkedin.model.person.NameContainsKeywordsPredicate;
+import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.tag.Tag;
 import seedu.clinkedin.testutil.AddressBookBuilder;
+import seedu.clinkedin.testutil.PersonBuilder;
 
 public class ModelManagerTest {
 
@@ -259,5 +261,62 @@ public class ModelManagerTest {
         modelManager.addPerson(ALICE);
 
         assertFalse(modelManager.equals(new ModelManager(cLinkedin, userPrefs)));
+    }
+
+    @Test
+    public void sortFilteredPersonListByCompany_sortsDisplayedListOnly() {
+        Person shopeePerson = new PersonBuilder(BENSON).build();
+        Person googlePerson = new PersonBuilder(ALICE).build();
+
+        CLinkedin cLinkedin = new AddressBookBuilder()
+                .withPerson(shopeePerson)
+                .withPerson(googlePerson)
+                .build();
+        ModelManager sortedModelManager = new ModelManager(cLinkedin, new UserPrefs());
+
+        // Before sorting: underlying order should follow insertion order
+        assertEquals(shopeePerson, sortedModelManager.getCLinkedin().getPersonList().get(0));
+        assertEquals(googlePerson, sortedModelManager.getCLinkedin().getPersonList().get(1));
+
+        sortedModelManager.sortFilteredPersonListByCompany();
+
+        // Displayed list is sorted by company name
+        assertEquals(googlePerson, sortedModelManager.getFilteredPersonList().get(0));
+        assertEquals(shopeePerson, sortedModelManager.getFilteredPersonList().get(1));
+
+        // Underlying list remains unchanged
+        assertEquals(shopeePerson, sortedModelManager.getCLinkedin().getPersonList().get(0));
+        assertEquals(googlePerson, sortedModelManager.getCLinkedin().getPersonList().get(1));
+    }
+
+    @Test
+    public void sortFilteredPersonListByCompany_filteredListRemainsFiltered() {
+        Person shopeePerson = new PersonBuilder(BENSON).build();
+        Person googlePerson = new PersonBuilder(ALICE).build();
+
+        CLinkedin cLinkedin = new AddressBookBuilder()
+                .withPerson(shopeePerson)
+                .withPerson(googlePerson)
+                .build();
+        ModelManager sortedModelManager = new ModelManager(cLinkedin, new UserPrefs());
+
+        sortedModelManager.updateFilteredPersonList(person -> person.isSamePerson(shopeePerson));
+        sortedModelManager.sortFilteredPersonListByCompany();
+
+        assertEquals(1, sortedModelManager.getFilteredPersonList().size());
+        assertEquals(shopeePerson, sortedModelManager.getFilteredPersonList().get(0));
+    }
+
+    @Test
+    public void equals_differentSortedPersons_returnsFalse() {
+        CLinkedin cLinkedin = new AddressBookBuilder().withPerson(BENSON).withPerson(ALICE).build();
+        UserPrefs userPrefs = new UserPrefs();
+
+        ModelManager modelManagerOne = new ModelManager(cLinkedin, userPrefs);
+        ModelManager modelManagerTwo = new ModelManager(cLinkedin, userPrefs);
+
+        modelManagerOne.sortFilteredPersonListByCompany();
+
+        assertFalse(modelManagerOne.equals(modelManagerTwo));
     }
 }
