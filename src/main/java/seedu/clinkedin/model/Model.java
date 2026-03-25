@@ -134,4 +134,5 @@ public interface Model {
      * Sorts the filtered person list by company name alphabetically, case-insensitively.
      */
     void sortFilteredPersonListByCompany();
+    void resetFilteredPersonListSorting();
 }

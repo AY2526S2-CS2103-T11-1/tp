@@ -233,6 +233,11 @@ public class SortComCommandTest {
         }
 
         @Override
+        public void resetFilteredPersonListSorting() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
@@ -249,7 +254,8 @@ public class SortComCommandTest {
 
         @Override
         public void sortFilteredPersonListByCompany() {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError(
+                    "This method should not be called.");
         }
     }
 

@@ -190,6 +190,11 @@ public class TagCreateCommandTest {
         public void sortFilteredPersonListByCompany() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void resetFilteredPersonListSorting() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

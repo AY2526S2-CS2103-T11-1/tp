@@ -319,4 +319,24 @@ public class ModelManagerTest {
 
         assertFalse(modelManagerOne.equals(modelManagerTwo));
     }
+
+    @Test
+    public void resetFilteredPersonListSorting_restoresOriginalOrder() {
+        Person shopeePerson = new PersonBuilder(BENSON).build();
+        Person googlePerson = new PersonBuilder(ALICE).build();
+
+        CLinkedin cLinkedin = new AddressBookBuilder()
+                .withPerson(shopeePerson)
+                .withPerson(googlePerson)
+                .build();
+        ModelManager modelManager = new ModelManager(cLinkedin, new UserPrefs());
+
+        modelManager.sortFilteredPersonListByCompany();
+        assertEquals(googlePerson, modelManager.getFilteredPersonList().get(0));
+        assertEquals(shopeePerson, modelManager.getFilteredPersonList().get(1));
+
+        modelManager.resetFilteredPersonListSorting();
+        assertEquals(shopeePerson, modelManager.getFilteredPersonList().get(0));
+        assertEquals(googlePerson, modelManager.getFilteredPersonList().get(1));
+    }
 }
