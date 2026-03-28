@@ -1,0 +1,22 @@
+@startuml
+start
+
+:User executes `tag create`;
+
+if (Tag already exists?) then (yes)
+    :Show duplicate tag error;
+    stop
+else (no)
+endif
+
+if (Colour provided?) then (yes)
+    :Create tag with given colour;
+else (no)
+    :Assign default colour;
+    :Create tag with default colour;
+endif
+
+:Add tag to tag list;
+stop
+
+@enduml

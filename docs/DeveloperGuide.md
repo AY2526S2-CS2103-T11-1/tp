@@ -158,6 +158,43 @@ Classes used by multiple components are in the `seedu.clinkedin.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Tag management
+#### Tag creation
+
+The `tag create` command allows users to create a new tag with an optional colour.
+
+When the command is executed, the system first checks whether a tag with the same name already exists. Since duplicate tag names are not allowed, the command fails if the tag already exists.
+
+If the tag name is valid and no duplicate is found, the system checks whether a colour was provided. If no colour is specified, a default colour is assigned. The tag is then added to the tag list.
+
+The following activity diagram illustrates the decision flow of the `tag create` command:
+
+<puml src="diagrams/tag/TagCreateActivityDiagram.puml" alt="TagCreateActivityDiagram" />
+
+The following sequence diagram illustrates how the `tag create` command is handled by the system components:
+
+<puml src="diagrams/tag/TagCreateSequenceDiagram.puml" alt="TagCreateSequenceDiagram" />
+
+#### Tag deletion
+
+The `tag delete` command allows users to delete an existing tag.
+
+When the command is executed, the system first checks whether the specified tag exists. If the tag does not exist, the command fails and an error message is shown.
+
+If the tag exists, the tag is removed from the tag list. The system then removes that tag from all contacts currently using it, while leaving all other tags on those contacts unchanged.
+
+The following activity diagram illustrates the decision flow of the `tag delete` command:
+
+<puml src="diagrams/tag/TagDeleteActivityDiagram.puml" alt="TagDeleteActivityDiagram" />
+
+The following sequence diagram illustrates how the `tag delete` command is handled by the system components:
+
+<puml src="diagrams/tag/TagDeleteSequenceDiagram.puml" alt="TagDeleteSequenceDiagram" />
+
+---
+
+use below as reference, remove by v1.5
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation

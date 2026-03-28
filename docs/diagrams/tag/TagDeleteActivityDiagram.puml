@@ -1,0 +1,16 @@
+@startuml
+start
+
+:User executes `tag delete`;
+
+if (Tag exists?) then (no)
+    :Show error message;
+    stop
+else (yes)
+endif
+
+:Remove tag from tag list;
+:Remove tag from all contacts using it;
+stop
+
+@enduml
