@@ -398,109 +398,199 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 (For all use cases below, the **System** is the `CLinkedin` and the **Actor** is the `user`, unless specified otherwise)
 
 ---
-### **Use Case 1: List all contacts**
-**Preconditions:** The application is running.
+### **Use Case: Edit contact**
 
-**Guarantees**:
-* The current list of contacts is displayed.
-* The contact list remains unchanged.
-#### **MSS**
-
-1.  User opens CLinkedin program.
-2.  User requests to list all contacts.
-3.  CLinkedin displays the list of contacts.
-
-    Use case ends.
-
----
-### **Use Case 2: Add a new contact**
-**Preconditions:** The application is running.
-
-**Guarantees**:
-* If successful, the new contact is stored in the contact list.
-* If unsuccessful, the contact list remains unchanged.
-#### **MSS**
-
-1.  User requests to add a new contact by using the valid command format.
-2.  CLinkedin validates the provided contact details.
-3.  CLinkedin adds the new contact to the bottom of the list.
-4.  CLinkedin displays a success message with the newly added contact's details.
-    Use case resumes at step 1.
-
-#### **Extensions**
-
-* 2a. The user provided an invalid command format.
-
-    * 2a1. CLinkedin shows an error message that the command format provided is invalid.
-
-      Use case resumes at step 1.
-
-* 2b. The user provided a duplicate phone number that already exist in list.
-
-    * 2b1. CLinkedin shows an error message that the phone number already exists in list.
-
-      Use case resumes at step 1.
-
----
-
-### **Use Case 3: Delete a contact**
 **Preconditions:**
 * The application is running.
 * The contact list is not empty.
 
-**Guarantees**:
-* If successful, the specified contact is permanently removed from the contact list.
+**Guarantees:**
+* If successful, the specified contact is updated.
 * If unsuccessful, the contact list remains unchanged.
+
 #### **MSS**
 
-1.  User requests to delete a contact by entering the delete command along with the contact's index in list.
-2.  CLinkedin validates that the provided index is valid.
-3.  CLinkedin deletes the contact at the provided index in the list.
-4.  CLinkedin displays a success message that the contact has been deleted.
-
-    Use case ends.
-
-#### **Extensions**
-
-* 1a. The user provided an index that does not exist in list.
-
-    * 1a1. CLinkedin shows an error message that the index is not in the list.
-
-      Use case resumes at step 1.
-
-* 1b. The user provided an invalid integer index.
-
-    * 1b1. CLinkedin shows an error message that the command format provided is invalid.
-
-      Use case resumes at step 1.
-
----
-
-### **Use Case 4: Search for a contact**
-**Preconditions**:The application is running.
-
-**Guarantees**:
-* The displayed list reflects contacts matching the search keyword.
-* The stored contact list remains unchanged.
-#### **MSS**
-
-1. User requests to search for a specific person in the list by providing a name keyword.
-2. CLinkedin filters and displays contacts whose names match the keyword.
+1. User requests to list contacts.
+2. CLinkedin displays the list of contacts.
+3. User requests to edit a contact by entering the edit command with the contact's index and the fields to be updated.
+4. CLinkedin validates the provided index and updated field values.
+5. CLinkedin updates the contact with the new details.
+6. CLinkedin displays a success message with the edited contact's details.
 
    Use case ends.
 
 #### **Extensions**
-* 1a. No contacts match the given keyword.
-    * 1a1. CLinkedin displays an empty list.
 
-  Use case ends.
+* 3a. The user provides an index that does not exist in the list.
+    * 3a1. CLinkedin shows an error message that the index is invalid.
 
-* 2a. The list is empty.
+      Use case resumes at step 1.
 
-  Use case ends.
+* 3b. The user provides an invalid command format.
+    * 3b1. CLinkedin shows an error message that the command format is invalid.
+
+      Use case resumes at step 1.
+
+* 4a. The updated field value is invalid.
+    * 4a1. CLinkedin shows an error message indicating which field value is invalid.
+
+      Use case resumes at step 1.
+
+* 4b. The updated phone number already exists in another contact.
+    * 4b1. CLinkedin shows an error message that the phone number already exists in the list.
+
+      Use case resumes at step 1.
 
 ---
 
+### **Use Case: Delete contact**
+
+**Preconditions:**
+* The application is running.
+* The contact list is not empty.
+
+**Guarantees:**
+* If successful, the specified contact is removed from the contact list and stored in the deleted contacts list with a timestamp.
+* If unsuccessful, the contact list remains unchanged.
+
+#### **MSS**
+
+1. User requests to list contacts.
+2. CLinkedin displays the list of contacts.
+3. User requests to delete a contact by entering the delete command with the contact's index.
+4. CLinkedin validates that the provided index is valid.
+5. CLinkedin removes the contact from the contact list and stores it in the deleted contacts list with a timestamp.
+6. CLinkedin displays a success message that the contact has been deleted.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 3a. The user provides an index that does not exist in the list.
+    * 3a1. CLinkedin shows an error message that the index is invalid.
+
+      Use case resumes at step 1.
+
+* 3b. The user provides an invalid command format.
+    * 3b1. CLinkedin shows an error message that the command format is invalid.
+
+      Use case resumes at step 1.
+
+---
+
+### **Use Case: Create tag**
+
+**Preconditions:**
+* The application is running.
+
+**Guarantees:**
+* If successful, a new tag is added to the tag list.
+* If unsuccessful, the tag list remains unchanged.
+
+#### **MSS**
+
+1. User requests to create a tag with a name and an optional color.
+2. CLinkedin validates the provided tag details.
+3. CLinkedin creates the tag.
+4. CLinkedin displays a success message.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 2a. The tag name already exists.
+    * 2a1. CLinkedin shows an error message that the tag already exists.
+
+      Use case resumes at step 1.
+
+* 2b. The tag color format is invalid.
+    * 2b1. CLinkedin shows an error message that the tag color format is invalid.
+
+      Use case resumes at step 1.
+
+---
+
+### **Use Case: Modify tag**
+
+**Preconditions:**
+* The application is running.
+* The tag already exists.
+
+**Guarantees:**
+* If successful, the specified tag is updated or removed accordingly.
+* If unsuccessful, the tag list remains unchanged.
+
+#### **MSS**
+
+1. User requests to rename a tag.
+2. CLinkedin validates the new tag name.
+3. CLinkedin updates the tag name.
+4. CLinkedin updates all contacts that contain the tag.
+5. CLinkedin displays a success message.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 2a. The new tag name already exists.
+    * 2a1. CLinkedin shows an error message that the tag name already exists.
+
+      Use case resumes at step 1.
+
+* 1a. User requests to change a tag's color.
+    * 1a1. CLinkedin validates the new color value.
+    * 1a2. CLinkedin updates the tag color.
+    * 1a3. CLinkedin displays a success message.
+
+      Use case ends.
+
+* 1b. User requests to delete a tag.
+    * 1b1. CLinkedin removes the tag from the tag list.
+    * 1b2. CLinkedin removes the tag from all associated contacts.
+    * 1b3. CLinkedin displays a success message.
+
+      Use case ends.
+---
+
+### **Use Case: Assign or unassign tags for contacts**
+
+**Preconditions:**
+* The application is running.
+* The tag already exists.
+
+**Guarantees:**
+* If successful, the specified contacts are updated with the tag assignment changes.
+* If unsuccessful, no contact-tag assignments are changed.
+
+#### **MSS**
+
+1. User requests to assign a tag to one or more contacts.
+2. CLinkedin validates the provided contact indexes and tag name.
+3. CLinkedin assigns the tag to the specified contacts.
+4. CLinkedin displays a success message.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 2a. The user provides an invalid contact index.
+    * 2a1. CLinkedin shows an error message that the index is invalid.
+
+      Use case resumes at step 1.
+
+* 2b. The tag does not exist.
+    * 2b1. CLinkedin shows an error message that the tag does not exist.
+
+      Use case resumes at step 1.
+
+* 1a. User requests to unassign a tag from one or more contacts.
+    * 1a1. CLinkedin validates the provided contact indexes and tag name.
+    * 1a2. CLinkedin removes the tag from the specified contacts.
+    * 1a3. CLinkedin displays a success message.
+
+      Use case ends.
+
+---
 
 ### Non-Functional Requirements
 
