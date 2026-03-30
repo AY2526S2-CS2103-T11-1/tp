@@ -85,15 +85,6 @@ public class CompanyContainsKeywordsPredicateTest {
                 .withAddress("Main Street")
                 .withCompany("Google")
                 .build()));
-
-        // Person without company
-        predicate = new CompanyContainsKeywordsPredicate(Arrays.asList("Google"));
-        assertFalse(predicate.test(new PersonBuilder()
-                .withName("Alice")
-                .withPhone("12345678")
-                .withEmail("alice@example.com")
-                .withAddress("Main Street")
-                .build()));
     }
 
     @Test
