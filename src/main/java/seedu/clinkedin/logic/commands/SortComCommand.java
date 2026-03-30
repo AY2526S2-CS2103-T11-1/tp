@@ -24,10 +24,10 @@ public class SortComCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         logger.info("Executing sortcom: sorting displayed contacts by company");
-        model.sortFilteredPersonListByCompany();
         if (model.getFilteredPersonList().isEmpty()) {
             return new CommandResult(MESSAGE_EMPTY);
         }
+        model.sortFilteredPersonListByCompany();
         assert model.getFilteredPersonList() != null : "Filtered person list should not be null after sorting";
         logger.info("sortcom completed successfully");
         return new CommandResult(MESSAGE_SUCCESS);
