@@ -28,6 +28,7 @@ public class TagRenameCommand extends TagCommand {
     public static final String MESSAGE_TAG_NOT_FOUND = "Old tag not found.";
     public static final String MESSAGE_DUPLICATE_TAG = "Tag name already exists.";
     public static final String MESSAGE_SAME_TAG = "Old tag name and new tag name cannot be the same.";
+    public static final String MESSAGE_SPACE_IN_TAG = "Tag names cannot contain spaces.\n%1$s";
 
     private final Tag oldTag;
     private final Tag newTag;
