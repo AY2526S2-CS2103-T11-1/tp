@@ -97,8 +97,7 @@ public class TagAssignCommandTest {
         TagAssignCommand command = new TagAssignCommand(
                 Arrays.asList(INDEX_FIRST_PERSON, INDEX_FIRST_PERSON), tag);
         assertThrows(CommandException.class,
-                String.format(TagAssignCommand.MESSAGE_DUPLICATE_INDEX, "1"),
-                () -> command.execute(model));
+                String.format(TagAssignCommand.MESSAGE_DUPLICATE_INDEX, "1"), () -> command.execute(model));
     }
 
     @Test
@@ -110,7 +109,6 @@ public class TagAssignCommandTest {
                 Arrays.asList(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON,
                         INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), tag);
         assertThrows(CommandException.class,
-                String.format(TagAssignCommand.MESSAGE_DUPLICATE_INDEX, "1, 2"),
-                () -> command.execute(model));
+                String.format(TagAssignCommand.MESSAGE_DUPLICATE_INDEX, "1, 2"), () -> command.execute(model));
     }
 }
