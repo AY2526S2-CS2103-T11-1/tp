@@ -25,7 +25,7 @@ public class RemarkTest {
     public void getRemarkValidationError_invalidRemark_returnsCorrectMessage() {
         assertEquals(Remark.MESSAGE_NULL, Remark.getRemarkValidationError(null));
         assertEquals(Remark.MESSAGE_EMPTY, Remark.getRemarkValidationError(""));
-        assertEquals("Remark cannot contain '/'.",
+        assertEquals(Remark.REMARK_CONTAINS_INVALID_CHARACTERS,
                 Remark.getRemarkValidationError("hello/world"));
         assertEquals(Remark.MESSAGE_TOO_LONG, Remark.getRemarkValidationError("a".repeat(201)));
     }
