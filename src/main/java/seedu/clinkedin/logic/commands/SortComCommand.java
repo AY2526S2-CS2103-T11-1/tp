@@ -13,6 +13,7 @@ import seedu.clinkedin.model.Model;
  */
 public class SortComCommand extends Command {
     public static final String COMMAND_WORD = "sortcom";
+    public static final String MESSAGE_EMPTY = "No contacts to be sorted by company name.";
     public static final String MESSAGE_SUCCESS = "Contacts sorted by company name.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all displayed contacts by company name "
             + "alphabetically (case-insensitive).\n"
@@ -24,6 +25,9 @@ public class SortComCommand extends Command {
         requireNonNull(model);
         logger.info("Executing sortcom: sorting displayed contacts by company");
         model.sortFilteredPersonListByCompany();
+        if (model.getFilteredPersonList().isEmpty()) {
+            return new CommandResult(MESSAGE_EMPTY);
+        }
         assert model.getFilteredPersonList() != null : "Filtered person list should not be null after sorting";
         logger.info("sortcom completed successfully");
         return new CommandResult(MESSAGE_SUCCESS);
