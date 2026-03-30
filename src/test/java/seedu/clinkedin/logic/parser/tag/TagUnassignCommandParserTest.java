@@ -60,8 +60,9 @@ public class TagUnassignCommandParserTest {
 
     @Test
     public void parse_malformedIndexList_throwsParseException() {
+        // empty segment between commas
         assertParseFailure(parser, "1,,2 friends",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagUnassignCommand.MESSAGE_USAGE));
+                "Indexes should not contain consecutive commas.");
     }
 
     @Test
