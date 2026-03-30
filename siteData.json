@@ -132,6 +132,8 @@
         "creating-a-tag-tag-create": "Creating a tag: tag create",
         "assigning-unassigning-a-tag-tag-assign-tag-unassign": "Assigning/Unassigning a tag: tag assign, tag unassign",
         "deleting-a-tag-tag-delete": "Deleting a tag: tag delete",
+        "listing-all-tags-tag-list": "Listing all tags: tag list",
+        "renaming-a-tag-tag-rename": "Renaming a tag: tag rename",
         "adding-color-to-a-tag-tag-color": "Adding color to a tag: tag color",
         "filter-contacts-by-tag-tag-show": "Filter contacts by tag: tag show",
         "clearing-all-entries-clear": "Clearing all entries : clear",
