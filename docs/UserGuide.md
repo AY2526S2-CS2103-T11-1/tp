@@ -190,8 +190,8 @@ Format: `tag create TAG_NAME [COLOR]`
 
 <box type="tip" seamless>
 
-**Tip:** Valid color formats include plain names, hexadecimal, or rgb values.<br>
-Examples: `orange`, `#ff6688`, `rgb(255,102,136)`
+**Tip:** Valid color formats include case-insensitive plain names, or hexadecimal values.<br>
+Examples: `orange`, `#ff6688`
 
 </box>
 
@@ -237,13 +237,12 @@ Adds a color to a tag.
 Format: `tag color TAG_NAME [COLOR]`
 
 * Adds a valid color to the specified `TAG_NAME`.
-* A valid color is any plain text, rgb value, or hex value as specified in the JavaFX documentation of `Color.web(String colorString)`.
+* A valid color is any case-insensitive plain name, or hexadecimal value.
 * If the tag does not exist, an error message will be shown.
 * If the color is invalid, an error message will be shown.
 
 Examples:
 * `tag color friends blue`
-* `tag color enemy rgb(255,0,0)`
 * `tag color coworker #343434`
 
 ### Filter contacts by tag: `tag show`
