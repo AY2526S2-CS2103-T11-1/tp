@@ -27,6 +27,7 @@ public class TagRenameCommand extends TagCommand {
             + "Example: tag " + COMMAND_WORD + " friends colleagues";
     public static final String MESSAGE_TAG_NOT_FOUND = "Old tag not found.";
     public static final String MESSAGE_DUPLICATE_TAG = "Tag name already exists.";
+    public static final String MESSAGE_SAME_TAG = "Old tag name and new tag name cannot be the same.";
 
     private final Tag oldTag;
     private final Tag newTag;
@@ -45,6 +46,10 @@ public class TagRenameCommand extends TagCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (oldTag.tagName.equals(newTag.tagName)) {
+            throw new CommandException(MESSAGE_SAME_TAG);
+        }
 
         if (!model.hasTag(oldTag)) {
             throw new CommandException(MESSAGE_TAG_NOT_FOUND);
