@@ -612,6 +612,78 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a3. CLinkedin displays a success message.
 
       Use case ends.
+---
+### **Use Case: Find contacts by company**
+
+**Preconditions:**
+
+* The application is running.
+* The contact list is not empty.
+
+**Guarantees:**
+
+* If successful, a filtered list of contacts matching the company keywords is displayed.
+* If unsuccessful, the contact list remains unchanged.
+
+#### **MSS**
+
+1. User requests to find contacts by entering the `findcom` command with one or more company keywords.
+2. CLinkedin parses the input keywords.
+3. CLinkedin filters the contact list to include contacts whose company matches any of the keywords.
+4. CLinkedin displays the filtered list of contacts along with a summary message.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 1a. The user provides no keywords.
+
+    * 1a1. CLinkedin shows an error message that the command format is invalid.
+
+      Use case resumes at step 1.
+
+* 2a. The input format is invalid.
+
+    * 2a1. CLinkedin shows an error message that the command format is invalid.
+
+      Use case resumes at step 1.
+
+* 3a. No contacts match the given keywords.
+
+    * 3a1. CLinkedin displays an empty list with a summary message indicating 0 contacts found.
+
+      Use case ends.
+
+---
+
+### **Use Case: Sort contacts by company**
+
+**Preconditions:**
+
+* The application is running.
+* The contact list is not empty.
+
+**Guarantees:**
+
+* If successful, the currently displayed contact list is sorted by company name.
+* If unsuccessful, the contact list remains unchanged.
+
+#### **MSS**
+
+1. User requests to sort contacts by entering the `sortcom` command.
+2. CLinkedin sorts the currently displayed contact list alphabetically by company name (case-insensitive).
+3. CLinkedin displays the sorted contact list.
+4. CLinkedin displays a success message.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 1a. The user provides an invalid command format.
+
+    * 1a1. CLinkedin shows an error message that the command format is invalid.
+
+      Use case resumes at step 1.
 
 ---
 
