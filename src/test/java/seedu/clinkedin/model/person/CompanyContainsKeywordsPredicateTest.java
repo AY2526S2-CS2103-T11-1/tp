@@ -24,8 +24,6 @@ public class CompanyContainsKeywordsPredicateTest {
         CompanyContainsKeywordsPredicate secondPredicate =
                 new CompanyContainsKeywordsPredicate(secondPredicateKeywordList);
 
-        assertFalse(firstPredicate.equals(null));
-
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
@@ -86,6 +84,15 @@ public class CompanyContainsKeywordsPredicateTest {
                 .withPhone("12345678")
                 .withAddress("Main Street")
                 .withCompany("Google")
+                .build()));
+
+        // Person without company
+        predicate = new CompanyContainsKeywordsPredicate(Arrays.asList("Google"));
+        assertFalse(predicate.test(new PersonBuilder()
+                .withName("Alice")
+                .withPhone("12345678")
+                .withEmail("alice@example.com")
+                .withAddress("Main Street")
                 .build()));
     }
 
