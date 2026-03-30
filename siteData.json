@@ -128,6 +128,8 @@
         "creating-a-tag-tag-create": "Creating a tag: tag create",
         "assigning-unassigning-a-tag-tag-assign-tag-unassign": "Assigning/Unassigning a tag: tag assign, tag unassign",
         "deleting-a-tag-tag-delete": "Deleting a tag: tag delete",
+        "adding-color-to-a-tag-tag-color": "Adding color to a tag: tag color",
+        "filter-contacts-by-tag-tag-show": "Filter contacts by tag: tag show",
         "clearing-all-entries-clear": "Clearing all entries : clear",
         "exiting-the-program-exit": "Exiting the program : exit",
         "saving-the-data": "Saving the data",
