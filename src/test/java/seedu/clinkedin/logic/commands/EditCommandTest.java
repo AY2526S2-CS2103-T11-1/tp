@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.DESC_BOB;
-
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_LINK_BOB;
@@ -54,7 +53,7 @@ public class EditCommandTest {
                 .withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND)
-                .withLink(VALID_LINK_BOB)   // ← was missing
+                .withLink(VALID_LINK_BOB)
                 .build();
 
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
@@ -63,7 +62,7 @@ public class EditCommandTest {
                 .withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND)
-                .withLink(VALID_LINK_BOB)   // ← was missing
+                .withLink(VALID_LINK_BOB)
                 .build();
 
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
