@@ -24,6 +24,8 @@ public class CompanyContainsKeywordsPredicateTest {
         CompanyContainsKeywordsPredicate secondPredicate =
                 new CompanyContainsKeywordsPredicate(secondPredicateKeywordList);
 
+        assertFalse(firstPredicate.equals(null));
+
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
