@@ -246,11 +246,8 @@ The following sequence diagram illustrates how the `tag delete` command is handl
 
 <puml src="diagrams/tag/TagDeleteSequenceDiagram.puml" alt="TagDeleteSequenceDiagram" />
 
-
-### \[Proposed\] Undo/redo feature
-
-### Tag management
 #### Tag assignment
+
 The `tag assign` command allows users to assign an existing tag to one or more contacts at once.
 
 When the command is executed, the system first verifies that the specified tag exists in the tag list. If it does, it checks that all provided contact indices are valid. If any index is invalid, the command aborts to prevent partial execution. Upon successful validation, the tag is added to the specified contacts, and the model is updated.
@@ -262,6 +259,7 @@ The following sequence diagram illustrates the execution:
 <puml src="diagrams/tag/TagAssignSequenceDiagram.puml" alt="TagAssignSequenceDiagram" />
 
 #### Tag rename
+
 The `tag rename` commands allow users to modify the name of an existing tag, while also replacing the tag attached to the respective contacts.
 
 Because tags are immutable objects in this architecture, modifying a tag requires replacing it. The system first validates that the old tag exists. It then creates the new tag in the global `CLinkedin` tag list and attach it to the contacts containing the old tag through iteration. Finally, it removes the old tag from the tag list.
@@ -271,6 +269,12 @@ The following activity diagram illustrates the decision flow:
 
 The sequence diagram below illustrates the execution:
 <puml src="diagrams/tag/TagRenameSequenceDiagram.puml" alt="TagRenameSequenceDiagram" />
+
+---
+
+use below as reference, remove by v1.5
+
+### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
 
@@ -717,7 +721,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1. Should work on any mainstream OS as long as it has Java 17 or above installed.
+1. Should work on any _mainstream OS_ as long as it has Java 17 or above installed.
 2. The application should respond within 1 second for common commands (add, edit, delete, find, sort) when handling up to 1000 contacts.
 3. A user with average typing speed should be able to complete common tasks (e.g., add, edit, find) within 10 seconds using commands.
 4. Should automatically save all changes to the local data file after each successful command.

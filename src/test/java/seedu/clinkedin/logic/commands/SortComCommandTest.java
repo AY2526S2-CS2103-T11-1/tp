@@ -36,7 +36,7 @@ public class SortComCommandTest {
 
         CommandResult commandResult = sortComCommand.execute(modelStub);
 
-        assertEquals(SortComCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(SortComCommand.MESSAGE_EMPTY, commandResult.getFeedbackToUser());
         assertTrue(modelStub.getFilteredPersonList().isEmpty());
     }
 
