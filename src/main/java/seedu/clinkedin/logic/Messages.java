@@ -22,6 +22,8 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_DELETED_PERSON_RECORD_DISPLAYED_INDEX =
             "The deleted person record index provided is invalid";
+    public static final String MESSAGE_TAG_SHOW_SINGLE_TAG_ONLY =
+            "This command only accepts 1 tag as parameter and has to be alphanumeric!";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
