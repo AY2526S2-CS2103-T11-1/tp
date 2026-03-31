@@ -3,6 +3,7 @@ package seedu.clinkedin.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.clinkedin.logic.commands.AddCommand.MESSAGE_TAGS_DO_NOT_EXIST;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -11,17 +12,20 @@ import static seedu.clinkedin.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinkedin.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.clinkedin.testutil.Assert.assertThrows;
 import static seedu.clinkedin.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.clinkedin.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.clinkedin.testutil.TypicalPersons.getTypicalCLinkedin;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.clinkedin.commons.core.index.Index;
 import seedu.clinkedin.logic.Messages;
 import seedu.clinkedin.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.clinkedin.logic.commands.exceptions.CommandException;
 import seedu.clinkedin.model.CLinkedin;
 import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.ModelManager;
@@ -251,6 +255,15 @@ public class EditCommandTest {
         expectedModel.setPerson(personToEdit, editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_tagsDoNoExistPerson_throwsCommandException() {
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+        descriptor.setTags(Set.of( new Tag("friends")));
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        String errorMessage = MESSAGE_TAGS_DO_NOT_EXIST + "[[friends]]";
+        assertThrows(CommandException.class, errorMessage, () -> editCommand.execute(model));
     }
 
 }
