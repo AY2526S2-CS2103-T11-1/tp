@@ -310,10 +310,10 @@ Renames an existing tag and updates all respective contacts with it.
 
 Format: `tag rename OLD_TAG_NAME NEW_TAG_NAME`
 
-* Renames the tag specified by OLD_TAG_NAME to the NEW_TAG_NAME. 
-* The tag will be updated for all contacts that currently have it assigned. 
+* Renames the tag specified by OLD_TAG_NAME to the NEW_TAG_NAME.
+* The tag will be updated for all contacts that currently have it assigned.
 * Note: Tag names cannot contain spaces.
-* The old and new tag names cannot be the same. 
+* The old and new tag names cannot be the same.
 * If the OLD_TAG_NAME does not exist, an error message will be shown.
 
 Examples:
@@ -434,10 +434,10 @@ Action              | Format, Examples
 * Prefixes must be used **without spaces** between the prefix and `/`.
 
     * Valid:  
-      `c/Google`  
+      `c/Google`
       `r/Met at event`
 
-    * Invalid:  
+    * Invalid:
       `c / Google`  
       `r / Met at event`
 
@@ -445,7 +445,7 @@ Action              | Format, Examples
 
 * Fields marked as *(optional)* (`c/`, `l/`, `r/`, `t/`) can be omitted when adding or editing a contact.
 
-* Each field must still follow its respective input constraints  
+* Each field must still follow its respective input constraints
   (refers to input constraints in [**Add command**](#adding-a-contact-add) section above for details).
 
 </box>
