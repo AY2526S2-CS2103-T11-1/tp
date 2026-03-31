@@ -1,6 +1,7 @@
 package seedu.clinkedin.logic.parser.tag;
 
 import static seedu.clinkedin.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinkedin.logic.Messages.MESSAGE_TAG_SHOW_SINGLE_TAG_ONLY;
 import static seedu.clinkedin.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinkedin.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -28,7 +29,7 @@ public class TagShowCommandParserTest {
 
     @Test
     public void parse_invalidArgWithSpaces_throwsParseException() {
-        String errorMessage = "This command only accepts 1 tag as parameter and has to be alphanumeric!";
+        String errorMessage = MESSAGE_TAG_SHOW_SINGLE_TAG_ONLY;
         assertParseFailure(parser, "close friends", errorMessage);
     }
 }
