@@ -1,6 +1,7 @@
 package seedu.clinkedin.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinkedin.logic.commands.AddCommand.MESSAGE_TAGS_DO_NOT_EXIST;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -11,6 +12,7 @@ import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinkedin.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinkedin.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -99,6 +101,18 @@ public class EditCommand extends Command {
         if (!personToEdit.getPhone().equals(editedPerson.getPhone())
                 && model.hasPhoneNumber(editedPerson.getPhone())) {
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+        }
+
+        // Checks if tag exist
+        ArrayList<Tag> nonExistentTags = new ArrayList<>();
+        for (Tag tag : editedPerson.getTags()) {
+            if (!model.hasTag(tag)) {
+                nonExistentTags.add(tag);
+            }
+        }
+
+        if (!nonExistentTags.isEmpty()) {
+            throw new CommandException(MESSAGE_TAGS_DO_NOT_EXIST + nonExistentTags.toString());
         }
 
         Person editedPersonWithTags = getPersonWithTags(editedPerson, model);
