@@ -93,6 +93,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [l/LINK] [r/REM
     - Must not contain `/` or `@`
     - Must not contain multiple consecutive spaces
     - Maximum 100 characters
+- **Link**
+    - Must start with 'http://' or 'https://'
 - **Remark**
     - Must not contain `/`
     - Maximum 200 characters
@@ -123,6 +125,12 @@ Edits an existing contact in CLinkedin.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`
 
+<box type="warning" seamless>
+
+Each field must still follow its respective input constraints (refers to input constraints in [**Add command**](#adding-a-contact-add) section above for details).
+
+</box>
+
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
@@ -133,7 +141,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com`:Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
-* `edit 3 c/ r/` Clears both the company and remark fields of the 3rd contact.
+*  `edit 3 c/ r/` Clears both the company and remark fields of the 3rd contact.
 
 ### Locating contacts by name: `find`
 
@@ -153,7 +161,7 @@ Examples:
 * `find alex david` returns `Alex David` only
 * `find alex; yu` returns `Alex Yeoh` and `Bernice Yu`
 
-### Finding contacts by company: `findcom`
+### **Finding contacts by company: `findcom`**
 
 Finds all contacts whose company name matches any of the given keywords.
 
@@ -310,11 +318,11 @@ Renames an existing tag and updates all respective contacts with it.
 
 Format: `tag rename OLD_TAG_NAME NEW_TAG_NAME`
 
-* Renames the tag specified by OLD_TAG_NAME to the NEW_TAG_NAME.
-* The tag will be updated for all contacts that currently have it assigned.
+* Renames the tag specified by `OLD_TAG_NAME` to the `NEW_TAG_NAME`. 
+* The tag will be updated for all contacts that currently have it assigned. 
 * Note: Tag names cannot contain spaces.
-* The old and new tag names cannot be the same.
-* If the OLD_TAG_NAME does not exist, an error message will be shown.
+* The old and new tag names cannot be the same. 
+* If the `OLD_TAG_NAME` does not exist, an error message will be shown.
 
 Examples:
 * `tag rename friends closefriends`
@@ -324,7 +332,7 @@ Examples:
 
 Adds a color to a tag.
 
-Format: `tag color TAG_NAME [COLOR]`
+Format: `tag color TAG_NAME COLOR`
 
 * Adds a valid color to the specified `TAG_NAME`.
 * A valid color is any case-insensitive plain name, or hexadecimal value.
@@ -367,7 +375,7 @@ CLinkedin data are saved in the hard disk automatically after any command that c
 
 ### Editing the data file
 
-CLinkedin data are saved automatically as a JSON file `[JAR file location]/data/clinkedin.json`. Advanced users are welcome to update data directly by editing that data file.
+CLinkedin data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -410,12 +418,14 @@ Action              | Format, Examples
 **List**            | `list`
 **Deleted**         | `deleted`
 **Restore**         | `restore INDEX`<br> e.g., `restore 1`
-**Create Tag**      | `tag create TAG_NAME [COLOR]`<br> e.g., `tag create friend blue`
-**Assign Tag**      | `tag assign INDEX[,INDEX]... TAG_NAME`<br> e.g., `tag assign 1,4,6 friend`
-**List Tag**        | `tag list`
-**Rename Tag**      | `tag rename OLD_TAG_NAME NEW_TAG_NAME`<br> e.g., `tag rename friends closefriends`
-**Unassign Tag**    | `tag unassign INDEX[,INDEX]... TAG_NAME`<br> e.g., `tag unassign 1,4,6 friend`
 **Delete Tag**      | `tag delete TAG_NAME`<br> e.g., `tag delete friend`
+**Tag Create**      | `tag create TAG_NAME [COLOR]`<br> e.g., `tag create friend blue`
+**Tag Assign**      | `tag assign INDEX[,INDEX]... TAG_NAME`<br> e.g., `tag assign 1,4,6 friend`
+**Tag Unassign**    | `tag unassign INDEX[,INDEX]... TAG_NAME`<br> e.g., `tag unassign 1,4,6 friend`
+**Tag List**        | `tag list`
+**Tag Rename**      | `tag rename OLD_TAG_NAME NEW_TAG_NAME`<br> e.g., `tag rename friends closefriends`
+**Tag Color**       | `tag color TAG_NAME COLOR`<br> e.g.,`tag color friends red`
+**Tag Delete**      | `tag delete TAG_NAME`<br> e.g., `tag delete friend`
 **Help**            | `help`
 
 ## Prefix Summary
