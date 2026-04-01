@@ -125,7 +125,14 @@ Edits an existing contact in CLinkedin.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`
 
+<box type="warning" seamless>
+
+Each field must still follow its respective input constraints (refers to input constraints in [**Add command**](#adding-a-contact-add) section above for details).
+
+</box>
+
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
 * You can remove all the contact’s tags by typing `t/` without specifying any tags after it.
@@ -177,7 +184,7 @@ Examples:
 * `findcom fintech; bank`
   Returns all contacts whose company contains either “fintech” or “bank”.
 
-### **Sorting contacts by company: `sortcom`**
+### Sorting contacts by company: `sortcom`
 
 Sorts the currently displayed contact list alphabetically by company name.
 
@@ -384,6 +391,10 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CLinkedin home folder.
 
+**Q**: Why does `sortcom` not sort all contacts after using `tag show`?<br>
+**A**: `sortcom` sorts only the **currently displayed contact list**. After `tag show`, the list is filtered, so only that subset is sorted. Use `list` first to sort all contacts.
+
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
@@ -402,9 +413,12 @@ Action              | Format, Examples
 **Delete**          | `delete INDEX`<br> e.g., `delete 3`
 **Edit**            | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`<br> e.g., `edit 2 n/James Lee e/jameslee@example.com`
 **Find**            | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find Company**            | `findcom COMPANY [; MORE_COMPANY]`<br> e.g., `find Google; Amazon`
+**Sort Company**            | `sortcom`
 **List**            | `list`
 **Deleted**         | `deleted`
 **Restore**         | `restore INDEX`<br> e.g., `restore 1`
+**Delete Tag**      | `tag delete TAG_NAME`<br> e.g., `tag delete friend`
 **Tag Create**      | `tag create TAG_NAME [COLOR]`<br> e.g., `tag create friend blue`
 **Tag Assign**      | `tag assign INDEX[,INDEX]... TAG_NAME`<br> e.g., `tag assign 1,4,6 friend`
 **Tag Unassign**    | `tag unassign INDEX[,INDEX]... TAG_NAME`<br> e.g., `tag unassign 1,4,6 friend`
@@ -413,3 +427,45 @@ Action              | Format, Examples
 **Tag Color**       | `tag color TAG_NAME COLOR`<br> e.g.,`tag color friends red`
 **Tag Delete**      | `tag delete TAG_NAME`<br> e.g., `tag delete friend`
 **Help**            | `help`
+
+## Prefix Summary
+
+| Prefix | Field | Description | Example |
+|--------|-------|------------|--------|
+| `n/`   | Name | Contact’s full name | `n/John Doe` |
+| `p/`   | Phone | Phone number | `p/98765432` |
+| `e/`   | Email | Email address | `e/john@example.com` |
+| `a/`   | Address | Address or context | `a/NUS Computing` |
+| `c/` *(optional)* | Company | Company name | `c/Google` |
+| `l/` *(optional)* | Link | URL (e.g., LinkedIn) | `l/https://linkedin.com/in/john` |
+| `r/` *(optional)* | Remark | Additional notes | `r/Met at career fair` |
+| `t/` *(optional)* | Tag | Tag(s) for categorisation | `t/friend` |
+
+<box type="warning" seamless>
+
+**Prefix usage constraints:**
+
+* Prefixes must be used **without spaces** between the prefix and `/`.
+
+    * Valid:  
+      `c/Google`
+      `r/Met at event`
+
+    * Invalid:
+      `c / Google`  
+      `r / Met at event`
+
+* If a prefix is written incorrectly (e.g., with spaces), it may be interpreted as part of another field and lead to unexpected errors.
+
+* Fields marked as *(optional)* (`c/`, `l/`, `r/`, `t/`) can be omitted when adding or editing a contact.
+
+* Each field must still follow its respective input constraints
+  (refers to input constraints in [**Add command**](#adding-a-contact-add) section above for details).
+
+</box>
+
+<box type="tip" seamless>
+
+**Tip:** Each prefix applies only to the value immediately following it. Ensure correct formatting to avoid parsing errors.
+
+</box>

@@ -280,7 +280,7 @@ public class EditCommandTest {
     @Test
     public void execute_tagsDoNoExistPerson_throwsCommandException() {
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
-        descriptor.setTags(Set.of( new Tag("friends")));
+        descriptor.setTags(Set.of(new Tag("friends")));
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         String errorMessage = MESSAGE_TAGS_DO_NOT_EXIST + "[[friends]]";
         assertThrows(CommandException.class, errorMessage, () -> editCommand.execute(model));
