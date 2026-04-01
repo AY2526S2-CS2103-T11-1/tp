@@ -383,6 +383,10 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CLinkedin home folder.
 
+**Q**: Why does `sortcom` not sort all contacts after using `tag show`?<br>
+**A**: `sortcom` sorts only the **currently displayed contact list**. After `tag show`, the list is filtered, so only that subset is sorted. Use `list` first to sort all contacts.
+
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
