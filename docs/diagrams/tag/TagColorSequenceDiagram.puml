@@ -1,0 +1,57 @@
+@startuml
+title Sequence Diagram for the `tag color` command
+
+actor User
+box Logic #E6E6FA
+participant ":LogicManager" as Logic
+participant ":ParserUtil" as Parser
+participant ":TagColorCommand" as Command
+end box
+
+box Model #FFE4E1
+participant ":Model" as Model
+end box
+
+User -> Logic : execute("tag show ...")
+activate Logic
+
+Logic -> Parser : color is valid
+activate Parser
+
+Parser --> Logic
+deactivate Parser
+
+alt invalid color
+    Logic --> User : error message
+else valid color
+    Logic -> Command : execute(model)
+    activate Command
+
+Command -> Model : hasTag(tagName)
+activate Model
+Model --> Command : true / false
+deactivate Model
+
+alt tag does not exist
+    Command --> Logic : CommandException
+    deactivate Command
+    Logic --> User : error message
+else tag exist
+    activate Command
+    Command -> Model : updateWithNewTag(model)
+    activate Model
+    Model --> Command
+    deactivate Model
+    Command -> Model : updateFilteredPersonList(predicate)
+    activate Model
+    Model --> Command
+    deactivate Model
+    Command --> Logic : CommandResult
+    deactivate Command
+    Logic --> User : success message
+    deactivate Logic
+end
+
+end
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+title Sequence Diagram for the `tag show` command
+
+actor User
+box Logic #E6E6FA
+participant ":LogicManager" as Logic
+participant ":TagShowCommand" as Command
+end box
+
+box Model #FFE4E1
+participant ":Model" as Model
+end box
+
+User -> Logic : execute("tag show ...")
+activate Logic
+
+Logic -> Command : execute(model)
+activate Command
+
+Command -> Model : hasTag(tagName)
+activate Model
+Model --> Command : true / false
+deactivate Model
+
+alt tag does not exist
+    Command --> Logic : CommandException
+    Logic --> User : error message
+else tag exists
+    Command -> Model : updateFilteredPersonList(predicate)
+    activate Model
+    Model --> Command
+    deactivate Model
+    Command --> Logic : CommandResult
+    deactivate Command
+    Logic --> User : success message
+    deactivate Logic
+end
+
+@enduml
