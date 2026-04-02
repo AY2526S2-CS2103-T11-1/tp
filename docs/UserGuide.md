@@ -4,11 +4,12 @@
   pageNav: 3
 ---
 
-# CLinkedin User Guide
+# CLInkedin User Guide
 
-CLinkedin is a **desktop app for managing contacts, optimized for use via a Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CLinkedin can get your contact management tasks done faster than traditional GUI apps.
+CLInkedin is a **desktop app for managing contacts, optimized for use via a Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CLInkedin can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
+
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
@@ -20,7 +21,7 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103-T11-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your CLinkedin.
+1. Copy the file to the folder you want to use as the _home folder_ for your CLInkedin.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinkedin.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -31,7 +32,7 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
     * `list` : Lists all contacts.
 
-    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to CLinkedin.
+    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to CLInkedin.
 
     * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -77,7 +78,7 @@ Format: `help`
 
 ### Adding a contact: `add`
 
-Adds a contact to CLinkedin.
+Adds a contact to CLInkedin.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`
 <box type="warning" seamless>
@@ -93,6 +94,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [l/LINK] [r/REM
     - Must not contain `/` or `@`
     - Must not contain multiple consecutive spaces
     - Maximum 100 characters
+- **Link**
+    - Must start with 'http://' or 'https://'
 - **Remark**
     - Must not contain `/`
     - Maximum 200 characters
@@ -113,15 +116,21 @@ Examples:
 
 ### Listing all contacts : `list`
 
-Shows a list of all contacts in CLinkedin.
+Shows a list of all contacts in CLInkedin.
 
 Format: `list`
 
 ### Editing a contact : `edit`
 
-Edits an existing contact in CLinkedin.
+Edits an existing contact in CLInkedin.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`
+
+<box type="warning" seamless>
+
+Each field must still follow its respective input constraints (refers to input constraints in [**Add command**](#adding-a-contact-add) section above for details).
+
+</box>
 
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -133,7 +142,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com`:Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
-* `edit 3 c/ r/` Clears both the company and remark fields of the 3rd contact.
+*  `edit 3 c/ r/` Clears both the company and remark fields of the 3rd contact.
 
 ### Locating contacts by name: `find`
 
@@ -176,7 +185,7 @@ Examples:
 * `findcom fintech; bank`
   Returns all contacts whose company contains either “fintech” or “bank”.
 
-### **Sorting contacts by company: `sortcom`**
+### Sorting contacts by company: `sortcom`
 
 Sorts the currently displayed contact list alphabetically by company name.
 
@@ -200,7 +209,7 @@ Examples:
 
 ### Deleting a contact : `delete`
 
-Deletes the specified contact from CLinkedin.
+Deletes the specified contact from CLInkedin.
 
 Format: `delete INDEX`
 
@@ -212,7 +221,7 @@ Format: `delete INDEX`
 * Contacts will be permanently removed after 7 days.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd contact in CLinkedin.
+* `list` followed by `delete 2` deletes the 2nd contact in CLInkedin.
 * `find Betsy` followed by `delete 1` deletes the 1st contact in the results of the `find` command.
 
 ### Viewing deleted contacts : `deleted`
@@ -237,7 +246,7 @@ Format: `restore INDEX`
 * Restores the contact at the specified `INDEX` from the deleted contacts list.
 * The index refers to the index number shown in the `deleted` list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The restored contact will be added back to CLinkedin.
+* The restored contact will be added back to CLInkedin.
 * If a tag associated with the contact has been removed or renamed before restoration, the contact will be restored without that tag.
 * If restoring the contact results in duplicate phone number or existing contact conflicts, the restore will fail.
 * Once restored, the contact will be removed from the deleted list.
@@ -300,7 +309,7 @@ Examples:
 
 ### Listing all tags: `tag list`
 
-Shows a list of all tags in CLinkedin.
+Shows a list of all tags in CLInkedin.
 
 Format: `tag list`
 
@@ -310,20 +319,21 @@ Renames an existing tag and updates all respective contacts with it.
 
 Format: `tag rename OLD_TAG_NAME NEW_TAG_NAME`
 
-* Renames the tag specified by OLD_TAG_NAME to the NEW_TAG_NAME. 
+* Renames the tag specified by `OLD_TAG_NAME` to the `NEW_TAG_NAME`. 
 * The tag will be updated for all contacts that currently have it assigned. 
 * Note: Tag names cannot contain spaces.
 * The old and new tag names cannot be the same. 
-* If the OLD_TAG_NAME does not exist, an error message will be shown.
+* If the `OLD_TAG_NAME` does not exist, an error message will be shown.
 
 Examples:
 * `tag rename friends closefriends`
 * `tag rename colleagues coworkers`
+
 ### Adding color to a tag: `tag color`
 
 Adds a color to a tag.
 
-Format: `tag color TAG_NAME [COLOR]`
+Format: `tag color TAG_NAME COLOR`
 
 * Adds a valid color to the specified `TAG_NAME`.
 * A valid color is any case-insensitive plain name, or hexadecimal value.
@@ -350,7 +360,7 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from CLinkedin.
+Clears all entries from CLInkedin.
 
 Format: `clear`
 
@@ -362,17 +372,17 @@ Format: `exit`
 
 ### Saving the data
 
-CLinkedin data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CLInkedin data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-CLinkedin data are saved automatically as a JSON file `[JAR file location]/data/clinkedin.json`. Advanced users are welcome to update data directly by editing that data file.
+CLInkedin data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, CLinkedin will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, CLInkedin will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause CLInkedin to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -380,7 +390,11 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CLinkedin home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CLInkedin home folder.
+
+**Q**: Why does `sortcom` not sort all contacts after using `tag show`?<br>
+**A**: `sortcom` sorts only the **currently displayed contact list**. After `tag show`, the list is filtered, so only that subset is sorted. Use `list` first to sort all contacts.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -400,13 +414,59 @@ Action              | Format, Examples
 **Delete**          | `delete INDEX`<br> e.g., `delete 3`
 **Edit**            | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`<br> e.g., `edit 2 n/James Lee e/jameslee@example.com`
 **Find**            | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find Company**            | `findcom COMPANY [; MORE_COMPANY]`<br> e.g., `find Google; Amazon`
+**Sort Company**            | `sortcom`
 **List**            | `list`
 **Deleted**         | `deleted`
 **Restore**         | `restore INDEX`<br> e.g., `restore 1`
+**Delete Tag**      | `tag delete TAG_NAME`<br> e.g., `tag delete friend`
 **Tag Create**      | `tag create TAG_NAME [COLOR]`<br> e.g., `tag create friend blue`
 **Tag Assign**      | `tag assign INDEX[,INDEX]... TAG_NAME`<br> e.g., `tag assign 1,4,6 friend`
+**Tag Unassign**    | `tag unassign INDEX[,INDEX]... TAG_NAME`<br> e.g., `tag unassign 1,4,6 friend`
 **Tag List**        | `tag list`
 **Tag Rename**      | `tag rename OLD_TAG_NAME NEW_TAG_NAME`<br> e.g., `tag rename friends closefriends`
-**Tag Unassign**    | `tag unassign INDEX[,INDEX]... TAG_NAME`<br> e.g., `tag unassign 1,4,6 friend`
+**Tag Color**       | `tag color TAG_NAME COLOR`<br> e.g.,`tag color friends red`
 **Tag Delete**      | `tag delete TAG_NAME`<br> e.g., `tag delete friend`
 **Help**            | `help`
+
+## Prefix Summary
+
+| Prefix | Field | Description | Example |
+|--------|-------|------------|--------|
+| `n/`   | Name | Contact’s full name | `n/John Doe` |
+| `p/`   | Phone | Phone number | `p/98765432` |
+| `e/`   | Email | Email address | `e/john@example.com` |
+| `a/`   | Address | Address or context | `a/NUS Computing` |
+| `c/` *(optional)* | Company | Company name | `c/Google` |
+| `l/` *(optional)* | Link | URL (e.g., LinkedIn) | `l/https://linkedin.com/in/john` |
+| `r/` *(optional)* | Remark | Additional notes | `r/Met at career fair` |
+| `t/` *(optional)* | Tag | Tag(s) for categorisation | `t/friend` |
+
+<box type="warning" seamless>
+
+**Prefix usage constraints:**
+
+* Prefixes must be used **without spaces** between the prefix and `/`.
+
+    * Valid:  
+      `c/Google`
+      `r/Met at event`
+
+    * Invalid:
+      `c / Google`  
+      `r / Met at event`
+
+* If a prefix is written incorrectly (e.g., with spaces), it may be interpreted as part of another field and lead to unexpected errors.
+
+* Fields marked as *(optional)* (`c/`, `l/`, `r/`, `t/`) can be omitted when adding or editing a contact.
+
+* Each field must still follow its respective input constraints
+  (refers to input constraints in [**Add command**](#adding-a-contact-add) section above for details).
+
+</box>
+
+<box type="tip" seamless>
+
+**Tip:** Each prefix applies only to the value immediately following it. Ensure correct formatting to avoid parsing errors.
+
+</box>
