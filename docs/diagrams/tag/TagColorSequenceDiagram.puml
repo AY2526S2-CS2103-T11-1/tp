@@ -2,56 +2,73 @@
 title Sequence Diagram for the `tag color` command
 
 actor User
+
 box Logic #E6E6FA
 participant ":LogicManager" as Logic
-participant ":ParserUtil" as Parser
-participant ":TagColorCommand" as Command
+participant ":AddressBookParser" as ABParser
+participant ":TagColorCommandParser" as Parser
+participant "cmd:TagColorCommand" as Command
+participant "result:CommandResult" as Result
 end box
 
 box Model #FFE4E1
-participant ":Model" as Model
+participant "m:Model" as Model
 end box
 
-User -> Logic : execute("tag show ...")
+User -> Logic : execute("tag color ...")
 activate Logic
 
-Logic -> Parser : color is valid
+Logic -> ABParser : parseCommand("tag color ...")
+activate ABParser
+
+create Parser
+ABParser -> Parser
 activate Parser
 
-Parser --> Logic
+ABParser <-- Parser
 deactivate Parser
 
-alt invalid color
-    Logic --> User : error message
-else valid color
-    Logic -> Command : execute(model)
-    activate Command
+ABParser -> Parser : parse("...")
+activate Parser
 
-Command -> Model : hasTag(tagName)
+create Command
+Parser -> Command
+activate Command
+
+Parser <-- Command
+deactivate Command
+
+ABParser <-- Parser : cmd
+deactivate Parser
+
+Logic <-- ABParser : cmd
+destroy Parser
+deactivate ABParser
+
+Logic -> Command : execute(m)
+activate Command
+
+Command -> Model : update model with new tag
 activate Model
-Model --> Command : true / false
+Model --> Command
 deactivate Model
 
-alt tag does not exist
-    Command --> Logic : CommandException
-    deactivate Command
-    Logic --> User : error message
-else tag exist
-    activate Command
-    Command -> Model : updateWithNewTag(model)
-    activate Model
-    Model --> Command
-    deactivate Model
-    Command -> Model : updateFilteredPersonList(predicate)
-    activate Model
-    Model --> Command
-    deactivate Model
-    Command --> Logic : CommandResult
-    deactivate Command
-    Logic --> User : success message
-    deactivate Logic
+loop for each person with specified tag
+Command -> Model : edit person with updated color tag
+Model --> Command
 end
 
-end
+create Result
+Command -> Result
+activate Result
+Result --> Command
+deactivate Result
+
+Logic <-- Command : result
+deactivate Command
+
+User <-- Logic : result
+destroy Command
+deactivate Logic
 
 @enduml
