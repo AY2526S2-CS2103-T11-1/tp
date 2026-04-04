@@ -20,6 +20,7 @@ Class Email
 Class Name
 Class Phone
 Class Remark
+Class Link
 Class Tag
 
 Class I #FFFFFF
@@ -45,6 +46,7 @@ Person *--> "0..1"Company
 Person *--> Name
 Person *--> Phone
 Person *--> "0..1"Remark
+Person *--> "0..1"Link
 Person *--> "*" Tag
 
 Person -[hidden]up--> I
@@ -55,7 +57,8 @@ Phone -[hidden]right-> Email
 Email -[hidden]right-> Address
 Address -[hidden]right-> Company
 Company -[hidden]right-> Remark
-Remark -[hidden]right-> Tag
+Remark -[hidden]right-> Link
+
 
 ModelManager --> "~* filtered" Person
 @enduml

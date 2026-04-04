@@ -1,33 +1,33 @@
----
-  layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
----
+
+---  
+layout: default.md  
+title: "Developer Guide" pageNav: 3
+---  
 
 # Clinkedin Developer Guide
 
-<!-- * Table of Contents -->
-<page-nav-print />
-
---------------------------------------------------------------------------------------------------------------------
+<!-- * Table of Contents -->  
+<page-nav-print />  
+  
+--------------------------------------------------------------------------------------------------------------------  
 
 ## **Acknowledgements**
 
 _{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
-
---------------------------------------------------------------------------------------------------------------------
+  
+--------------------------------------------------------------------------------------------------------------------  
 
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
-
---------------------------------------------------------------------------------------------------------------------
+  
+--------------------------------------------------------------------------------------------------------------------  
 
 ## **Design**
 
 ### Architecture
 
-<puml src="diagrams/ArchitectureDiagram.puml" width="280" />
+<puml src="diagrams/ArchitectureDiagram.puml" width="280" />  
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -52,7 +52,7 @@ The bulk of the app's work is done by the following four components:
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-<puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
+<puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />  
 
 Each of the four main components (also shown in the diagram above),
 
@@ -61,7 +61,7 @@ Each of the four main components (also shown in the diagram above),
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-<puml src="diagrams/ComponentManagers.puml" width="300" />
+<puml src="diagrams/ComponentManagers.puml" width="300" />  
 
 The sections below give more details of each component.
 
@@ -69,7 +69,7 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
-<puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
+<puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>  
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
@@ -88,28 +88,28 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<puml src="diagrams/LogicClassDiagram.puml" width="550"/>
+<puml src="diagrams/LogicClassDiagram.puml" width="550"/>  
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
+<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />  
 
-<box type="info" seamless>
+<box type="info" seamless>  
 
-**Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+**Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.  
 </box>
 
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>  
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
-<puml src="diagrams/ParserClasses.puml" width="600"/>
+<puml src="diagrams/ParserClasses.puml" width="600"/>  
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
@@ -118,7 +118,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelClassDiagram.puml" width="450" />  
 
 
 The `Model` component,
@@ -128,20 +128,20 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<box type="info" seamless>
+<box type="info" seamless>  
 
 **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
+<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />  
 
-</box>
+</box>  
 
 
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml" width="550" />  
 
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
@@ -151,8 +151,8 @@ The `Storage` component,
 ### Common classes
 
 Classes used by multiple components are in the `seedu.clinkedin.commons` package.
-
---------------------------------------------------------------------------------------------------------------------
+  
+--------------------------------------------------------------------------------------------------------------------  
 
 ## **Implementation**
 
@@ -170,31 +170,31 @@ If input is provided, the system updates the filtered contact list to show conta
 
 The following activity diagram illustrates the decision flow of the `findcom` command:
 
-<puml src="diagrams/company/FindComActivityDiagram.puml" alt="FindComActivityDiagram" />
+<puml src="diagrams/company/FindComActivityDiagram.puml" alt="FindComActivityDiagram" />  
 
 The following sequence diagram illustrates how the `findcom` command is handled by the system components:
 
-<puml src="diagrams/company/FindComSequenceDiagram.puml" alt="company/FindComSequenceDiagram" />
+<puml src="diagrams/company/FindComSequenceDiagram.puml" alt="company/FindComSequenceDiagram" />  
 
 #### Sorting contacts by company
 
 The `sortcom` command allows users to sort the currently displayed contact list alphabetically by company name.
 
-<box type="info" seamless>
+<box type="info" seamless>  
 
 **Note:** The sorting operation is applied only to the **filtered contact list** (i.e., the currently displayed contacts), not the entire dataset.
 
-</box>
+</box>  
 
 When the command is executed, the system sorts the filtered contact list by company name in a case-insensitive manner. Contacts without a company are treated as having an empty value and will appear at the top of the displayed list. The sorted list is then shown to the user together with a success message.
 
 The following activity diagram illustrates the flow of the `sortcom` command:
 
-<puml src="diagrams/company/SortComActivityDiagram.puml" alt="SortComActivityDiagram" />
+<puml src="diagrams/company/SortComActivityDiagram.puml" alt="SortComActivityDiagram" />  
 
 The following sequence diagram illustrates how the `sortcom` command is handled by the system components:
 
-<puml src="diagrams/company/SortComSequenceDiagram.puml" alt="SortComSequenceDiagram" />
+<puml src="diagrams/company/SortComSequenceDiagram.puml" alt="SortComSequenceDiagram" />  
 
 #### Contact restoration
 
@@ -212,11 +212,11 @@ If restoration is allowed, the contact is added back to the main contact list an
 
 The following activity diagram illustrates the decision flow of the `restore` command:
 
-<puml src="diagrams/RestoreActivityDiagram.puml" alt="RestoreActivityDiagram" />
+<puml src="diagrams/RestoreActivityDiagram.puml" alt="RestoreActivityDiagram" />  
 
 The following sequence diagram illustrates how the `restore` command is handled by the system components:
 
-<puml src="diagrams/RestoreSequenceDiagram.puml" alt="RestoreSequenceDiagram" />
+<puml src="diagrams/RestoreSequenceDiagram.puml" alt="RestoreSequenceDiagram" />  
 
 
 ### Tag management
@@ -230,11 +230,11 @@ If the tag name is valid and no duplicate is found, the system checks whether a 
 
 The following activity diagram illustrates the decision flow of the `tag create` command:
 
-<puml src="diagrams/tag/TagCreateActivityDiagram.puml" alt="TagCreateActivityDiagram" />
+<puml src="diagrams/tag/TagCreateActivityDiagram.puml" alt="TagCreateActivityDiagram" />  
 
 The following sequence diagram illustrates how the `tag create` command is handled by the system components:
 
-<puml src="diagrams/tag/TagCreateSequenceDiagram.puml" alt="TagCreateSequenceDiagram" />
+<puml src="diagrams/tag/TagCreateSequenceDiagram.puml" alt="TagCreateSequenceDiagram" />  
 
 #### Tag deletion
 
@@ -246,11 +246,11 @@ If the tag exists, the tag is removed from the tag list. The system then removes
 
 The following activity diagram illustrates the decision flow of the `tag delete` command:
 
-<puml src="diagrams/tag/TagDeleteActivityDiagram.puml" alt="TagDeleteActivityDiagram" />
+<puml src="diagrams/tag/TagDeleteActivityDiagram.puml" alt="TagDeleteActivityDiagram" />  
 
 The following sequence diagram illustrates how the `tag delete` command is handled by the system components:
 
-<puml src="diagrams/tag/TagDeleteSequenceDiagram.puml" alt="TagDeleteSequenceDiagram" />
+<puml src="diagrams/tag/TagDeleteSequenceDiagram.puml" alt="TagDeleteSequenceDiagram" />  
 
 #### Tag assignment
 
@@ -258,10 +258,10 @@ The `tag assign` command allows users to assign an existing tag to one or more c
 
 When the command is executed, the system first verifies that the specified tag exists in the tag list. If it does, it checks that all provided contact indices are valid. If any index is invalid, the command aborts to prevent partial execution. Upon successful validation, the tag is added to the specified contacts, and the model is updated.
 
-The following activity diagram illustrates the decision flow:
+The following activity diagram illustrates the decision flow:  
 <puml src="diagrams/tag/TagAssignActivityDiagram.puml" alt="TagAssignActivityDiagram" />
 
-The following sequence diagram illustrates the execution:
+The following sequence diagram illustrates the execution:  
 <puml src="diagrams/tag/TagAssignSequenceDiagram.puml" alt="TagAssignSequenceDiagram" />
 
 #### Tag unassignment
@@ -270,25 +270,25 @@ The `tag unassign` command allows users to unassign an existing tag to one or mo
 
 When the command is executed, the system first verifies that the specified tag exists in the tag list. If it does, it checks that all provided contact indices are valid and has the specified tag. If any index is invalid or one or more user does not have the tag, the command aborts to prevent partial execution. Upon successful validation, the tag is removed from the specified contacts, and the model is updated.
 
-The following activity diagram illustrates the decision flow:
+The following activity diagram illustrates the decision flow:  
 <puml src="diagrams/tag/TagUnassignActivityDiagram.puml" alt="TagUnassignActivityDiagram" />
 
-The following sequence diagram illustrates the execution:
+The following sequence diagram illustrates the execution:  
 <puml src="diagrams/tag/TagUnassignSequenceDiagram.puml" alt="TagUnassignSequenceDiagram" />
 
 #### Tag rename
 
 The `tag rename` commands allow users to modify the name of an existing tag, while also replacing the tag attached to the respective contacts.
 
-Because tags are immutable objects in this architecture, modifying a tag requires replacing it. The system first validates that the old tag exists. It then creates the new tag in the global `CLinkedin` tag list and attach it to the contacts containing the old tag through iteration. Finally, it removes the old tag from the tag list.
+Because tags are immutable objects in this architecture, modifying a tag requires replacing it. The system first validates that the old tag exists. It then creates the new tag in the global `Clinkedin` tag list and attach it to the contacts containing the old tag through iteration. Finally, it removes the old tag from the tag list.
 
-The following activity diagram illustrates the decision flow:
+The following activity diagram illustrates the decision flow:  
 <puml src="diagrams/tag/TagRenameActivityDiagram.puml" alt="TagRenameActivityDiagram" />
 
-The sequence diagram below illustrates the execution:
+The sequence diagram below illustrates the execution:  
 <puml src="diagrams/tag/TagRenameSequenceDiagram.puml" alt="TagRenameSequenceDiagram" />
-
---------------------------------------------------------------------------------------------------------------------
+  
+--------------------------------------------------------------------------------------------------------------------  
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -298,7 +298,7 @@ The sequence diagram below illustrates the execution:
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
 
---------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------  
 
 ## **Appendix: Requirements**
 
@@ -316,37 +316,77 @@ The sequence diagram below illustrates the execution:
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                                        | So that I can…​                                                                   |
-|----------|--------------------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------|
-| `* * *`  | new user                                   | add a new contact with name, phone number and email | store and connect with them                                                       |
-| `* * *`  | new user                                   | click on a contact link                             | view their social media page or company website                                   |
-| `* * *`  | new user                                   | edit contact details                                | update information without deleting and recreating contacts                       |
-| `* * *`  | new user                                   | receive clear error messages                        | correct mistakes when I input invalid commands                                    |
-| `* * *`  | new user                                   | search a contact by name                            | find the person I’m connecting with quickly                                       |
-| `* * *`  | new user                                   | view command instructions                           | quickly recall available commands and their valid formats                         |
-| `* * *`  | organised user                             | add a tag to a contact                              | categorise a group of people together                                             |
-| `* * *`  | organised user                             | create and delete my own tags                       | categorise contacts the way I like                                                |
-| `* * *`  | organised user                             | list all contacts under a specific tag              | quickly see related connections and contacts                                      |
-| `* * *`  | organised user                             | remove a tag from a contact                         | re-categorise people                                                              |
-| `* * *`  | organised user                             | rename a tag                                        | keep my tagging system consistent                                                 |
-| `* * *`  | organised user                             | sort contacts by company                            | view grouped workplace connections                                                |
-| `* * *`  | organised user                             | view all existing tags                              | know how contacts are categorised                                                 |
-| `* * *`  | networking-focused user                    | search for contacts in a specified company          | quickly find all my connections working at the company                            |
-| `* *`    | new user                                   | add remarks to contacts                             | store more personal information (like hobbies/interests)                          |
-| `* *`    | organised user                             | colour code my tags                                 | visually distinguish categories                                                   |
-| `* *`    | expert user                                | search using partial keywords                       | avoid remembering exact spelling                                                  |
-| `* *`    | expert user                                | see date when contact was added                     | recall when I met someone                                                         |
-| `* *`    | expert user                                | search for contacts in multiple specified companies | view a combined list of connections from specified companies fast and efficiently |
-| `* *`    | networking-focused user                    | add meaningful remarks about a contact              | recall conversations for networking purpose                                       |
-| `*`      | user with many persons in the address book | find contacts by name                               | locate a person easily                                                            |
-| `*`      | expert user                                | recover deleted contacts                            | restore accidentally removed contacts                                             |
-| `*`      | expert user                                | tag multiple contacts at once                       | group people fast and efficiently                                                 |
+| Priority | As a …​                                    | I want to …​                                        | So that I can…​                                                                   |  
+|----------|--------------------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------|  
+| `* * *`  | new user                                   | add a new contact with name, phone number and email | store and connect with them                                                       |  
+| `* * *`  | new user                                   | click on a contact link                             | view their social media page or company website                                   |  
+| `* * *`  | new user                                   | edit contact details                                | update information without deleting and recreating contacts                       |  
+| `* * *`  | new user                                   | receive clear error messages                        | correct mistakes when I input invalid commands                                    |  
+| `* * *`  | new user                                   | search a contact by name                            | find the person I’m connecting with quickly                                       |  
+| `* * *`  | new user                                   | view command instructions                           | quickly recall available commands and their valid formats                         |  
+| `* * *`  | organised user                             | add a tag to a contact                              | categorise a group of people together                                             |  
+| `* * *`  | organised user                             | create and delete my own tags                       | categorise contacts the way I like                                                |  
+| `* * *`  | organised user                             | list all contacts under a specific tag              | quickly see related connections and contacts                                      |  
+| `* * *`  | organised user                             | remove a tag from a contact                         | re-categorise people                                                              |  
+| `* * *`  | organised user                             | rename a tag                                        | keep my tagging system consistent                                                 |  
+| `* * *`  | organised user                             | sort contacts by company                            | view grouped workplace connections                                                |  
+| `* * *`  | organised user                             | view all existing tags                              | know how contacts are categorised                                                 |  
+| `* * *`  | networking-focused user                    | search for contacts in a specified company          | quickly find all my connections working at the company                            |  
+| `* *`    | new user                                   | add remarks to contacts                             | store more personal information (like hobbies/interests)                          |  
+| `* *`    | organised user                             | colour code my tags                                 | visually distinguish categories                                                   |  
+| `* *`    | expert user                                | search using partial keywords                       | avoid remembering exact spelling                                                  |  
+| `* *`    | expert user                                | see date when contact was added                     | recall when I met someone                                                         |  
+| `* *`    | expert user                                | search for contacts in multiple specified companies | view a combined list of connections from specified companies fast and efficiently |  
+| `* *`    | networking-focused user                    | add meaningful remarks about a contact              | recall conversations for networking purpose                                       |  
+| `*`      | user with many persons in the address book | find contacts by name                               | locate a person easily                                                            |  
+| `*`      | expert user                                | recover deleted contacts                            | restore accidentally removed contacts                                             |  
+| `*`      | expert user                                | tag multiple contacts at once                       | group people fast and efficiently                                                 |  
 
 ### Use cases
 
-(For all use cases below, the **System** is the `CLinkedin` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Clinkedin` and the **Actor** is the `user`, unless specified otherwise)
 
----
+### **Use Case: Add contact**
+
+**Preconditions:**
+* The application is running.
+
+**Guarantees:**
+* If successful, a new contact is added to the contact list.
+* If unsuccessful, the contact list remains unchanged.
+
+#### **MSS**
+
+1. User enters the add command with the required fields (name, phone, email, address).
+2. Clinkedin validates the input fields.
+3. Clinkedin creates the new contact.
+4. Clinkedin adds the contact to the contact list.
+5. Clinkedin displays a success message with the added contact’s details.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 1a. The user provides an invalid command format.
+    * 1a1. Clinkedin shows an error message indicating the correct command format.
+
+      Use case resumes at step 1.
+
+* 2a. A required field is missing.
+    * 2a1. Clinkedin shows an error message indicating the missing field.
+
+      Use case resumes at step 1.
+
+* 2b. A field value is invalid (e.g. invalid name, phone, email, or address).
+    * 2b1. Clinkedin shows an error message indicating which field is invalid.
+
+      Use case resumes at step 1.
+
+* 2c. The phone number already exists in another contact.
+    * 2c1. Clinkedin shows an error message that the contact already exists.
+
+      Use case resumes at step 1.
+---  
 ### **Use Case: Edit contact**
 
 **Preconditions:**
@@ -360,37 +400,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to list contacts.
-2. CLinkedin displays the list of contacts.
+2. Clinkedin displays the list of contacts.
 3. User requests to edit a contact by entering the edit command with the contact's index and the fields to be updated.
-4. CLinkedin validates the provided index and updated field values.
-5. CLinkedin updates the contact with the new details.
-6. CLinkedin displays a success message with the edited contact's details.
+4. Clinkedin validates the provided index and updated field values.
+5. Clinkedin updates the contact with the new details.
+6. Clinkedin displays a success message with the edited contact's details.
 
    Use case ends.
 
 #### **Extensions**
 
 * 3a. The user provides an index that does not exist in the list.
-    * 3a1. CLinkedin shows an error message that the index is invalid.
+    * 3a1. Clinkedin shows an error message that the index is invalid.
 
       Use case resumes at step 1.
 
 * 3b. The user provides an invalid command format.
-    * 3b1. CLinkedin shows an error message that the command format is invalid.
+    * 3b1. Clinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
 * 4a. The updated field value is invalid.
-    * 4a1. CLinkedin shows an error message indicating which field value is invalid.
+    * 4a1. Clinkedin shows an error message indicating which field value is invalid.
 
       Use case resumes at step 1.
 
 * 4b. The updated phone number already exists in another contact.
-    * 4b1. CLinkedin shows an error message that the phone number already exists in the list.
+    * 4b1. Clinkedin shows an error message that the phone number already exists in the list.
 
       Use case resumes at step 1.
 
----
+---  
 
 ### **Use Case: Delete contact**
 
@@ -405,140 +445,336 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to list contacts.
-2. CLinkedin displays the list of contacts.
+2. Clinkedin displays the list of contacts.
 3. User requests to delete a contact by entering the delete command with the contact's index.
-4. CLinkedin validates that the provided index is valid.
-5. CLinkedin removes the contact from the contact list and stores it in the deleted contacts list with a timestamp.
-6. CLinkedin displays a success message that the contact has been deleted.
+4. Clinkedin validates that the provided index is valid.
+5. Clinkedin removes the contact from the contact list and stores it in the deleted contacts list with a timestamp.
+6. Clinkedin displays a success message that the contact has been deleted.
 
    Use case ends.
 
 #### **Extensions**
 
 * 3a. The user provides an index that does not exist in the list.
-    * 3a1. CLinkedin shows an error message that the index is invalid.
+    * 3a1. Clinkedin shows an error message that the index is invalid.
 
       Use case resumes at step 1.
 
 * 3b. The user provides an invalid command format.
-    * 3b1. CLinkedin shows an error message that the command format is invalid.
+    * 3b1. Clinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
----
+## Use cases
+
+(For all use cases below, the **System** is `Clinkedin` and the **Actor** is the `User`, unless specified otherwise.)
+
+## Contact Management
+### **Use Case: Add contact**
+
+**Preconditions:**
+* The application is running.
+
+**Guarantees:**
+* If successful, a new contact is added to the contact list.
+* If unsuccessful, the contact list remains unchanged.
+
+#### **MSS**
+
+1. User enters the add command with the required fields (name, phone, email, address).
+2. Clinkedin validates the input fields.
+3. Clinkedin adds the new contact to the contact list.
+4. Clinkedin displays a success message with the added contact’s details.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 1a. The user provides an invalid command format.
+    * 1a1. Clinkedin shows an error message indicating the correct command format.
+
+      Use case resumes at step 1.
+
+* 2a. A required field is missing.
+    * 2a1. Clinkedin shows an error message indicating the missing field.
+
+      Use case resumes at step 1.
+
+* 2b. A field value is invalid.
+    * 2b1. Clinkedin shows an error message indicating which field is invalid.
+
+      Use case resumes at step 1.
+
+* 2c. The phone number already exists in another contact.
+    * 2c1. Clinkedin shows an error message that the contact already exists.
+
+      Use case resumes at step 1.
+
+---  
+
+### **Use Case: Edit contact**
+
+**Preconditions:**
+* The application is running.
+* The contact list is not empty.
+
+**Guarantees:**
+* If successful, the specified contact is updated.
+* If unsuccessful, the contact list remains unchanged.
+
+#### **MSS**
+
+1. User requests to list contacts.
+2. Clinkedin displays the list of contacts.
+3. User requests to edit a contact by entering the edit command with the contact’s index and the fields to be updated.
+4. Clinkedin validates the provided index and updated field values.
+5. Clinkedin updates the contact with the new details.
+6. Clinkedin displays a success message with the edited contact’s details.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 3a. The user provides an index that does not exist in the list.
+    * 3a1. Clinkedin shows an error message that the index is invalid.
+
+      Use case resumes at step 1.
+
+* 3b. The user provides an invalid command format.
+    * 3b1. Clinkedin shows an error message that the command format is invalid.
+
+      Use case resumes at step 1.
+
+* 3c. The user does not provide any fields to update.
+    * 3c1. Clinkedin shows an error message indicating that no fields were provided.
+
+      Use case resumes at step 1.
+
+* 4a. The updated field value is invalid.
+    * 4a1. Clinkedin shows an error message indicating which field value is invalid.
+
+      Use case resumes at step 1.
+
+* 4b. The updated phone number already exists in another contact.
+    * 4b1. Clinkedin shows an error message that the phone number already exists.
+
+      Use case resumes at step 1.
+
+---  
+
+### **Use Case: Delete contact**
+
+**Preconditions:**
+* The application is running.
+* The contact list is not empty.
+
+**Guarantees:**
+* If successful, the specified contact is removed from the contact list and stored in the deleted contacts list with a timestamp.
+* If unsuccessful, the contact list remains unchanged.
+
+#### **MSS**
+
+1. User requests to list contacts.
+2. Clinkedin displays the list of contacts.
+3. User requests to delete a contact by entering the delete command with the contact’s index.
+4. Clinkedin validates that the provided index is valid.
+5. Clinkedin removes the contact from the contact list and stores it in the deleted contacts list.
+6. Clinkedin displays a success message.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 3a. The user provides an index that does not exist in the list.
+    * 3a1. Clinkedin shows an error message that the index is invalid.
+
+      Use case resumes at step 1.
+
+* 3b. The user provides an invalid command format.
+    * 3b1. Clinkedin shows an error message that the command format is invalid.
+
+      Use case resumes at step 1.
+
+---  
+
+### **Use Case: View deleted contacts**
+
+**Preconditions:**
+* The application is running.
+
+#### **MSS**
+
+1. User enters the `deleted` command.
+2. Clinkedin displays the list of recently deleted contacts with timestamps.
+
+   Use case ends.
+
+---  
+
+### **Use Case: Restore contact**
+
+**Preconditions:**
+* The application is running.
+* The deleted contacts list is not empty.
+
+**Guarantees:**
+* If successful, the contact is restored to the contact list.
+* If unsuccessful, no changes are made.
+
+#### **MSS**
+
+1. User requests to view deleted contacts.
+2. Clinkedin displays the deleted contacts list.
+3. User requests to restore a contact by entering the restore command with the contact’s index.
+4. Clinkedin validates the provided index.
+5. Clinkedin restores the contact to the contact list.
+6. Clinkedin displays a success message.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 3a. The user provides an invalid index.
+    * 3a1. Clinkedin shows an error message that the index is invalid.
+
+      Use case resumes at step 1.
+
+* 5a. Restoring the contact results in a duplicate or conflict.
+    * 5a1. Clinkedin shows an error message that the contact cannot be restored.
+
+      Use case resumes at step 1.
+
+---  
+## Tag Management
 
 ### **Use Case: Create tag**
 
 **Preconditions:**
 * The application is running.
 
-**Guarantees:**
-* If successful, a new tag is added to the tag list.
-* If unsuccessful, the tag list remains unchanged.
-
 #### **MSS**
 
-1. User requests to create a tag with a name and an optional color.
-2. CLinkedin validates the provided tag details.
-3. CLinkedin creates the tag.
-4. CLinkedin displays a success message.
+1. User enters the `tag create` command with a tag name and optional color.
+2. Clinkedin validates the input.
+3. Clinkedin creates the tag.
+4. Clinkedin displays a success message.
 
    Use case ends.
 
 #### **Extensions**
 
 * 2a. The tag name already exists.
-    * 2a1. CLinkedin shows an error message that the tag already exists.
+    * 2a1. Clinkedin shows an error message.
 
       Use case resumes at step 1.
 
-* 2b. The tag color format is invalid.
-    * 2b1. CLinkedin shows an error message that the tag color format is invalid.
+* 2b. The tag name or color is invalid.
+    * 2b1. Clinkedin shows an error message.
 
       Use case resumes at step 1.
 
----
+---  
 
-### **Use Case: Modify tag**
-
-**Preconditions:**
-* The application is running.
-* The tag already exists.
-
-**Guarantees:**
-* If successful, the specified tag is updated or removed accordingly.
-* If unsuccessful, the tag list remains unchanged.
+### **Use Case: Rename tag**
 
 #### **MSS**
 
-1. User requests to rename a tag.
-2. CLinkedin validates the new tag name.
-3. CLinkedin updates the tag name.
-4. CLinkedin updates all contacts that contain the tag.
-5. CLinkedin displays a success message.
+1. User enters the `tag rename` command.
+2. Clinkedin validates the input.
+3. Clinkedin updates the tag name.
+4. Clinkedin updates all associated contacts.
+5. Clinkedin displays a success message.
 
    Use case ends.
 
 #### **Extensions**
 
-* 2a. The new tag name already exists.
-    * 2a1. CLinkedin shows an error message that the tag name already exists.
+* 2a. The original tag does not exist.
+    * 2a1. Clinkedin shows an error message.
 
       Use case resumes at step 1.
 
-* 1a. User requests to change a tag's color.
-    * 1a1. CLinkedin validates the new color value.
-    * 1a2. CLinkedin updates the tag color.
-    * 1a3. CLinkedin displays a success message.
+* 2b. The new tag name already exists.
+    * 2b1. Clinkedin shows an error message.
 
-      Use case ends.
+      Use case resumes at step 1.
 
-* 1b. User requests to delete a tag.
-    * 1b1. CLinkedin removes the tag from the tag list.
-    * 1b2. CLinkedin removes the tag from all associated contacts.
-    * 1b3. CLinkedin displays a success message.
+---  
 
-      Use case ends.
----
-
-### **Use Case: Assign or unassign tags for contacts**
-
-**Preconditions:**
-* The application is running.
-* The tag already exists.
-
-**Guarantees:**
-* If successful, the specified contacts are updated with the tag assignment changes.
-* If unsuccessful, no contact-tag assignments are changed.
+### **Use Case: Assign/Unassign tag**
 
 #### **MSS**
 
-1. User requests to assign a tag to one or more contacts.
-2. CLinkedin validates the provided contact indexes and tag name.
-3. CLinkedin assigns the tag to the specified contacts.
-4. CLinkedin displays a success message.
+1. User enters the `tag assign` or `tag unassign` command.
+2. Clinkedin validates the indexes and tag name.
+3. Clinkedin updates the tag assignment.
+4. Clinkedin displays a success message.
 
    Use case ends.
 
 #### **Extensions**
 
-* 2a. The user provides an invalid contact index.
-    * 2a1. CLinkedin shows an error message that the index is invalid.
+* 2a. Invalid index.
+    * 2a1. Clinkedin shows an error message.
 
       Use case resumes at step 1.
 
-* 2b. The tag does not exist.
-    * 2b1. CLinkedin shows an error message that the tag does not exist.
+* 2b. Tag does not exist.
+    * 2b1. Clinkedin shows an error message.
 
       Use case resumes at step 1.
 
-* 1a. User requests to unassign a tag from one or more contacts.
-    * 1a1. CLinkedin validates the provided contact indexes and tag name.
-    * 1a2. CLinkedin removes the tag from the specified contacts.
-    * 1a3. CLinkedin displays a success message.
+---  
+
+### **Use Case: Delete tag**
+
+#### **MSS**
+
+1. User enters the `tag delete` command.
+2. Clinkedin removes the tag.
+3. Clinkedin removes the tag from all contacts.
+4. Clinkedin displays a success message.
+
+   Use case ends.
+
+---  
+## Search & Sorting
+### **Use Case: Find contacts by name**
+
+**Preconditions:**
+* The application is running.
+* The contact list is not empty.
+
+**Guarantees:**
+* If successful, a filtered list of contacts matching the given keywords is displayed.
+* If unsuccessful, the contact list remains unchanged.
+
+#### **MSS**
+
+1. User requests to find contacts by entering the `find` command with one or more name keywords.
+2. Clinkedin parses the input keywords.
+3. Clinkedin filters the contact list to include contacts whose names match any of the keywords.
+4. Clinkedin displays the filtered list of contacts along with a summary message.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 1a. The user provides no keywords.
+    * 1a1. Clinkedin shows an error message that the command format is invalid.
+
+      Use case resumes at step 1.
+
+* 2a. The input format is invalid.
+    * 2a1. Clinkedin shows an error message that the command format is invalid.
+
+      Use case resumes at step 1.
+
+* 3a. No contacts match the given keywords.
+    * 3a1. Clinkedin displays an empty list with a summary message indicating 0 contacts found.
 
       Use case ends.
----
+---  
 ### **Use Case: Find contacts by company**
 
 **Preconditions:**
@@ -554,9 +790,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to find contacts by entering the `findcom` command with one or more company keywords.
-2. CLinkedin parses the input keywords.
-3. CLinkedin filters the contact list to include contacts whose company matches any of the keywords.
-4. CLinkedin displays the filtered list of contacts along with a summary message.
+2. Clinkedin parses the input keywords.
+3. Clinkedin filters the contact list to include contacts whose company matches any of the keywords.
+4. Clinkedin displays the filtered list of contacts along with a summary message.
 
    Use case ends.
 
@@ -564,23 +800,58 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The user provides no keywords.
 
-    * 1a1. CLinkedin shows an error message that the command format is invalid.
+    * 1a1. Clinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
 * 2a. The input format is invalid.
 
-    * 2a1. CLinkedin shows an error message that the command format is invalid.
+    * 2a1. Clinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
 * 3a. No contacts match the given keywords.
 
-    * 3a1. CLinkedin displays an empty list with a summary message indicating 0 contacts found.
+    * 3a1. Clinkedin displays an empty list with a summary message indicating 0 contacts found.
 
       Use case ends.
+  ---
+  ### **Use Case: Show contacts by tag**
 
----
+**Preconditions:**
+* The application is running.
+* The specified tag exists.
+
+**Guarantees:**
+* If successful, a filtered list of contacts with the specified tag is displayed.
+* If unsuccessful, the contact list remains unchanged.
+
+#### **MSS**
+
+1. User requests to show contacts by entering the `tag show` command with a tag name.
+2. Clinkedin validates that the specified tag exists.
+3. Clinkedin filters the contact list to include contacts that have the specified tag.
+4. Clinkedin displays the filtered list of contacts along with a summary message.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 1a. The user provides an invalid command format.
+    * 1a1. Clinkedin shows an error message indicating the correct command format.
+
+      Use case resumes at step 1.
+
+* 2a. The specified tag does not exist.
+    * 2a1. Clinkedin shows an error message that the tag does not exist.
+
+      Use case resumes at step 1.
+
+* 3a. No contacts have the specified tag.
+    * 3a1. Clinkedin displays an empty list with a summary message indicating 0 contacts found.
+
+      Use case ends.
+---  
 
 ### **Use Case: Sort contacts by company**
 
@@ -597,9 +868,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to sort contacts by entering the `sortcom` command.
-2. CLinkedin sorts the currently displayed contact list alphabetically by company name (case-insensitive).
-3. CLinkedin displays the sorted contact list.
-4. CLinkedin displays a success message.
+2. Clinkedin sorts the currently displayed contact list alphabetically by company name (case-insensitive).
+3. Clinkedin displays the sorted contact list.
+4. Clinkedin displays a success message.
 
    Use case ends.
 
@@ -607,11 +878,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The user provides an invalid command format.
 
-    * 1a1. CLinkedin shows an error message that the command format is invalid.
+    * 1a1. Clinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
----
+---  
 
 ### Non-Functional Requirements
 
@@ -638,57 +909,133 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Filtered contact list**: The subset of contacts currently displayed after applying a command.
 * **Duplicate contact**: Two contacts with the same phone number.
 
---------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------  
 
-## **Appendix: Instructions for manual testing**
+## **Appendix: Instructions for Manual Testing**
 
-Given below are instructions to test the app manually.
+This section provides instructions for testing the application manually.
 
-<box type="info" seamless>
+<box type="info" seamless>  
 
-**Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+**Note:** These instructions provide a starting point. Testers are encouraged to perform additional *exploratory testing*.
 
-</box>
+</box>  
+  
+---  
 
-### Launch and shutdown
+### Launch and Shutdown
 
-1. Initial launch
+#### Initial Launch
 
-    1. Download the jar file and copy into an empty folder
+1. Download the `.jar` file and place it in an empty folder.
+2. Double-click the `.jar` file.
 
-    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+**Expected:**
+- The application launches successfully.
+- The GUI displays a list of sample contacts.
+- The window size may not be optimal.
 
-1. Saving window preferences
+---  
 
-    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+### Adding a Contact
 
-    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+**Test case 1:** `add n/John Doe p/98765432 e/john@example.com a/NUS`
 
-1. _{ more test cases …​ }_
+**Expected:**
+- Contact is added to the list
+- Success message is shown
 
-### Deleting a person
+**Test case 2:** Missing field    
+`add n/John Doe p/98765432`
 
-1. Deleting a person while all persons are being shown
+**Expected:**
+- Contact is not added
+- Error message is shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+**Test case 3:** Duplicate phone    
+`add n/Jane p/98765432 e/jane@example.com a/NUS`
 
-    1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+**Expected:**
+- Contact is not added
+- Error message indicating duplicate contact
 
-    1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+---  
+### Editing a Contact
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+**Prerequisites:**
+- At least one contact exists
 
-1. _{ more test cases …​ }_
+**Test case 1:** `edit 1 p/91234567`
 
-### Saving data
+**Expected:**
+- Contact is updated
+- Success message is shown
 
-1. Dealing with missing/corrupted data files
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+**Test case 2:** Invalid index    
+`edit 999 p/91234567`
 
-1. _{ more test cases …​ }_
+**Expected:**
+- No changes made
+- Error message shown
+
+**Test case 3:** No fields provided    
+`edit 1`
+
+**Expected:**
+- No changes made
+- Error message shown
+
+---  
+### Deleting a Contact
+
+#### Deleting from full list
+
+**Prerequisites:**
+- Ensure multiple contacts exist.
+- Enter `list` to display all contacts.
+
+**Test case 1:** `delete 1`
+
+**Expected:**
+- The first contact is removed from the list.
+- A success message is displayed with the contact details.
+
+
+**Test case 2:** `delete 0`
+
+**Expected:**
+- No contact is deleted.
+- An error message is displayed.
+
+
+**Test case 3:** Invalid commands: `delete`, `delete x`, `delete 999`
+
+**Expected:**
+- No changes are made.
+- An appropriate error message is shown.
+
+---  
+
+### Saving Data
+
+#### Missing or corrupted data file
+
+1. Navigate to the `data` folder.
+2. Delete or modify the `addressbook.json` file.
+3. Launch the application.
+
+**Expected:**
+- If the file is missing, a new data file is created.
+- If the file is corrupted, the application resets to an empty dataset.
+
+---  
+
+### Additional Testing
+
+Testers should also explore:
+- Invalid inputs for all commands
+- Boundary values (e.g. large indexes)
+- Repeated operations (e.g. delete → restore → delete)
+- Tag-related operations
+- Filtering and sorting combinations

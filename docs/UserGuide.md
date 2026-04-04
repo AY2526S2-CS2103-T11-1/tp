@@ -1,12 +1,23 @@
 ---
   layout: default.md
-  title: "User Guide"
-  pageNav: 3
+    title: "User Guide"
+    pageNav: 3
 ---
 
-# CLInkedin User Guide
+# Clinkedin User Guide
 
-CLInkedin is a **desktop app for managing contacts, optimized for use via a Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CLInkedin can get your contact management tasks done faster than traditional GUI apps.
+Clinkedin is a **desktop contact management application** designed for users who prefer using a **Command Line Interface (CLI)**. It combines the speed of typing with the convenience of a graphical interface.
+
+If you are comfortable typing, Clinkedin allows you to manage contacts **faster and more efficiently** than traditional GUI-based applications.
+
+---
+
+## Who is this for?
+
+Clinkedin is ideal for users who:
+- Prefer typing over clicking
+- Manage a large number of contacts
+- Need fast filtering, tagging, and organisation
 
 <!-- * Table of Contents -->
 
@@ -16,137 +27,230 @@ CLInkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
+1. Ensure you have Java `17` or above installed.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103-T11-1/tp/releases).
+2. Download the latest `.jar` file from the [release page](https://github.com/AY2526S2-CS2103-T11-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your CLInkedin.
+3. Place it in your desired folder.
+4. Run the app using `java -jar clinkedin.jar`.
+5. A GUI similar to the below should appear in a few seconds. (Note how the app contains some sample data.)<br>
+![Ui](images/Ui.png)
+6. Enter a command in the input box and press **Enter** to execute it (e.g. `help`).
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinkedin.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   Examples:
+    - `list` — show all contacts
+    - `add n/John Doe p/98765432 e/johnd@example.com a/John street` — add a contact
+    - `delete 3` — delete the 3rd contact
+    - `clear` — remove all contacts
+    - `exit` — close the app
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+Refer to the [Features](#features) section for full command details.<br>
 
-    * `list` : Lists all contacts.
+---
 
-    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to CLInkedin.
+## Typical Workflow
 
-    * `delete 3` : Deletes the 3rd contact shown in the current list.
-
-    * `clear` : Deletes all contacts.
-
-    * `exit` : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
+1. Add contacts using `add`
+2. Organise using tags (`tag create`, `tag assign`)
+3. Search using `find` or `findcom`
+4. Sort results using `sortcom`
+5. Delete unwanted contacts using `delete`
+6. Restore contacts using `restore` if needed
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
-
+## Command Format
 <box type="info" seamless>
 
-**Notes about the command format:**<br>
+- `UPPER_CASE` = user input  
+  Example: `add n/NAME` = `n/John Doe`
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+- `[OPTIONAL]` = optional field <br>
+  Example: `n/NAME [t/TAG]` = `n/John Doe t/friend` OR `n/John Doe`
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+- `…` = can repeat multiple times (including 0 times) <br>
+  Example: `[t/TAG]…` = `t/friend` OR `t/friend t/family` etc.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+- Order of parameters **does not matter** <br>
+  Example: `n/NAME p/PHONE_NUMBER` = `p/PHONE_NUMBER n/NAME`
 
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+- Prefixes must not contain spaces:
+  - ✅ `c/Google`
+  - ❌ `c / Google`
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit`, `sortcom` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+- Extra parameters for commands that do not require them (e.g. `help`, `list`, `exit`, `sortcom`, `clear`) will be ignored.  
+    Example: `help 123` is treated as `help`.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+- When copying commands from a PDF, ensure spaces are preserved, especially for multi-line commands.
 </box>
 
+---
+
+## Prefix Summary
+
+| Prefix | Field |
+|--------|------|
+| `n/` | Name |
+| `p/` | Phone |
+| `e/` | Email |
+| `a/` | Address |
+| `c/` | Company |
+| `l/` | Link |
+| `r/` | Remark |
+| `t/` | Tag |
+
+---
+
+# Features
+## General Commands
 ### Viewing help : `help`
 
-Shows a message explaining how to access the help page.
+Displays the help window with link to our user guide page.
 
 ![help message](images/helpMessage.png)
 
 Format: `help`
 
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+### Saving the data
+
+Clinkedin data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+### Editing the data file
+
+Clinkedin data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<box type="warning" seamless>
+
+**Caution:**
+If your changes to the data file makes its format invalid, Clinkedin will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause Clinkedin to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+</box>
+
+## Contact Management Commands
+
 ### Adding a contact: `add`
 
-Adds a contact to CLInkedin.
+Adds a new contact and displays it in the list.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`
 <box type="warning" seamless>
 
 **Input constraints:**
-- **Name**
-    - Contains only letters, spaces, apostrophes (`'`) and hyphens (`-`)
-    - Maximum 100 characters
-- **Company**
-    - Contains only letters, numbers, spaces, `. , & -`
-    - Maximum 50 characters
-- **Address**
-    - Must not contain `/` or `@`
-    - Must not contain multiple consecutive spaces
-    - Maximum 100 characters
-- **Link**
-    - Must start with 'http://' or 'https://'
-- **Remark**
-    - Must not contain `/`
-    - Maximum 200 characters
-- **Tag**
-    - Must be alphanumeric (letters and numbers only)
-    - Maximum 20 characters
-    - Case-sensitive
-
-</box>
-<box type="tip" seamless>
+- **Name**: Letters, spaces, `'`, `-` only (max 100 characters)
+- **Company**: Letters, numbers, spaces, `. , & -` (max 50 characters)
+- **Address**: No `/` or `@`, no multiple consecutive spaces (max 100 characters)
+- **Link**: Must start with `http://` or `https://`
+- **Remark**: No `/` (max 200 characters)
+- **Tag**: Alphanumeric only, case-sensitive (max 20 characters)
 
 **Tip:** A contact can have any number of tags (including 0)
+
 </box>
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Pasir Ris Drive c/Google r/Follow up next week p/1234567 t/teacher`
 
-### Listing all contacts : `list`
-
-Shows a list of all contacts in CLInkedin.
-
-Format: `list`
-
 ### Editing a contact : `edit`
 
-Edits an existing contact in CLInkedin.
+Edits an existing contact.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`
 
 <box type="warning" seamless>
 
-Each field must still follow its respective input constraints (refers to input constraints in [**Add command**](#adding-a-contact-add) section above for details).
+Each field must follow its respective input constraints (refer to the [**Add command**](#adding-a-contact-add) section above for details).
+
+**Notes:**
+- Fields not provided will remain unchanged
+- Tags are **replaced**, not added incrementally
+- `t/` clears all existing tags
+- `c/` or `r/` clears the company or remark field respectively
 
 </box>
 
-* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
-* You can remove all the contact’s tags by typing `t/` without specifying any tags after it.
-* You can clear the company or remark field by typing `c/` or `r/` without specifying any value.
+* Edits the contact at the specified `INDEX`, based on the displayed contact list  
+* The index must be a **positive integer** (1, 2, 3, …)  
+* At least one optional field must be provided  
+* Specified fields will overwrite existing values
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com`:Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 *  `edit 3 c/ r/` Clears both the company and remark fields of the 3rd contact.
 
+### Deleting a contact : `delete`
+
+Moves a contact to the deleted list.
+
+Format: `delete INDEX`
+
+* Deletes the contact at the specified `INDEX` from the displayed list
+* The index must be a **positive integer** (1, 2, 3, …)
+* Deleted contacts are not removed immediately
+* They can be viewed using the `deleted` command
+* Contacts are permanently removed after **7 days**
+
+
+Examples:
+* `list` followed by `delete 2` <br>
+Deletes the 2nd contact in the list.
+* `find Betsy` followed by `delete 1`<br>
+Deletes the 1st contact in the results of the `find` command.
+
+### Viewing deleted contacts : `deleted`
+
+Displays contacts that were deleted within the last 7 days.
+
+Format: `deleted`
+
+* Shows all recently deleted contacts
+* Each entry includes the **date and time of deletion**
+* Contacts older than 7 days are automatically removed
+
+Examples:
+* `deleted`
+
+### Restoring a contact : `restore`
+
+Restores a contact from the deleted list.
+
+Format: `restore INDEX`
+
+* Restores the contact at the specified `INDEX` from the deleted contacts list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The restored contact will be added back to Clinkedin.
+* If a tag associated with the contact has been removed or renamed before restoration, the contact will be restored without that tag.
+* If restoring the contact results in duplicate phone number or existing contact conflicts, the restore will fail.
+* Once restored, the contact will be removed from the deleted list.
+
+Examples:
+* `deleted` followed by `restore 1`
+
+### Listing all contacts : `list`
+
+Displays all contacts.
+
+Format: `list`
+
+### Clearing all entries : `clear`
+
+Clears all contacts.
+
+Format: `clear`
+
+---
+## Search & Sort Commands
 ### Locating contacts by name: `find`
 
-Finds contacts whose names contain any of the given keywords.
+Search contacts whose names contain any of the given keywords.
 
 Format: `find KEYWORD [;MORE_KEYWORDS]`
 
@@ -164,7 +268,7 @@ Examples:
 
 ### **Finding contacts by company: `findcom`**
 
-Finds all contacts whose company name matches any of the given keywords.
+Search contacts whose company name matches any of the given keywords.
 
 Format:
 `findcom KEYWORD [; KEYWORD]…​`
@@ -207,52 +311,8 @@ Examples:
   `sortcom`
   First filters contacts by company “Google”, then sorts the filtered results alphabetically.
 
-### Deleting a contact : `delete`
-
-Deletes the specified contact from CLInkedin.
-
-Format: `delete INDEX`
-
-* Deletes the contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed contact list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* Deleted contacts are not permanently removed immediately.
-* Deleted contacts are stored and can be viewed using the `deleted` command.
-* Contacts will be permanently removed after 7 days.
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd contact in CLInkedin.
-* `find Betsy` followed by `delete 1` deletes the 1st contact in the results of the `find` command.
-
-### Viewing deleted contacts : `deleted`
-
-Shows a list of recently deleted contacts.
-
-Format: `deleted`
-
-* Displays all contacts that were deleted within the last 7 days.
-* Each deleted contact includes the date and time it was deleted.
-* Contacts that exceed 7 days from deletion will no longer be shown.
-
-Examples:
-* `deleted`
-
-### Restoring a contact : `restore`
-
-Restores a contact from the deleted list.
-
-Format: `restore INDEX`
-
-* Restores the contact at the specified `INDEX` from the deleted contacts list.
-* The index refers to the index number shown in the `deleted` list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The restored contact will be added back to CLInkedin.
-* If a tag associated with the contact has been removed or renamed before restoration, the contact will be restored without that tag.
-* If restoring the contact results in duplicate phone number or existing contact conflicts, the restore will fail.
-* Once restored, the contact will be removed from the deleted list.
-
-Examples:
-* `deleted` followed by `restore 1`
+---
+## Tag Management Commands
 
 ### Creating a tag: `tag create`
 
@@ -279,13 +339,14 @@ Examples:
 
 ### Assigning/Unassigning a tag: `tag assign`, `tag unassign`
 
-Assign/remove a tag to/from 1 or multiple contacts at once.
+Assign/remove a tag to/from one or multiple contacts at once.
 
 Format: `tag assign INDEX[,INDEX]... TAG_NAME`, `tag unassign INDEX[,INDEX]... TAG_NAME`
 
-* Assigns/remove `TAG_NAME` tag to/from multiple contacts.
-* If the index provided is **out of range** or **negative** or **zero**, an error message will be shown.
-* If the tag does not exist, an error message will be shown.
+* Applies the specified tag to one or more contacts
+* Indexes must be **positive integers** (1, 2, 3, …)
+* Invalid indexes (out of range, zero, or negative) will result in an error
+* An error is shown if the tag does not exist
 
 Examples:
 * `tag assign 1 friend`
@@ -300,8 +361,8 @@ Deletes a tag and removes it from all contacts.
 Format: `tag delete TAG_NAME`
 
 * Deletes the tag with the specified `TAG_NAME`.
-* The tag will be removed from all contacts that currently have it.
-* Only the specified tag is removed; other tags on the contact remain unchanged.
+* The tag is also removed from all contacts
+* Other tags on the contact remain unchanged.
 * If the tag does not exist, an error message will be shown.
 
 Examples:
@@ -319,10 +380,9 @@ Renames an existing tag and updates all respective contacts with it.
 
 Format: `tag rename OLD_TAG_NAME NEW_TAG_NAME`
 
-* Renames the tag specified by `OLD_TAG_NAME` to the `NEW_TAG_NAME`. 
-* The tag will be updated for all contacts that currently have it assigned. 
-* Note: Tag names cannot contain spaces.
-* The old and new tag names cannot be the same. 
+* Updates the tag name for all contacts using it
+* Tag names cannot contain spaces.
+* The old and new tag names must be different.
 * If the `OLD_TAG_NAME` does not exist, an error message will be shown.
 
 Examples:
@@ -337,8 +397,7 @@ Format: `tag color TAG_NAME COLOR`
 
 * Adds a valid color to the specified `TAG_NAME`.
 * A valid color is any case-insensitive plain name, or hexadecimal value.
-* If the tag does not exist, an error message will be shown.
-* If the color is invalid, an error message will be shown.
+* An error is shown if the tag does not exist or the color is invalid.
 
 Examples:
 * `tag color friends blue`
@@ -346,7 +405,7 @@ Examples:
 
 ### Filter contacts by tag: `tag show`
 
-Show contacts that have a specific tag.
+Displays contacts that have a specific tag.
 
 Format: `tag show TAG_NAME`
 
@@ -358,42 +417,25 @@ Examples:
 * `tag show friends`
 * `tag show coworkers`
 
-### Clearing all entries : `clear`
-
-Clears all entries from CLInkedin.
-
-Format: `clear`
-
-### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
-
-### Saving the data
-
-CLInkedin data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Editing the data file
-
-CLInkedin data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<box type="warning" seamless>
-
-**Caution:**
-If your changes to the data file makes its format invalid, CLInkedin will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause CLInkedin to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CLInkedin home folder.
+**A**: 
+- Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Clinkedin home folder.
 
-**Q**: Why does `sortcom` not sort all contacts after using `tag show`?<br>
-**A**: `sortcom` sorts only the **currently displayed contact list**. After `tag show`, the list is filtered, so only that subset is sorted. Use `list` first to sort all contacts.
+**Q**: Why is my command not working? <br>
+**A**:
+- Check prefix format (e.g. `c/Google`)
+- Ensure required fields are included
+- Avoid spaces in prefixes
+
+**Q**: Why doesn’t `sortcom` sort everything? <br>
+**A**:
+- It only sorts the currently displayed list
+- Use `list` before `sortcom` to sort all contacts
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -428,45 +470,3 @@ Action              | Format, Examples
 **Tag Color**       | `tag color TAG_NAME COLOR`<br> e.g.,`tag color friends red`
 **Tag Delete**      | `tag delete TAG_NAME`<br> e.g., `tag delete friend`
 **Help**            | `help`
-
-## Prefix Summary
-
-| Prefix | Field | Description | Example |
-|--------|-------|------------|--------|
-| `n/`   | Name | Contact’s full name | `n/John Doe` |
-| `p/`   | Phone | Phone number | `p/98765432` |
-| `e/`   | Email | Email address | `e/john@example.com` |
-| `a/`   | Address | Address or context | `a/NUS Computing` |
-| `c/` *(optional)* | Company | Company name | `c/Google` |
-| `l/` *(optional)* | Link | URL (e.g., LinkedIn) | `l/https://linkedin.com/in/john` |
-| `r/` *(optional)* | Remark | Additional notes | `r/Met at career fair` |
-| `t/` *(optional)* | Tag | Tag(s) for categorisation | `t/friend` |
-
-<box type="warning" seamless>
-
-**Prefix usage constraints:**
-
-* Prefixes must be used **without spaces** between the prefix and `/`.
-
-    * Valid:  
-      `c/Google`
-      `r/Met at event`
-
-    * Invalid:
-      `c / Google`  
-      `r / Met at event`
-
-* If a prefix is written incorrectly (e.g., with spaces), it may be interpreted as part of another field and lead to unexpected errors.
-
-* Fields marked as *(optional)* (`c/`, `l/`, `r/`, `t/`) can be omitted when adding or editing a contact.
-
-* Each field must still follow its respective input constraints
-  (refers to input constraints in [**Add command**](#adding-a-contact-add) section above for details).
-
-</box>
-
-<box type="tip" seamless>
-
-**Tip:** Each prefix applies only to the value immediately following it. Ensure correct formatting to avoid parsing errors.
-
-</box>
