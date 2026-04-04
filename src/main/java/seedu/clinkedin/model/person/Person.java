@@ -13,16 +13,14 @@ import seedu.clinkedin.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: core identity fields are present and not null, field values are validated, immutable.
  */
 public class Person {
 
-    // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
 
-    // Data fields
     private final Company company;
     private final Address address;
     private final Remark remark;
@@ -31,12 +29,12 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Name, phone, email, address and tags must be present and not null.
-     * Link is optional and may be absent.
+     * Constructs a {@code Person}.
+     * Optional fields may be absent.
      */
     public Person(Name name, Phone phone, Email email, Optional<Company> company,
                   Address address, Optional<Remark> remark, Optional<Link> link, DateAdded dateAdded, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, dateAdded, tags);
+        requireAllNonNull(name, phone, email, company, address, remark, link, dateAdded, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -60,22 +58,50 @@ public class Person {
         return email;
     }
 
+    /**
+     * Returns the company, or {@code null} if not provided.
+     */
     public Company getCompany() {
         return company;
+    }
+
+    /**
+     * Returns true if the person has a company.
+     */
+    public boolean hasCompany() {
+        return company != null;
     }
 
     public Address getAddress() {
         return address;
     }
 
+    /**
+     * Returns the remark, or {@code null} if not provided.
+     */
     public Remark getRemark() {
         return remark;
     }
+
     /**
-     * Returns the link, or null if not provided.
+     * Returns true if the person has a remark.
+     */
+    public boolean hasRemark() {
+        return remark != null;
+    }
+
+    /**
+     * Returns the link, or {@code null} if not provided.
      */
     public Link getLink() {
         return link;
+    }
+
+    /**
+     * Returns true if the person has a link.
+     */
+    public boolean hasLink() {
+        return link != null;
     }
 
     public DateAdded getDateAdded() {
@@ -83,8 +109,7 @@ public class Person {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
@@ -102,6 +127,7 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
     }
+
     /**
      * Returns a new {@code Person} with the specified tag removed.
      * The original person remains unchanged.
@@ -119,10 +145,6 @@ public class Person {
                 Optional.ofNullable(link), dateAdded, updatedTags);
     }
 
-    /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
-     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -147,7 +169,6 @@ public class Person {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, phone, email, company, address, remark, link, dateAdded, tags);
     }
 
@@ -165,5 +186,4 @@ public class Person {
                 .add("tags", tags)
                 .toString();
     }
-
 }
