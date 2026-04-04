@@ -1,14 +1,14 @@
 ---
   layout: default.md
-    title: "User Guide"
-    pageNav: 3
+  title: "User Guide"
+  pageNav: 3
 ---
 
 # Clinkedin User Guide
 
 Clinkedin is a **desktop contact management application** designed for users who prefer using a **Command Line Interface (CLI)**. It combines the speed of typing with the convenience of a graphical interface.
 
-If you are comfortable typing, Clinkedin allows you to manage contacts **faster and more efficiently** than traditional GUI-based applications.
+If you are comfortable typing, Clinkedin allows you to manage contacts **faster and more efficiently** than traditionalGUI-based applications.
 
 ---
 
