@@ -48,27 +48,17 @@ deactivate ABParser
 Logic -> Command : execute(m)
 activate Command
 
-Command -> Model : hasTag(tag)
-activate Model
-Model --> Command
-deactivate Model
-
-Command -> Model : getFilteredPersonList()
+Command -> Model : checkIfTagExist(tag)
 activate Model
 Model --> Command
 deactivate Model
 
 loop for each specified contact
-    Command -> Model : setPerson(personToEdit, editedPerson)
+    Command -> Model : assign tag to person
     activate Model
     Model --> Command
     deactivate Model
 end
-
-Command -> Model : updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
-activate Model
-Model --> Command
-deactivate Model
 
 create Result
 Command -> Result

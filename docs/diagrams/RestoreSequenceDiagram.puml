@@ -48,7 +48,7 @@ deactivate ABParser
 Logic -> Command : execute(m)
 activate Command
 
-Command -> Model : getFilteredDeletedPersonRecordList()
+Command -> Model : get person from deleted record
 activate Model
 Model --> Command
 deactivate Model
@@ -58,7 +58,7 @@ activate Model
 Model --> Command
 deactivate Model
 
-Command -> Command : reconcile tags
+Command -> Command : verify if old record's tag exist, and update if exist
 activate Command
 Command --> Command
 deactivate Command

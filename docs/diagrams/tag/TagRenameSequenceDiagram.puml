@@ -48,24 +48,24 @@ deactivate ABParser
 Logic -> Command : execute(m)
 activate Command
 
-Command -> Model : hasTag(oldTag)
+Command -> Model : checkIfTagExist(oldTag)
 activate Model
 Model --> Command
 deactivate Model
 
-Command -> Model : setTags(updatedTagList)
+Command -> Model : create tag with new tag name
 activate Model
 Model --> Command
 deactivate Model
 
 loop for each person with oldTag
-    Command -> Model : setPerson(personToEdit, editedPerson)
+    Command -> Model : update person's old tag name to new tag name
     activate Model
     Model --> Command
     deactivate Model
 end
 
-Command -> Model : updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
+Command -> Model : delete tag with old tag name
 activate Model
 Model --> Command
 deactivate Model

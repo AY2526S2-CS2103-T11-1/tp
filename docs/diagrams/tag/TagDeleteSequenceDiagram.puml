@@ -48,7 +48,7 @@ deactivate ABParser
 Logic -> Command : execute(m)
 activate Command
 
-Command -> Model : hasTag(tagName)
+Command -> Model : checkIfTagExist(tagName)
 activate Model
 Model --> Command
 deactivate Model
