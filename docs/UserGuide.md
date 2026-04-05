@@ -437,6 +437,17 @@ Examples:
 - It only sorts the currently displayed list
 - Use `list` before `sortcom` to sort all contacts
 
+**Q**: Why are tag changes (rename, delete, color) not reflected in the deleted list?<br>
+**A**: The deleted list stores a **snapshot** of the contact at the time it was deleted. Changes made to tags afterward (e.g., renaming, deletion, or color updates) will not affect this snapshot.
+
+**Q**: What happens to tags when I restore a deleted contact?<br>
+**A**: When a contact is restored, its tags are matched against the current tag list:
+- Tags that have been **deleted or renamed** will not be restored
+- A message will be shown if some tags could not be restored
+- Tag **colors will be applied based on the current tag definitions**, as long as the tag name still exists
+
+**Q**: Why can’t I restore a contact?<br>
+**A**: This is likely because the current contact list already contains the same contact. Similar to AB3, duplicate contacts are not allowed in the main list. However, duplicates can exist in the deleted list since it stores historical snapshots. If a duplicate exists in the current list, the contact cannot be restored.
 
 --------------------------------------------------------------------------------------------------------------------
 
