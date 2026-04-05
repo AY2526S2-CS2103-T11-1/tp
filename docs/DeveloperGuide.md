@@ -1,8 +1,8 @@
-
----  
-layout: default.md  
-title: "Developer Guide" pageNav: 3
----  
+---
+  layout: default.md
+  title: "Developer Guide"
+  pageNav: 3
+---
 
 # CLinkedin Developer Guide
 
@@ -27,7 +27,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ### Architecture
 
-<puml src="diagrams/ArchitectureDiagram.puml" width="280" />  
+<puml src="diagrams/ArchitectureDiagram.puml" width="280" />
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -52,7 +52,7 @@ The bulk of the app's work is done by the following four components:
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-<puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />  
+<puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
 Each of the four main components (also shown in the diagram above),
 
@@ -61,7 +61,7 @@ Each of the four main components (also shown in the diagram above),
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-<puml src="diagrams/ComponentManagers.puml" width="300" />  
+<puml src="diagrams/ComponentManagers.puml" width="300" />
 
 The sections below give more details of each component.
 
@@ -69,7 +69,7 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
-<puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>  
+<puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
@@ -88,28 +88,28 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<puml src="diagrams/LogicClassDiagram.puml" width="550"/>  
+<puml src="diagrams/LogicClassDiagram.puml" width="550"/>
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />  
+<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
 
-<box type="info" seamless>  
+<box type="info" seamless>
 
-**Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.  
+**Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </box>
 
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>  
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
-<puml src="diagrams/ParserClasses.puml" width="600"/>  
+<puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
@@ -118,7 +118,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />  
+<puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
 
 The `Model` component,
@@ -128,20 +128,20 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<box type="info" seamless>  
+<box type="info" seamless>
 
 **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />  
+<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
-</box>  
+</box>
 
 
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />  
+<puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
@@ -151,8 +151,8 @@ The `Storage` component,
 ### Common classes
 
 Classes used by multiple components are in the `seedu.clinkedin.commons` package.
-  
---------------------------------------------------------------------------------------------------------------------  
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Implementation**
 
@@ -170,31 +170,31 @@ If input is provided, the system updates the filtered contact list to show conta
 
 The following activity diagram illustrates the decision flow of the `findcom` command:
 
-<puml src="diagrams/company/FindComActivityDiagram.puml" alt="FindComActivityDiagram" />  
+<puml src="diagrams/company/FindComActivityDiagram.puml" alt="FindComActivityDiagram" />
 
 The following sequence diagram illustrates how the `findcom` command is handled by the system components:
 
-<puml src="diagrams/company/FindComSequenceDiagram.puml" alt="company/FindComSequenceDiagram" />  
+<puml src="diagrams/company/FindComSequenceDiagram.puml" alt="company/FindComSequenceDiagram" />
 
 #### Sorting contacts by company
 
 The `sortcom` command allows users to sort the currently displayed contact list alphabetically by company name.
 
-<box type="info" seamless>  
+<box type="info" seamless>
 
 **Note:** The sorting operation is applied only to the **filtered contact list** (i.e., the currently displayed contacts), not the entire dataset.
 
-</box>  
+</box>
 
 When the command is executed, the system sorts the filtered contact list by company name in a case-insensitive manner. Contacts without a company are treated as having an empty value and will appear at the top of the displayed list. The sorted list is then shown to the user together with a success message.
 
 The following activity diagram illustrates the flow of the `sortcom` command:
 
-<puml src="diagrams/company/SortComActivityDiagram.puml" alt="SortComActivityDiagram" />  
+<puml src="diagrams/company/SortComActivityDiagram.puml" alt="SortComActivityDiagram" />
 
 The following sequence diagram illustrates how the `sortcom` command is handled by the system components:
 
-<puml src="diagrams/company/SortComSequenceDiagram.puml" alt="SortComSequenceDiagram" />  
+<puml src="diagrams/company/SortComSequenceDiagram.puml" alt="SortComSequenceDiagram" />
 
 #### Contact restoration
 
@@ -212,12 +212,31 @@ If restoration is allowed, the contact is added back to the main contact list an
 
 The following activity diagram illustrates the decision flow of the `restore` command:
 
-<puml src="diagrams/RestoreActivityDiagram.puml" alt="RestoreActivityDiagram" />  
+<puml src="diagrams/RestoreActivityDiagram.puml" alt="RestoreActivityDiagram" />
 
 The following sequence diagram illustrates how the `restore` command is handled by the system components:
 
-<puml src="diagrams/RestoreSequenceDiagram.puml" alt="RestoreSequenceDiagram" />  
+<puml src="diagrams/RestoreSequenceDiagram.puml" alt="RestoreSequenceDiagram" />
 
+#### Finding contacts by tag
+
+The `tag show` command allows users to find contacts that have a specific tag.
+
+Users can input a single tag to filter the list of contacts.
+
+When the command is executed, the system first checks whether any tag keyword was provided. If the input is empty, the command fails and an error message is shown.
+
+If input is provided, the system checks if the tag exists. If it doesn’t, the command fails and an error message is shown.
+
+If the tag exists, the system creates a TagContainsKeywordPredicate and updates the contact list to show contacts who have that specific tag.
+
+The following activity diagram illustrates the decision flow of the tag show command:
+
+<puml src="diagrams/tag/TagShowActivityDiagram.puml" alt="TagShowActivityDiagram" />
+
+The following sequence diagram illustrates how the tag show command is handled by the system components:
+
+<puml src="diagrams/tag/TagShowSequenceDiagram.puml" alt="TagShowSequenceDiagram" />
 
 ### Tag management
 #### Tag creation
@@ -230,11 +249,11 @@ If the tag name is valid and no duplicate is found, the system checks whether a 
 
 The following activity diagram illustrates the decision flow of the `tag create` command:
 
-<puml src="diagrams/tag/TagCreateActivityDiagram.puml" alt="TagCreateActivityDiagram" />  
+<puml src="diagrams/tag/TagCreateActivityDiagram.puml" alt="TagCreateActivityDiagram" />
 
 The following sequence diagram illustrates how the `tag create` command is handled by the system components:
 
-<puml src="diagrams/tag/TagCreateSequenceDiagram.puml" alt="TagCreateSequenceDiagram" />  
+<puml src="diagrams/tag/TagCreateSequenceDiagram.puml" alt="TagCreateSequenceDiagram" />
 
 #### Tag deletion
 
@@ -246,11 +265,11 @@ If the tag exists, the tag is removed from the tag list. The system then removes
 
 The following activity diagram illustrates the decision flow of the `tag delete` command:
 
-<puml src="diagrams/tag/TagDeleteActivityDiagram.puml" alt="TagDeleteActivityDiagram" />  
+<puml src="diagrams/tag/TagDeleteActivityDiagram.puml" alt="TagDeleteActivityDiagram" />
 
 The following sequence diagram illustrates how the `tag delete` command is handled by the system components:
 
-<puml src="diagrams/tag/TagDeleteSequenceDiagram.puml" alt="TagDeleteSequenceDiagram" />  
+<puml src="diagrams/tag/TagDeleteSequenceDiagram.puml" alt="TagDeleteSequenceDiagram" />
 
 #### Tag assignment
 
@@ -258,10 +277,10 @@ The `tag assign` command allows users to assign an existing tag to one or more c
 
 When the command is executed, the system first verifies that the specified tag exists in the tag list. If it does, it checks that all provided contact indices are valid. If any index is invalid, the command aborts to prevent partial execution. Upon successful validation, the tag is added to the specified contacts, and the model is updated.
 
-The following activity diagram illustrates the decision flow:  
+The following activity diagram illustrates the decision flow:
 <puml src="diagrams/tag/TagAssignActivityDiagram.puml" alt="TagAssignActivityDiagram" />
 
-The following sequence diagram illustrates the execution:  
+The following sequence diagram illustrates the execution:
 <puml src="diagrams/tag/TagAssignSequenceDiagram.puml" alt="TagAssignSequenceDiagram" />
 
 #### Tag unassignment
@@ -270,10 +289,10 @@ The `tag unassign` command allows users to unassign an existing tag to one or mo
 
 When the command is executed, the system first verifies that the specified tag exists in the tag list. If it does, it checks that all provided contact indices are valid and has the specified tag. If any index is invalid or one or more user does not have the tag, the command aborts to prevent partial execution. Upon successful validation, the tag is removed from the specified contacts, and the model is updated.
 
-The following activity diagram illustrates the decision flow:  
+The following activity diagram illustrates the decision flow:
 <puml src="diagrams/tag/TagUnassignActivityDiagram.puml" alt="TagUnassignActivityDiagram" />
 
-The following sequence diagram illustrates the execution:  
+The following sequence diagram illustrates the execution:
 <puml src="diagrams/tag/TagUnassignSequenceDiagram.puml" alt="TagUnassignSequenceDiagram" />
 
 #### Tag rename
@@ -282,13 +301,31 @@ The `tag rename` commands allow users to modify the name of an existing tag, whi
 
 Because tags are immutable objects in this architecture, modifying a tag requires replacing it. The system first validates that the old tag exists. It then creates the new tag in the global `CLinkedin` tag list and attach it to the contacts containing the old tag through iteration. Finally, it removes the old tag from the tag list.
 
-The following activity diagram illustrates the decision flow:  
+The following activity diagram illustrates the decision flow:
 <puml src="diagrams/tag/TagRenameActivityDiagram.puml" alt="TagRenameActivityDiagram" />
 
-The sequence diagram below illustrates the execution:  
+The sequence diagram below illustrates the execution:
 <puml src="diagrams/tag/TagRenameSequenceDiagram.puml" alt="TagRenameSequenceDiagram" />
-  
---------------------------------------------------------------------------------------------------------------------  
+
+#### Tag color
+
+The `tag color` command allows users to add a color to an existing tag.
+
+When the command is executed, the system first checks whether the color is valid. If the color is not valid, the command fails and an error message is shown.
+
+If the color is valid, the system then checks if the tag exists. If the tag does not exist, the command fails and an error message is shown.
+
+If both the tag and color is valid, the color is then added to the tag and the model is updated.
+
+The following activity diagram illustrates the decision flow:
+
+<puml src="diagrams/tag/TagColorActivityDiagram.puml" alt="TagColorActivityDiagram" />
+
+The sequence diagram below illustrates the execution:
+
+<puml src="diagrams/tag/TagColorSequenceDiagram.puml" alt="TagColorSequenceDiagram" />
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -298,7 +335,7 @@ The sequence diagram below illustrates the execution:
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
 
---------------------------------------------------------------------------------------------------------------------  
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Requirements**
 
@@ -316,31 +353,31 @@ The sequence diagram below illustrates the execution:
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                                        | So that I can…​                                                                   |  
-|----------|--------------------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------|  
-| `* * *`  | new user                                   | add a new contact with name, phone number and email | store and connect with them                                                       |  
-| `* * *`  | new user                                   | click on a contact link                             | view their social media page or company website                                   |  
-| `* * *`  | new user                                   | edit contact details                                | update information without deleting and recreating contacts                       |  
-| `* * *`  | new user                                   | receive clear error messages                        | correct mistakes when I input invalid commands                                    |  
-| `* * *`  | new user                                   | search a contact by name                            | find the person I’m connecting with quickly                                       |  
-| `* * *`  | new user                                   | view command instructions                           | quickly recall available commands and their valid formats                         |  
-| `* * *`  | organised user                             | add a tag to a contact                              | categorise a group of people together                                             |  
-| `* * *`  | organised user                             | create and delete my own tags                       | categorise contacts the way I like                                                |  
-| `* * *`  | organised user                             | list all contacts under a specific tag              | quickly see related connections and contacts                                      |  
-| `* * *`  | organised user                             | remove a tag from a contact                         | re-categorise people                                                              |  
-| `* * *`  | organised user                             | rename a tag                                        | keep my tagging system consistent                                                 |  
-| `* * *`  | organised user                             | sort contacts by company                            | view grouped workplace connections                                                |  
-| `* * *`  | organised user                             | view all existing tags                              | know how contacts are categorised                                                 |  
-| `* * *`  | networking-focused user                    | search for contacts in a specified company          | quickly find all my connections working at the company                            |  
-| `* *`    | new user                                   | add remarks to contacts                             | store more personal information (like hobbies/interests)                          |  
-| `* *`    | organised user                             | colour code my tags                                 | visually distinguish categories                                                   |  
-| `* *`    | expert user                                | search using partial keywords                       | avoid remembering exact spelling                                                  |  
-| `* *`    | expert user                                | see date when contact was added                     | recall when I met someone                                                         |  
-| `* *`    | expert user                                | search for contacts in multiple specified companies | view a combined list of connections from specified companies fast and efficiently |  
-| `* *`    | networking-focused user                    | add meaningful remarks about a contact              | recall conversations for networking purpose                                       |  
-| `*`      | user with many persons in the address book | find contacts by name                               | locate a person easily                                                            |  
-| `*`      | expert user                                | recover deleted contacts                            | restore accidentally removed contacts                                             |  
-| `*`      | expert user                                | tag multiple contacts at once                       | group people fast and efficiently                                                 |  
+| Priority | As a …​                                    | I want to …​                                        | So that I can…​                                                                   |
+|----------|--------------------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------|
+| `* * *`  | new user                                   | add a new contact with name, phone number and email | store and connect with them                                                       |
+| `* * *`  | new user                                   | click on a contact link                             | view their social media page or company website                                   |
+| `* * *`  | new user                                   | edit contact details                                | update information without deleting and recreating contacts                       |
+| `* * *`  | new user                                   | receive clear error messages                        | correct mistakes when I input invalid commands                                    |
+| `* * *`  | new user                                   | search a contact by name                            | find the person I’m connecting with quickly                                       |
+| `* * *`  | new user                                   | view command instructions                           | quickly recall available commands and their valid formats                         |
+| `* * *`  | organised user                             | add a tag to a contact                              | categorise a group of people together                                             |
+| `* * *`  | organised user                             | create and delete my own tags                       | categorise contacts the way I like                                                |
+| `* * *`  | organised user                             | list all contacts under a specific tag              | quickly see related connections and contacts                                      |
+| `* * *`  | organised user                             | remove a tag from a contact                         | re-categorise people                                                              |
+| `* * *`  | organised user                             | rename a tag                                        | keep my tagging system consistent                                                 |
+| `* * *`  | organised user                             | sort contacts by company                            | view grouped workplace connections                                                |
+| `* * *`  | organised user                             | view all existing tags                              | know how contacts are categorised                                                 |
+| `* * *`  | networking-focused user                    | search for contacts in a specified company          | quickly find all my connections working at the company                            |
+| `* *`    | new user                                   | add remarks to contacts                             | store more personal information (like hobbies/interests)                          |
+| `* *`    | organised user                             | colour code my tags                                 | visually distinguish categories                                                   |
+| `* *`    | expert user                                | search using partial keywords                       | avoid remembering exact spelling                                                  |
+| `* *`    | expert user                                | see date when contact was added                     | recall when I met someone                                                         |
+| `* *`    | expert user                                | search for contacts in multiple specified companies | view a combined list of connections from specified companies fast and efficiently |
+| `* *`    | networking-focused user                    | add meaningful remarks about a contact              | recall conversations for networking purpose                                       |
+| `*`      | user with many persons in the address book | find contacts by name                               | locate a person easily                                                            |
+| `*`      | expert user                                | recover deleted contacts                            | restore accidentally removed contacts                                             |
+| `*`      | expert user                                | tag multiple contacts at once                       | group people fast and efficiently                                                 |
 
 ---
 ## Use cases
@@ -388,8 +425,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
----  
-
+---
 ### **Use Case: Edit contact**
 
 **Preconditions:**
@@ -404,10 +440,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to list contacts.
 2. CLinkedin displays the list of contacts.
-3. User requests to edit a contact by entering the edit command with the contact’s index and the fields to be updated.
+3. User requests to edit a contact by entering the edit command with the contact's index and the fields to be updated.
 4. CLinkedin validates the provided index and updated field values.
 5. CLinkedin updates the contact with the new details.
-6. CLinkedin displays a success message with the edited contact’s details.
+6. CLinkedin displays a success message with the edited contact's details.
 
    Use case ends.
 
@@ -438,7 +474,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
----  
+---
 
 ### **Use Case: Delete contact**
 
@@ -454,7 +490,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to list contacts.
 2. CLinkedin displays the list of contacts.
-3. User requests to delete a contact by entering the delete command with the contact’s index.
+3. User requests to delete a contact by entering the delete command with the contact's index.
 4. CLinkedin validates that the provided index is valid.
 5. CLinkedin removes the contact from the contact list and stores it in the deleted contacts list.
 6. CLinkedin displays a success message.
@@ -473,7 +509,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
----  
+---
 
 ### **Use Case: View deleted contacts**
 
@@ -532,8 +568,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### **MSS**
 
-1. User enters the `tag create` command with a tag name and optional color.
-2. CLinkedin validates the input.
+1. User requests to create a tag with a name and an optional color.
+2. CLinkedin validates the provided tag details.
 3. CLinkedin creates the tag.
 4. CLinkedin displays a success message.
 
@@ -551,7 +587,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
----  
+---
 
 ### **Use Case: Rename tag**
 
@@ -613,8 +649,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. CLinkedin removes the tag from all contacts.
 4. CLinkedin displays a success message.
 
-   Use case ends.
-
+      Use case ends.
 ---  
 ## Search & Sorting
 ### **Use Case: Find contacts by name**
@@ -652,7 +687,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. CLinkedin displays an empty list with a summary message indicating 0 contacts found.
 
       Use case ends.
----  
+---
 ### **Use Case: Find contacts by company**
 
 **Preconditions:**
@@ -760,7 +795,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
----  
+---
 
 ### Non-Functional Requirements
 
@@ -787,7 +822,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Filtered contact list**: The subset of contacts currently displayed after applying a command.
 * **Duplicate contact**: Two contacts with the same phone number.
 
---------------------------------------------------------------------------------------------------------------------  
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for Manual Testing**
 
