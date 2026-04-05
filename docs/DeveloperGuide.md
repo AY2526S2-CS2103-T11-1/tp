@@ -1016,7 +1016,167 @@ This section provides instructions for testing the application manually.
 - An appropriate error message is shown.
 
 ---  
+### Finding contact by company
 
+**Prerequisites**
+- Multiple contacts and have company names.
+
+**Test case 1:** `findcom google`
+
+**Expected**
+- Contacts that have the specific company will be shown in the list.
+- A success message is shown.
+
+**Test case 2:** `findcom`
+
+**Expected**
+- An error message is displayed.
+
+---
+### Sorts contact list by company name alphabetically
+
+**Prerequisites**
+- Multiple contacts and have company names.
+
+**Test case 1:** `sortcom`
+
+**Expected**
+- Contacts are shown in sorted order by company name.
+- A success message is shown.
+
+---
+### Viewing recently deleted contacts
+
+**Prerequisites**
+- Have deleted at least 1 contact within past 7 days.
+
+**Test case 1:** `deleted`
+
+**Expected**
+- Deleted contacts within 7 days are shown in the list.
+- A success message is shown.
+
+---
+### Restoring a deleted contact
+
+**Prerequisites**
+- Have deleted at least 1 contact within past 7 days.
+
+**Test case 1:** `restore 1`
+
+**Expected**
+- Details of the first deleted contact will be restored to the end of the contact list.
+- A success message is shown.
+
+---
+### Creating a new tag
+
+**Test case 1:** `tag create friends`
+
+**Expected**
+- A new tag `friends` with a default color will be added to the system.
+- A success message is shown.
+
+**Test case 2:** `tag create vip color/gold`
+
+**Expected**
+- A new tag gold colored `vip` will be added to the system.
+- A success message is shown.
+
+---
+### Assigning tag to contacts
+
+**Prerequisites**
+- Have multiple contacts.
+- Tag `friends` exist.
+- No contact has `friends` tag yet.
+
+**Test case 1:** `tag assign 1,2 friends`
+
+**Expected**
+- The `friends` tag will be added to the first and second contact.
+- A success message is shown.
+
+---
+### Removing a tag from contacts
+
+**Prerequisites**
+- Have multiple contacts.
+- Contacts have `friends` tag.
+
+**Test case 1:** `tag unassign 1 friends`
+
+**Expected**
+- `friends` tag is removed from the first contact.
+- A success message is shown.
+
+---
+### Deleting a Tag from the system
+
+**Prerequisites**
+- Have at least one contact.
+- Contacts have `vip` tag.
+- Tag `vip` exists.
+
+**Test case 1:** `tag delete vip`
+
+**Expected**
+- `vip` tag is deleted from the system.
+- Contacts that have `vip` tag will no longer have it.
+
+---
+### Viewing all existing tags
+
+**Prerequisites**
+- Have at least one or more tags in the system.
+
+**Test case 1:** `tag list`
+
+**Expected**
+- A success message is shown with a list of all tags.
+
+---
+### Renaming an existing tag
+
+**Prerequisites**
+- Have at least one contact.
+- Contacts have `friends` tag.
+- Tag `friends` exist.
+
+**Test case 1:** `tag rename friends mates`
+
+**Expected**
+- `friends` tag is renamed to `mates`
+- Contacts who have `friends` tag will now have `mates` tag instead.
+- A success message is shown.
+
+---
+### Changing the color of an existing tag
+
+**Prerequisites**
+- Have one or more tags.
+- Tag `friends` exist.
+
+**Test case 1:** `tag color friends gold`
+
+**Expected**
+- `friends` tag will now be in gold color
+- A success message is shown.
+
+---
+### Show contacts who have a specific tag
+
+**Prerequisites**
+- Have one or more contacts with tag `friends`.
+- Tag `friends` exist.
+
+**Test case 1:** `tag show friends`
+
+**Expected**
+- Contacts who have `friends` tag will be shown in the list.
+- A success message is shown.
+
+---
 ### Saving Data
 
 #### Missing or corrupted data file
