@@ -63,7 +63,7 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Throws a {@codae ParseException} if any of the prefixes given in {@code prefixes} appeared more than
+     * Throws a {@code ParseException} if any of the prefixes given in {@code prefixes} appeared more than
      * once among the arguments.
      */
     public void verifyNoDuplicatePrefixesFor(Prefix... prefixes) throws ParseException {
