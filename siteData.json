@@ -72,7 +72,14 @@
         "adding-a-person": "Adding a person",
         "editing-a-person": "Editing a person",
         "deleting-a-person": "Deleting a person",
-        "saving-data": "Saving data"
+        "saving-data": "Saving data",
+        "appendix-effort": "Appendix: Effort",
+        "overall-difficulty": "Overall Difficulty",
+        "key-challenges": "Key Challenges",
+        "effort-required": "Effort Required",
+        "reuse-of-existing-code": "Reuse of Existing Code",
+        "achievements": "Achievements",
+        "appendix-planned-enhancements": "Appendix: Planned Enhancements"
       },
       "headingKeywords": {}
     },
