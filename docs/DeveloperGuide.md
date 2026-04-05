@@ -775,7 +775,7 @@ Compared to AB3, which manages a single entity type, our project is more complex
 - Handling edge cases where tags are renamed or deleted after a person is removed
 - Enhancing **input validation**, particularly for email and link fields
 - Introducing **clickable links** to improve usability
-- Standardising **color input formats** (hex, `rgb()`, named colors) and enforcing strict validation to prevent unintended inputs
+- Standardising **color input formats** (hex, named colors) and enforcing strict validation to prevent unintended inputs
 
 ### **Effort Required**
 
