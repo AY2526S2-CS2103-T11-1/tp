@@ -21,6 +21,7 @@ Class Name
 Class Phone
 Class Remark
 Class Link
+Class UniqueTagList
 Class Tag
 
 Class I #FFFFFF
@@ -48,6 +49,7 @@ Person *--> Phone
 Person *--> "0..1"Remark
 Person *--> "0..1"Link
 Person *--> "*" Tag
+Person *--> UniqueTagList
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I

@@ -318,12 +318,12 @@ Examples:
 
 Creates a new tag with an optional color.
 
-Format: `tag create TAG_NAME [COLOR]`
+Format: `tag create TAG_NAME [color/COLOR]`
 
 * Creates a tag with the specified `TAG_NAME`.
 * Tag names are **case-sensitive** (e.g. `friend` and `Friend` are treated as different tags).
 * Duplicate tag names are **not allowed**.
-* If `COLOR` is not provided, a default color will be assigned.
+* If `color/COLOR` is not provided, a default color will be assigned.
 
 <box type="tip" seamless>
 
@@ -334,8 +334,8 @@ Examples: `orange`, `#ff6688`
 
 Examples:
 * `tag create friend`
-* `tag create colleague blue`
-* `tag create vip #ff6688`
+* `tag create colleague color/blue`
+* `tag create vip color/#ff6688`
 
 ### Assigning/Unassigning a tag: `tag assign`, `tag unassign`
 
@@ -417,6 +417,32 @@ Examples:
 * `tag show friends`
 * `tag show coworkers`
 
+### Clearing all entries : `clear`
+
+Clears all entries from CLInkedin.
+
+Format: `clear`
+
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+### Saving the data
+
+CLInkedin data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+### Editing the data file
+
+CLInkedin data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<box type="warning" seamless>
+
+**Caution:**
+If your changes to the data file makes its format invalid, CLInkedin will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause CLInkedin to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+</box>
 
 --------------------------------------------------------------------------------------------------------------------
 
