@@ -2,6 +2,9 @@ package seedu.clinkedin.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.clinkedin.commons.core.LogsCenter;
 import seedu.clinkedin.logic.commands.CommandResult;
 import seedu.clinkedin.logic.commands.exceptions.CommandException;
 import seedu.clinkedin.model.Model;
@@ -22,6 +25,8 @@ public class TagDeleteCommand extends TagCommand {
     public static final String MESSAGE_SUCCESS = "Tag deleted: %1$s";
     public static final String MESSAGE_NOT_EXIST_TAG = "Tag does not exist in the address book.";
 
+    private static final Logger logger = LogsCenter.getLogger(TagDeleteCommand.class);
+
     private final Tag deleteTag;
 
     /**
@@ -35,8 +40,10 @@ public class TagDeleteCommand extends TagCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        logger.info("Executing TagDeleteCommand with tag name: " + deleteTag.toString());
 
         if (!model.hasTag(deleteTag)) {
+            logger.warning("Attempted to delete non-existent tag: " + deleteTag.toString());
             throw new CommandException(MESSAGE_NOT_EXIST_TAG);
         }
 
