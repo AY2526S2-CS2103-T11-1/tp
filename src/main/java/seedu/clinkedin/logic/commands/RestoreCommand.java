@@ -12,6 +12,7 @@ import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.person.DeletedPersonRecord;
 import seedu.clinkedin.model.person.Person;
 
+//@@author rxlee04
 /**
  * Restores a deleted person identified using its displayed index from the deleted person list.
  */

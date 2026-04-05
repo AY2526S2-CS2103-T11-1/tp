@@ -5,6 +5,7 @@ import static seedu.clinkedin.model.Model.PREDICATE_SHOW_ALL_DELETED_PERSON_RECO
 
 import seedu.clinkedin.model.Model;
 
+//@@author rxlee04
 /**
  * Lists all deleted contacts to the user.
  */

@@ -7,6 +7,7 @@ import seedu.clinkedin.logic.commands.exceptions.CommandException;
 import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.tag.Tag;
 
+//@@author rxlee04
 /**
  * Deletes a tag from the address book.
  * Also removes the tag from all persons associated with it.

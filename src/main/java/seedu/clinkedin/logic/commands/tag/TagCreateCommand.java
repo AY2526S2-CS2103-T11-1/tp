@@ -8,6 +8,7 @@ import seedu.clinkedin.logic.commands.exceptions.CommandException;
 import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.tag.Tag;
 
+//@@author rxlee04
 /**
  * Create a new tag in the address book.
  */
