@@ -342,6 +342,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | expert user                                | recover deleted contacts                            | restore accidentally removed contacts                                             |  
 | `*`      | expert user                                | tag multiple contacts at once                       | group people fast and efficiently                                                 |  
 
+---
 ## Use cases
 
 (For all use cases below, the **System** is `CLinkedin` and the **Actor** is the `User`, unless specified otherwise.)
@@ -692,8 +693,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. CLinkedin displays an empty list with a summary message indicating 0 contacts found.
 
       Use case ends.
-  ---
-  ### **Use Case: Show contacts by tag**
+---
+### **Use Case: Show contacts by tag**
 
 **Preconditions:**
 * The application is running.
