@@ -1,41 +1,76 @@
 @startuml
-participant "LogicManager" as LogicManager
-participant "TagAssignCommand" as TagAssignCommand
-participant "Model" as Model
+title Sequence Diagram for the `tag assign` command
 
--> LogicManager : execute("tag assign ...")
-activate LogicManager
+actor User
 
-LogicManager -> TagAssignCommand : execute(model)
-activate TagAssignCommand
+box Logic #E6E6FA
+participant ":LogicManager" as Logic
+participant ":AddressBookParser" as ABParser
+participant ":TagAssignCommandParser" as Parser
+participant "cmd:TagAssignCommand" as Command
+participant "result:CommandResult" as Result
+end box
 
-TagAssignCommand -> Model : hasTag(tag)
+box Model #FFE4E1
+participant "m:Model" as Model
+end box
+
+User -> Logic : execute("tag assign ...")
+activate Logic
+
+Logic -> ABParser : parseCommand("tag assign ...")
+activate ABParser
+
+create Parser
+ABParser -> Parser
+activate Parser
+
+ABParser <-- Parser
+deactivate Parser
+
+ABParser -> Parser : parse("...")
+activate Parser
+
+create Command
+Parser -> Command
+activate Command
+
+Parser <-- Command
+deactivate Command
+
+ABParser <-- Parser
+deactivate Parser
+
+Logic <-- ABParser
+destroy Parser
+deactivate ABParser
+
+Logic -> Command : execute(m)
+activate Command
+
+Command -> Model : checkIfTagDoesNotExist(tag)
 activate Model
-Model --> TagAssignCommand : true / false
+Model --> Command
 deactivate Model
 
-alt tag does not exist
-    TagAssignCommand --> LogicManager : CommandException
-else tag exists
-    TagAssignCommand -> Model : getFilteredPersonList()
+loop for each specified contact
+    Command -> Model : assign tag to person
     activate Model
-    Model --> TagAssignCommand : personList
+    Model --> Command
     deactivate Model
-
-    TagAssignCommand -> Model : setPerson(personToEdit, editedPerson)
-    activate Model
-    Model --> TagAssignCommand
-    deactivate Model
-
-    TagAssignCommand -> Model : updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
-    activate Model
-    Model --> TagAssignCommand
-    deactivate Model
-
-    TagAssignCommand --> LogicManager : CommandResult
 end
 
-deactivate TagAssignCommand
-<-- LogicManager
-deactivate LogicManager
+create Result
+Command -> Result
+activate Result
+Result --> Command
+deactivate Result
+
+Logic <-- Command
+deactivate Command
+
+User <-- Logic
+destroy Command
+deactivate Logic
+
 @enduml
