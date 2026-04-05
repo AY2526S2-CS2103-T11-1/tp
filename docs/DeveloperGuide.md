@@ -4,7 +4,7 @@ layout: default.md
 title: "Developer Guide" pageNav: 3
 ---  
 
-# Clinkedin Developer Guide
+# CLinkedin Developer Guide
 
 <!-- * Table of Contents -->  
 <page-nav-print />  
@@ -280,7 +280,7 @@ The following sequence diagram illustrates the execution:
 
 The `tag rename` commands allow users to modify the name of an existing tag, while also replacing the tag attached to the respective contacts.
 
-Because tags are immutable objects in this architecture, modifying a tag requires replacing it. The system first validates that the old tag exists. It then creates the new tag in the global `Clinkedin` tag list and attach it to the contacts containing the old tag through iteration. Finally, it removes the old tag from the tag list.
+Because tags are immutable objects in this architecture, modifying a tag requires replacing it. The system first validates that the old tag exists. It then creates the new tag in the global `CLinkedin` tag list and attach it to the contacts containing the old tag through iteration. Finally, it removes the old tag from the tag list.
 
 The following activity diagram illustrates the decision flow:  
 <puml src="diagrams/tag/TagRenameActivityDiagram.puml" alt="TagRenameActivityDiagram" />
@@ -344,7 +344,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `Clinkedin` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `CLinkedin` and the **Actor** is the `user`, unless specified otherwise)
 
 ### **Use Case: Add contact**
 
@@ -358,32 +358,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User enters the add command with the required fields (name, phone, email, address).
-2. Clinkedin validates the input fields.
-3. Clinkedin creates the new contact.
-4. Clinkedin adds the contact to the contact list.
-5. Clinkedin displays a success message with the added contact’s details.
+2. CLinkedin validates the input fields.
+3. CLinkedin creates the new contact.
+4. CLinkedin adds the contact to the contact list.
+5. CLinkedin displays a success message with the added contact’s details.
 
    Use case ends.
 
 #### **Extensions**
 
 * 1a. The user provides an invalid command format.
-    * 1a1. Clinkedin shows an error message indicating the correct command format.
+    * 1a1. CLinkedin shows an error message indicating the correct command format.
 
       Use case resumes at step 1.
 
 * 2a. A required field is missing.
-    * 2a1. Clinkedin shows an error message indicating the missing field.
+    * 2a1. CLinkedin shows an error message indicating the missing field.
 
       Use case resumes at step 1.
 
 * 2b. A field value is invalid (e.g. invalid name, phone, email, or address).
-    * 2b1. Clinkedin shows an error message indicating which field is invalid.
+    * 2b1. CLinkedin shows an error message indicating which field is invalid.
 
       Use case resumes at step 1.
 
 * 2c. The phone number already exists in another contact.
-    * 2c1. Clinkedin shows an error message that the contact already exists.
+    * 2c1. CLinkedin shows an error message that the contact already exists.
 
       Use case resumes at step 1.
 ---  
@@ -400,33 +400,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to list contacts.
-2. Clinkedin displays the list of contacts.
+2. CLinkedin displays the list of contacts.
 3. User requests to edit a contact by entering the edit command with the contact's index and the fields to be updated.
-4. Clinkedin validates the provided index and updated field values.
-5. Clinkedin updates the contact with the new details.
-6. Clinkedin displays a success message with the edited contact's details.
+4. CLinkedin validates the provided index and updated field values.
+5. CLinkedin updates the contact with the new details.
+6. CLinkedin displays a success message with the edited contact's details.
 
    Use case ends.
 
 #### **Extensions**
 
 * 3a. The user provides an index that does not exist in the list.
-    * 3a1. Clinkedin shows an error message that the index is invalid.
+    * 3a1. CLinkedin shows an error message that the index is invalid.
 
       Use case resumes at step 1.
 
 * 3b. The user provides an invalid command format.
-    * 3b1. Clinkedin shows an error message that the command format is invalid.
+    * 3b1. CLinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
 * 4a. The updated field value is invalid.
-    * 4a1. Clinkedin shows an error message indicating which field value is invalid.
+    * 4a1. CLinkedin shows an error message indicating which field value is invalid.
 
       Use case resumes at step 1.
 
 * 4b. The updated phone number already exists in another contact.
-    * 4b1. Clinkedin shows an error message that the phone number already exists in the list.
+    * 4b1. CLinkedin shows an error message that the phone number already exists in the list.
 
       Use case resumes at step 1.
 
@@ -445,29 +445,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to list contacts.
-2. Clinkedin displays the list of contacts.
+2. CLinkedin displays the list of contacts.
 3. User requests to delete a contact by entering the delete command with the contact's index.
-4. Clinkedin validates that the provided index is valid.
-5. Clinkedin removes the contact from the contact list and stores it in the deleted contacts list with a timestamp.
-6. Clinkedin displays a success message that the contact has been deleted.
+4. CLinkedin validates that the provided index is valid.
+5. CLinkedin removes the contact from the contact list and stores it in the deleted contacts list with a timestamp.
+6. CLinkedin displays a success message that the contact has been deleted.
 
    Use case ends.
 
 #### **Extensions**
 
 * 3a. The user provides an index that does not exist in the list.
-    * 3a1. Clinkedin shows an error message that the index is invalid.
+    * 3a1. CLinkedin shows an error message that the index is invalid.
 
       Use case resumes at step 1.
 
 * 3b. The user provides an invalid command format.
-    * 3b1. Clinkedin shows an error message that the command format is invalid.
+    * 3b1. CLinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
 ## Use cases
 
-(For all use cases below, the **System** is `Clinkedin` and the **Actor** is the `User`, unless specified otherwise.)
+(For all use cases below, the **System** is `CLinkedin` and the **Actor** is the `User`, unless specified otherwise.)
 
 ## Contact Management
 ### **Use Case: Add contact**
@@ -482,31 +482,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User enters the add command with the required fields (name, phone, email, address).
-2. Clinkedin validates the input fields.
-3. Clinkedin adds the new contact to the contact list.
-4. Clinkedin displays a success message with the added contact’s details.
+2. CLinkedin validates the input fields.
+3. CLinkedin adds the new contact to the contact list.
+4. CLinkedin displays a success message with the added contact’s details.
 
    Use case ends.
 
 #### **Extensions**
 
 * 1a. The user provides an invalid command format.
-    * 1a1. Clinkedin shows an error message indicating the correct command format.
+    * 1a1. CLinkedin shows an error message indicating the correct command format.
 
       Use case resumes at step 1.
 
 * 2a. A required field is missing.
-    * 2a1. Clinkedin shows an error message indicating the missing field.
+    * 2a1. CLinkedin shows an error message indicating the missing field.
 
       Use case resumes at step 1.
 
 * 2b. A field value is invalid.
-    * 2b1. Clinkedin shows an error message indicating which field is invalid.
+    * 2b1. CLinkedin shows an error message indicating which field is invalid.
 
       Use case resumes at step 1.
 
 * 2c. The phone number already exists in another contact.
-    * 2c1. Clinkedin shows an error message that the contact already exists.
+    * 2c1. CLinkedin shows an error message that the contact already exists.
 
       Use case resumes at step 1.
 
@@ -525,38 +525,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to list contacts.
-2. Clinkedin displays the list of contacts.
+2. CLinkedin displays the list of contacts.
 3. User requests to edit a contact by entering the edit command with the contact’s index and the fields to be updated.
-4. Clinkedin validates the provided index and updated field values.
-5. Clinkedin updates the contact with the new details.
-6. Clinkedin displays a success message with the edited contact’s details.
+4. CLinkedin validates the provided index and updated field values.
+5. CLinkedin updates the contact with the new details.
+6. CLinkedin displays a success message with the edited contact’s details.
 
    Use case ends.
 
 #### **Extensions**
 
 * 3a. The user provides an index that does not exist in the list.
-    * 3a1. Clinkedin shows an error message that the index is invalid.
+    * 3a1. CLinkedin shows an error message that the index is invalid.
 
       Use case resumes at step 1.
 
 * 3b. The user provides an invalid command format.
-    * 3b1. Clinkedin shows an error message that the command format is invalid.
+    * 3b1. CLinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
 * 3c. The user does not provide any fields to update.
-    * 3c1. Clinkedin shows an error message indicating that no fields were provided.
+    * 3c1. CLinkedin shows an error message indicating that no fields were provided.
 
       Use case resumes at step 1.
 
 * 4a. The updated field value is invalid.
-    * 4a1. Clinkedin shows an error message indicating which field value is invalid.
+    * 4a1. CLinkedin shows an error message indicating which field value is invalid.
 
       Use case resumes at step 1.
 
 * 4b. The updated phone number already exists in another contact.
-    * 4b1. Clinkedin shows an error message that the phone number already exists.
+    * 4b1. CLinkedin shows an error message that the phone number already exists.
 
       Use case resumes at step 1.
 
@@ -575,23 +575,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to list contacts.
-2. Clinkedin displays the list of contacts.
+2. CLinkedin displays the list of contacts.
 3. User requests to delete a contact by entering the delete command with the contact’s index.
-4. Clinkedin validates that the provided index is valid.
-5. Clinkedin removes the contact from the contact list and stores it in the deleted contacts list.
-6. Clinkedin displays a success message.
+4. CLinkedin validates that the provided index is valid.
+5. CLinkedin removes the contact from the contact list and stores it in the deleted contacts list.
+6. CLinkedin displays a success message.
 
    Use case ends.
 
 #### **Extensions**
 
 * 3a. The user provides an index that does not exist in the list.
-    * 3a1. Clinkedin shows an error message that the index is invalid.
+    * 3a1. CLinkedin shows an error message that the index is invalid.
 
       Use case resumes at step 1.
 
 * 3b. The user provides an invalid command format.
-    * 3b1. Clinkedin shows an error message that the command format is invalid.
+    * 3b1. CLinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
@@ -605,7 +605,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User enters the `deleted` command.
-2. Clinkedin displays the list of recently deleted contacts with timestamps.
+2. CLinkedin displays the list of recently deleted contacts with timestamps.
 
    Use case ends.
 
@@ -624,23 +624,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to view deleted contacts.
-2. Clinkedin displays the deleted contacts list.
+2. CLinkedin displays the deleted contacts list.
 3. User requests to restore a contact by entering the restore command with the contact’s index.
-4. Clinkedin validates the provided index.
-5. Clinkedin restores the contact to the contact list.
-6. Clinkedin displays a success message.
+4. CLinkedin validates the provided index.
+5. CLinkedin restores the contact to the contact list.
+6. CLinkedin displays a success message.
 
    Use case ends.
 
 #### **Extensions**
 
 * 3a. The user provides an invalid index.
-    * 3a1. Clinkedin shows an error message that the index is invalid.
+    * 3a1. CLinkedin shows an error message that the index is invalid.
 
       Use case resumes at step 1.
 
 * 5a. Restoring the contact results in a duplicate or conflict.
-    * 5a1. Clinkedin shows an error message that the contact cannot be restored.
+    * 5a1. CLinkedin shows an error message that the contact cannot be restored.
 
       Use case resumes at step 1.
 
@@ -655,21 +655,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User enters the `tag create` command with a tag name and optional color.
-2. Clinkedin validates the input.
-3. Clinkedin creates the tag.
-4. Clinkedin displays a success message.
+2. CLinkedin validates the input.
+3. CLinkedin creates the tag.
+4. CLinkedin displays a success message.
 
    Use case ends.
 
 #### **Extensions**
 
 * 2a. The tag name already exists.
-    * 2a1. Clinkedin shows an error message.
+    * 2a1. CLinkedin shows an error message.
 
       Use case resumes at step 1.
 
 * 2b. The tag name or color is invalid.
-    * 2b1. Clinkedin shows an error message.
+    * 2b1. CLinkedin shows an error message.
 
       Use case resumes at step 1.
 
@@ -680,22 +680,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User enters the `tag rename` command.
-2. Clinkedin validates the input.
-3. Clinkedin updates the tag name.
-4. Clinkedin updates all associated contacts.
-5. Clinkedin displays a success message.
+2. CLinkedin validates the input.
+3. CLinkedin updates the tag name.
+4. CLinkedin updates all associated contacts.
+5. CLinkedin displays a success message.
 
    Use case ends.
 
 #### **Extensions**
 
 * 2a. The original tag does not exist.
-    * 2a1. Clinkedin shows an error message.
+    * 2a1. CLinkedin shows an error message.
 
       Use case resumes at step 1.
 
 * 2b. The new tag name already exists.
-    * 2b1. Clinkedin shows an error message.
+    * 2b1. CLinkedin shows an error message.
 
       Use case resumes at step 1.
 
@@ -706,21 +706,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User enters the `tag assign` or `tag unassign` command.
-2. Clinkedin validates the indexes and tag name.
-3. Clinkedin updates the tag assignment.
-4. Clinkedin displays a success message.
+2. CLinkedin validates the indexes and tag name.
+3. CLinkedin updates the tag assignment.
+4. CLinkedin displays a success message.
 
    Use case ends.
 
 #### **Extensions**
 
 * 2a. Invalid index.
-    * 2a1. Clinkedin shows an error message.
+    * 2a1. CLinkedin shows an error message.
 
       Use case resumes at step 1.
 
 * 2b. Tag does not exist.
-    * 2b1. Clinkedin shows an error message.
+    * 2b1. CLinkedin shows an error message.
 
       Use case resumes at step 1.
 
@@ -731,9 +731,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User enters the `tag delete` command.
-2. Clinkedin removes the tag.
-3. Clinkedin removes the tag from all contacts.
-4. Clinkedin displays a success message.
+2. CLinkedin removes the tag.
+3. CLinkedin removes the tag from all contacts.
+4. CLinkedin displays a success message.
 
    Use case ends.
 
@@ -752,26 +752,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to find contacts by entering the `find` command with one or more name keywords.
-2. Clinkedin parses the input keywords.
-3. Clinkedin filters the contact list to include contacts whose names match any of the keywords.
-4. Clinkedin displays the filtered list of contacts along with a summary message.
+2. CLinkedin parses the input keywords.
+3. CLinkedin filters the contact list to include contacts whose names match any of the keywords.
+4. CLinkedin displays the filtered list of contacts along with a summary message.
 
    Use case ends.
 
 #### **Extensions**
 
 * 1a. The user provides no keywords.
-    * 1a1. Clinkedin shows an error message that the command format is invalid.
+    * 1a1. CLinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
 * 2a. The input format is invalid.
-    * 2a1. Clinkedin shows an error message that the command format is invalid.
+    * 2a1. CLinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
 * 3a. No contacts match the given keywords.
-    * 3a1. Clinkedin displays an empty list with a summary message indicating 0 contacts found.
+    * 3a1. CLinkedin displays an empty list with a summary message indicating 0 contacts found.
 
       Use case ends.
 ---  
@@ -790,9 +790,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to find contacts by entering the `findcom` command with one or more company keywords.
-2. Clinkedin parses the input keywords.
-3. Clinkedin filters the contact list to include contacts whose company matches any of the keywords.
-4. Clinkedin displays the filtered list of contacts along with a summary message.
+2. CLinkedin parses the input keywords.
+3. CLinkedin filters the contact list to include contacts whose company matches any of the keywords.
+4. CLinkedin displays the filtered list of contacts along with a summary message.
 
    Use case ends.
 
@@ -800,19 +800,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The user provides no keywords.
 
-    * 1a1. Clinkedin shows an error message that the command format is invalid.
+    * 1a1. CLinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
 * 2a. The input format is invalid.
 
-    * 2a1. Clinkedin shows an error message that the command format is invalid.
+    * 2a1. CLinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 
 * 3a. No contacts match the given keywords.
 
-    * 3a1. Clinkedin displays an empty list with a summary message indicating 0 contacts found.
+    * 3a1. CLinkedin displays an empty list with a summary message indicating 0 contacts found.
 
       Use case ends.
   ---
@@ -829,26 +829,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to show contacts by entering the `tag show` command with a tag name.
-2. Clinkedin validates that the specified tag exists.
-3. Clinkedin filters the contact list to include contacts that have the specified tag.
-4. Clinkedin displays the filtered list of contacts along with a summary message.
+2. CLinkedin validates that the specified tag exists.
+3. CLinkedin filters the contact list to include contacts that have the specified tag.
+4. CLinkedin displays the filtered list of contacts along with a summary message.
 
    Use case ends.
 
 #### **Extensions**
 
 * 1a. The user provides an invalid command format.
-    * 1a1. Clinkedin shows an error message indicating the correct command format.
+    * 1a1. CLinkedin shows an error message indicating the correct command format.
 
       Use case resumes at step 1.
 
 * 2a. The specified tag does not exist.
-    * 2a1. Clinkedin shows an error message that the tag does not exist.
+    * 2a1. CLinkedin shows an error message that the tag does not exist.
 
       Use case resumes at step 1.
 
 * 3a. No contacts have the specified tag.
-    * 3a1. Clinkedin displays an empty list with a summary message indicating 0 contacts found.
+    * 3a1. CLinkedin displays an empty list with a summary message indicating 0 contacts found.
 
       Use case ends.
 ---  
@@ -868,9 +868,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **MSS**
 
 1. User requests to sort contacts by entering the `sortcom` command.
-2. Clinkedin sorts the currently displayed contact list alphabetically by company name (case-insensitive).
-3. Clinkedin displays the sorted contact list.
-4. Clinkedin displays a success message.
+2. CLinkedin sorts the currently displayed contact list alphabetically by company name (case-insensitive).
+3. CLinkedin displays the sorted contact list.
+4. CLinkedin displays a success message.
 
    Use case ends.
 
@@ -878,7 +878,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The user provides an invalid command format.
 
-    * 1a1. Clinkedin shows an error message that the command format is invalid.
+    * 1a1. CLinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
 

@@ -4,17 +4,17 @@
   pageNav: 3
 ---
 
-# Clinkedin User Guide
+# CLinkedin User Guide
 
-Clinkedin is a **desktop contact management application** designed for users who prefer using a **Command Line Interface (CLI)**. It combines the speed of typing with the convenience of a graphical interface.
+CLinkedin is a **desktop contact management application** designed for users who prefer using a **Command Line Interface (CLI)**. It combines the speed of typing with the convenience of a graphical interface.
 
-If you are comfortable typing, Clinkedin allows you to manage contacts **faster and more efficiently** than traditionalGUI-based applications.
+If you are comfortable typing, CLinkedin allows you to manage contacts **faster and more efficiently** than traditionalGUI-based applications.
 
 ---
 
 ## Who is this for?
 
-Clinkedin is ideal for users who:
+CLinkedin is ideal for users who:
 - Prefer typing over clicking
 - Manage a large number of contacts
 - Need fast filtering, tagging, and organisation
@@ -120,17 +120,17 @@ Format: `exit`
 
 ### Saving the data
 
-Clinkedin data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CLinkedin data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-Clinkedin data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+CLinkedin data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, Clinkedin will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause Clinkedin to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, CLinkedin will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 ## Contact Management Commands
@@ -226,7 +226,7 @@ Format: `restore INDEX`
 
 * Restores the contact at the specified `INDEX` from the deleted contacts list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The restored contact will be added back to Clinkedin.
+* The restored contact will be added back to CLinkedin.
 * If a tag associated with the contact has been removed or renamed before restoration, the contact will be restored without that tag.
 * If restoring the contact results in duplicate phone number or existing contact conflicts, the restore will fail.
 * Once restored, the contact will be removed from the deleted list.
@@ -424,7 +424,7 @@ Examples:
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: 
-- Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Clinkedin home folder.
+- Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CLinkedin home folder.
 
 **Q**: Why is my command not working? <br>
 **A**:
