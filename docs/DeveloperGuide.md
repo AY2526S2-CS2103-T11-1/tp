@@ -797,4 +797,4 @@ We reused AB3’s core architecture (commands, parser, model), which reduced set
 
 ## **Appendix: Planned Enhancements**
 These enhancements are planned for future iterations:
-
+- Improve tag restoration behaviour: when restoring a deleted contact, tags that were renamed will be correctly mapped to their updated names instead of being removed.
