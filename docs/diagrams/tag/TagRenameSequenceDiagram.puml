@@ -1,43 +1,85 @@
 @startuml
-participant "LogicManager" as LogicManager
-participant "TagRenameCommand" as TagRenameCommand
-participant "Model" as Model
+title Sequence Diagram for the `tag rename` command
 
--> LogicManager : execute("tag rename ...")
-activate LogicManager
+actor User
 
-LogicManager -> TagRenameCommand : execute(model)
-activate TagRenameCommand
+box Logic #E6E6FA
+participant ":LogicManager" as Logic
+participant ":AddressBookParser" as ABParser
+participant ":TagRenameCommandParser" as Parser
+participant "cmd:TagRenameCommand" as Command
+participant "result:CommandResult" as Result
+end box
 
-TagRenameCommand -> Model : hasTag(oldTag)
+box Model #FFE4E1
+participant "m:Model" as Model
+end box
+
+User -> Logic : execute("tag rename ...")
+activate Logic
+
+Logic -> ABParser : parseCommand("tag rename ...")
+activate ABParser
+
+create Parser
+ABParser -> Parser
+activate Parser
+
+ABParser <-- Parser
+deactivate Parser
+
+ABParser -> Parser : parse("...")
+activate Parser
+
+create Command
+Parser -> Command
+activate Command
+
+Parser <-- Command
+deactivate Command
+
+ABParser <-- Parser : cmd
+deactivate Parser
+
+Logic <-- ABParser : cmd
+destroy Parser
+deactivate ABParser
+
+Logic -> Command : execute(m)
+activate Command
+
+Command -> Model : hasTag(oldTag)
 activate Model
-Model --> TagRenameCommand : true / false
+Model --> Command
 deactivate Model
 
-alt old tag does not exist
-    TagRenameCommand --> LogicManager : CommandException
-else old tag exists
-    TagRenameCommand -> Model : setTags(updatedTagList)
+Command -> Model : setTags(updatedTagList)
+activate Model
+Model --> Command
+deactivate Model
+
+loop for each person with oldTag
+    Command -> Model : setPerson(personToEdit, editedPerson)
     activate Model
-    Model --> TagRenameCommand
+    Model --> Command
     deactivate Model
-
-    loop for each person with oldTag
-        TagRenameCommand -> Model : setPerson(personToEdit, editedPerson)
-        activate Model
-        Model --> TagRenameCommand
-        deactivate Model
-    end
-
-    TagRenameCommand -> Model : updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
-    activate Model
-    Model --> TagRenameCommand
-    deactivate Model
-
-    TagRenameCommand --> LogicManager : CommandResult
 end
 
-deactivate TagRenameCommand
-<-- LogicManager
-deactivate LogicManager
+Command -> Model : updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
+activate Model
+Model --> Command
+deactivate Model
+
+create Result
+Command -> Result
+activate Result
+Result --> Command
+deactivate Result
+
+Logic <-- Command : result
+
+User <-- Logic : result
+destroy Command
+deactivate Logic
+
 @enduml

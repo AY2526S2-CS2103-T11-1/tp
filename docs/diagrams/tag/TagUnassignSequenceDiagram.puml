@@ -1,57 +1,81 @@
 @startuml
+title Sequence Diagram for the `tag unassign` command
+
 actor User
-participant "LogicManager" as Logic
-participant "TagUnassignCommand" as TagUnassignCommand
-participant "Model" as Model
+
+box Logic #E6E6FA
+participant ":LogicManager" as Logic
+participant ":AddressBookParser" as ABParser
+participant ":TagUnassignCommandParser" as Parser
+participant "cmd:TagUnassignCommand" as Command
+participant "result:CommandResult" as Result
+end box
+
+box Model #FFE4E1
+participant "m:Model" as Model
+end box
 
 User -> Logic : execute("tag unassign ...")
 activate Logic
 
-Logic -> TagUnassignCommand : execute(model)
-activate TagUnassignCommand
+Logic -> ABParser : parseCommand("tag unassign ...")
+activate ABParser
 
-TagUnassignCommand -> Model : getFilteredPersonList()
+create Parser
+ABParser -> Parser
+activate Parser
+
+ABParser <-- Parser
+deactivate Parser
+
+ABParser -> Parser : parse("...")
+activate Parser
+
+create Command
+Parser -> Command
+activate Command
+
+Parser <-- Command
+deactivate Command
+
+ABParser <-- Parser
+deactivate Parser
+
+Logic <-- ABParser
+destroy Parser
+deactivate ABParser
+
+Logic -> Command : execute(m)
+activate Command
+
+Command -> Model : getFilteredPersonList()
 activate Model
-Model --> TagUnassignCommand : personList
+Model --> Command
 deactivate Model
 
-loop validate indexes
-    TagUnassignCommand -> Model : getFilteredPersonList()
+loop for each specified contact
+    Command -> Model : setPerson(personToEdit, editedPerson)
     activate Model
-    Model --> TagUnassignCommand : personList
-    deactivate Model
-
-    alt invalid index
-        TagUnassignCommand --> Logic : CommandException
-    end
-end
-
-loop check tag assigned
-    TagUnassignCommand -> Model : getFilteredPersonList()
-    activate Model
-    Model --> TagUnassignCommand : personList
-    deactivate Model
-
-    alt tag not assigned
-        TagUnassignCommand --> Logic : CommandException
-    end
-end
-
-loop remove tag from persons
-    TagUnassignCommand -> Model : setPerson(personToEdit, editedPerson)
-    activate Model
-    Model --> TagUnassignCommand
+    Model --> Command
     deactivate Model
 end
 
-TagUnassignCommand -> Model : updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
+Command -> Model : updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
 activate Model
-Model --> TagUnassignCommand
+Model --> Command
 deactivate Model
 
-TagUnassignCommand --> Logic : CommandResult
+create Result
+Command -> Result
+activate Result
+Result --> Command
+deactivate Result
 
-deactivate TagUnassignCommand
+Logic <-- Command
+deactivate Command
+
 User <-- Logic
+destroy Command
 deactivate Logic
+
 @enduml

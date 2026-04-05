@@ -1,25 +1,79 @@
 @startuml
+title Sequence Diagram for the `tag delete` command
 
 actor User
-participant "LogicManager" as Logic
-participant "TagDeleteCommand" as Command
-participant "Model" as Model
+
+box Logic #E6E6FA
+participant ":LogicManager" as Logic
+participant ":AddressBookParser" as ABParser
+participant ":TagDeleteCommandParser" as Parser
+participant "cmd:TagDeleteCommand" as Command
+participant "result:CommandResult" as Result
+end box
+
+box Model #FFE4E1
+participant "m:Model" as Model
+end box
 
 User -> Logic : execute("tag delete ...")
-Logic -> Command : execute(model)
+activate Logic
+
+Logic -> ABParser : parseCommand("tag delete ...")
+activate ABParser
+
+create Parser
+ABParser -> Parser
+activate Parser
+
+ABParser <-- Parser
+deactivate Parser
+
+ABParser -> Parser : parse("...")
+activate Parser
+
+create Command
+Parser -> Command
+activate Command
+
+Parser <-- Command
+deactivate Command
+
+ABParser <-- Parser
+deactivate Parser
+
+Logic <-- ABParser
+destroy Parser
+deactivate ABParser
+
+Logic -> Command : execute(m)
+activate Command
 
 Command -> Model : hasTag(tagName)
-Model --> Command : true / false
+activate Model
+Model --> Command
+deactivate Model
 
-alt tag does not exist
-    Command --> Logic : CommandException
-    Logic --> User : error message
-else tag exists
-    Command -> Model : deleteTag(tagName)
-    Command -> Model : removeTagFromContacts(tagName)
-    Model --> Command : success
-    Command --> Logic : CommandResult
-    Logic --> User : success message
-end
+Command -> Model : deleteTag(tagName)
+activate Model
+Model --> Command
+deactivate Model
+
+Command -> Model : removeTagFromContacts(tagName)
+activate Model
+Model --> Command
+deactivate Model
+
+create Result
+Command -> Result
+activate Result
+Result --> Command
+deactivate Result
+
+Logic <-- Command
+deactivate Command
+
+User <-- Logic
+destroy Command
+deactivate Logic
 
 @enduml
