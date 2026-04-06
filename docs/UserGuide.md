@@ -14,6 +14,8 @@ CLInkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
@@ -408,6 +410,8 @@ Furthermore, certain edits can cause CLInkedin to behave in unexpected ways (e.g
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## FAQ
 
