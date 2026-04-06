@@ -850,6 +850,10 @@ testers are expected to do more *exploratory* testing.
     1. Test case: Modify the `addressbook.json` file so that it becomes corrupted, then launch the application.<br>
        Expected: Application starts with an empty dataset.
 
+
+### Further testing
+1. _{ more test cases for testers to explore ...}_
+
 ## **Appendix: Effort**
 
 This project builds on AddressBook-Level3 (AB3) as a reference point, but introduces additional complexity through enhanced data modeling and features.
