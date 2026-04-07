@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+* **Original Codebase:** This project expands the features of the AddressBook Level3 (AB3) project, originally created by the [SE-EDU initiative](https://se-education.org).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -22,6 +22,8 @@ _{ list here sources of all reused/adapted ideas, code, documentation, and third
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Design**
 
@@ -850,6 +852,8 @@ testers are expected to do more *exploratory* testing.
 
 ### Further testing
 1. _{ more test cases for testers to explore ... }_
+
+<div style="page-break-after: always;"></div>
 
 ## **Appendix: Effort**
 
