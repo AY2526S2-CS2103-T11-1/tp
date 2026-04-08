@@ -21,15 +21,15 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103-T11-1/tp/releases).
+2. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103-T11-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your CLinkedin.
+3. Copy the file to the folder you want to use as the _home folder_ for your CLinkedin.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinkedin.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinkedin.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
     * `list` : Lists all contacts.
@@ -46,7 +46,6 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
 --------------------------------------------------------------------------------------------------------------------
 ## Command Format
-<box type="info" seamless>
 
 - `UPPER_CASE` = user input  
   Example: `add n/NAME` = `n/John Doe`
@@ -68,7 +67,6 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
   Example: `help 123` is treated as `help`.
 
 - When copying commands from a PDF, ensure spaces are preserved, especially for multi-line commands.
-  </box>
 
 ---
 
@@ -167,7 +165,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK
 
 <box type="warning" seamless>
 
-Each field must still follow its respective input constraints (refers to input constraints in [**Add command**](#adding-a-contact-add) section above for details).
+Each field must still follow its respective input constraints (refers to input constraints in [**Add command**](#1-adding-a-contact-add) section above for details).
 
 </box>
 
