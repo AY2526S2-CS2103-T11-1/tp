@@ -46,7 +46,6 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
 --------------------------------------------------------------------------------------------------------------------
 ## Command Format
-<box type="info" seamless>
 
 - `UPPER_CASE` = user input  
   Example: `add n/NAME` = `n/John Doe`
@@ -68,7 +67,6 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
   Example: `help 123` is treated as `help`.
 
 - When copying commands from a PDF, ensure spaces are preserved, especially for multi-line commands.
-  </box>
 
 ---
 
@@ -165,7 +163,12 @@ Edits an existing contact in CLinkedin.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`
 
-* Each field must still follow its respective input constraints (refers to input constraints in [**Add command**](#1-adding-a-contact-add) section above for details).
+<box type="warning" seamless>
+
+Each field must still follow its respective input constraints (refers to input constraints in [**Add command**](#1-adding-a-contact-add) section above for details).
+
+</box>
+
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
