@@ -52,6 +52,9 @@ activate DeleteCommand
 DeleteCommand -> Model : deletePerson(1)
 activate Model
 
+Model -> Model : addToDeletedPersonRecord(person)
+Model -> Model : removePerson(person)
+
 Model --> DeleteCommand
 deactivate Model
 
