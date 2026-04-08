@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing CLInkedin ]===========================");
+        logger.info("=============================[ Initializing CLinkedin ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
