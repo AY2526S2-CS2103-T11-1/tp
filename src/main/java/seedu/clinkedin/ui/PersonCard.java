@@ -27,6 +27,7 @@ public class PersonCard extends UiPart<Region> {
     private static final Logger logger = LogsCenter.getLogger(PersonCard.class);
 
     public final Person person;
+    private LocalDateTime deletedDateTimeValue;
 
     @FXML
     private HBox cardPane;
@@ -100,10 +101,16 @@ public class PersonCard extends UiPart<Region> {
      */
     public PersonCard(DeletedPersonRecord deletedPersonRecord, int displayedIndex) {
         this(deletedPersonRecord.getPerson(), displayedIndex);
-
-        deletedDateTime.setText(formatDeletedDateTime(deletedPersonRecord.getDeletedDateTime()));
+        this.deletedDateTimeValue = deletedPersonRecord.getDeletedDateTime();
+        refreshDeletedDateTime();
         deletedDateTime.setVisible(true);
         deletedDateTime.setManaged(true);
+    }
+
+    private void refreshDeletedDateTime() {
+        if (deletedDateTimeValue != null) {
+            deletedDateTime.setText(formatDeletedDateTime(deletedDateTimeValue));
+        }
     }
 
     //@@author
