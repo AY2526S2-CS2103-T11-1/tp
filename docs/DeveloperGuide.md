@@ -895,5 +895,6 @@ We reused AB3’s core architecture (commands, parser, model), which reduced set
 ## **Appendix: Planned Enhancements**
 These enhancements are planned for future iterations:
 - Improve tag restoration behaviour so that tags remain linked to a deleted contact when it is restored, even if those tags were renamed after contact deletion.
-- Improve handling of extremely large index values so that inputs exceeding the supported integer range are detected explicitly and reported with a clearer error message.
-- 
+- Improve index validation so that numeric index errors are handled more accurately.
+    - For example, inputs such as `0`, out-of-range indices, and excessively large numeric values should produce the same invalid index error message instead of being treated as invalid command format.
+
