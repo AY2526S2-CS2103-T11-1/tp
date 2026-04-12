@@ -40,6 +40,11 @@ public class TagUnassignCommandParser implements Parser<TagUnassignCommand> {
         // remove all spaces to handle "1 , 2 , 3" and "1, 2, 3"
         indexPart = indexPart.replaceAll("\\s+", "");
 
+        if (indexPart.matches(".*[a-zA-Z].*")) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagUnassignCommand.MESSAGE_USAGE));
+        }
+
         if (indexPart.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagUnassignCommand.MESSAGE_USAGE));
