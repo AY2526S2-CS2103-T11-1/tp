@@ -19,9 +19,9 @@ public class FindComCommand extends Command {
     public static final String COMMAND_WORD = "findcom";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all contacts whose company matches "
-            + "the specified company name (case-insensitive).\n"
-            + "Parameters: COMPANY\n"
-            + "Example: " + COMMAND_WORD + " Google";
+            + "the specified company name (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: KEYWORD [;MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " Google; Shopee; DBS";
 
     private static final Logger logger = LogsCenter.getLogger(FindComCommand.class);
 

@@ -45,4 +45,12 @@ public class FindCommandParserTest {
                 "irfan;   ;",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_leadingSeparatorBeforeValidKeyword_throwsParseException() {
+        // EP: one empty keyword segment followed by one valid keyword
+        assertParseFailure(parser,
+                ";irfan",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
 }
