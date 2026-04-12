@@ -38,7 +38,7 @@ public class FindComCommandParser implements Parser<FindComCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindComCommand.MESSAGE_USAGE));
         }
 
-        String[] companyKeywordsArray = trimmedArgs.split(";", -1);
+        String[] companyKeywordsArray = trimmedArgs.split(";");
         for (String keyword : companyKeywordsArray) {
             if (keyword.trim().isEmpty()) {
                 throw new ParseException(
