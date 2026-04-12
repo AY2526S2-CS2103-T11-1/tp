@@ -665,7 +665,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Tag**: A short label used to categorise contacts (e.g., recruiter, fintech).
 * **Company**: The organisation or company that a contact is associated with.
 * **Remark**: Additional notes or comments about a contact.
-* **Duplicate contact**: Two contacts with the same phone number.
+* **Duplicate contact**: Two contacts with the same details.
+* **Duplicate phone**: Two contacts with the same phone number.
 
 --------------------------------------------------------------------------------------------------------------------
 

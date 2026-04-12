@@ -470,6 +470,8 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 **Q**: Why can’t I restore a contact?<br>
 **A**: This is likely because the current contact list already contains the same contact. Similar to AB3, duplicate contacts are not allowed in the main list. However, duplicates can exist in the deleted list since it stores historical snapshots. If a duplicate exists in the current list, the contact cannot be restored.
 
+**Q**: Can multiple contacts share the same email address?<br>
+**A**: Yes. While duplicate phone numbers and exact identical contacts are not allowed, you can assign the same email address to multiple contacts. This supports real-world networking scenarios where you might have multiple connections under a single company email (e.g., `hr@shopee.com`).
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
