@@ -121,15 +121,32 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [l/LINK] [r/REM
 
 **Input constraints:**
 - **Name**
-    - Contains only letters, spaces, apostrophes (`'`) and hyphens (`-`)
+  - Contains only letters, spaces, apostrophes (`'`) and hyphens (`-`)
+  - Must not start or end with spaces
+  - Must not contain multiple consecutive spaces
+  - Maximum 100 characters
+- **Phone Number**
+  - Must contain digits only 
+  - Must be between 8 and 15 digits long
+- **Email Address**
+  - Must be in the format `local-part@domain` 
+  - Must contain exactly one `@` and no spaces 
+  - Must not contain consecutive dots 
+  - The local part may contain letters, numbers, and `+`, `_`, `.`, `-`, but must start and end with an alphanumeric character
+  - The domain must contain at least one `.`
+  - Each domain label must start and end with an alphanumeric character 
+  - Domain labels may contain only letters, numbers, and hyphens (`-`)
+  - The last domain label must be at least 2 characters long
+- **Address**
+    - Must not contain `/` or `@`
+    - Must not start or end with spaces
+    - Must not contain multiple consecutive spaces
     - Maximum 100 characters
 - **Company**
     - Contains only letters, numbers, spaces, `. , & -`
-    - Maximum 50 characters
-- **Address**
-    - Must not contain `/` or `@`
+    - Must not start or end with spaces
     - Must not contain multiple consecutive spaces
-    - Maximum 100 characters
+    - Maximum 50 characters
 - **Link**
     - Must start with `http://` or `https://`
     - Must not contain spaces in the link
@@ -250,6 +267,7 @@ Format: `find KEYWORD [;MORE_KEYWORDS]`
 * Partial words will be matched e.g. `Han` will match `Hans`
 * Contacts containing the entire keyword will be returned (i.e. `.contains()` search).
   e.g. `Hans Bo` will return `Hans Bobber`, but not `Hans Lim`
+* Empty keywords are not allowed.
 
 Examples:
 * `find John` returns `john` and `John Doe`
@@ -267,6 +285,7 @@ Format:
   e.g. `google`, `Google`, `GOOGLE` are treated the same.
 * A contact will be shown if its company contains **any of the given keywords**.
 * Multiple keywords can be provided by separating them with `;`.
+* Empty keywords are not allowed.
 
 Examples:
 
@@ -281,25 +300,26 @@ Examples:
 
 #### 3. Sorting contacts by company: `sortcom`
 
-Sorts the currently displayed contact list alphabetically by company name.
+Sorts the active contact list alphabetically by company name.
 
 Format:
 `sortcom`
 
 * Sorting is **case-insensitive**.
   e.g. `apple`, `Apple`, `APPLE` are treated the same.
-* Only the **currently displayed list** is sorted (e.g. after `findcom` or `tag show`).
-* Contacts without a company are treated as having an empty value and will appear at the **top of the list**.
+* Only the **active contact list** is sorted (e.g. after `findcom` or `tag show`).
+* Contacts without a company are treated as having an empty value and will appear at the **top of the list**. 
+* If multiple contacts have no company or the same company, they are further sorted by **name**.
 * The sorting does **not permanently change** the original order of contacts.
 
 Examples:
 
 * `sortcom`
-  Sorts all currently displayed contacts by company name in alphabetical order.
+  Sorts all active contacts by company name in alphabetical order.
 
   * `findcom Google`
     `sortcom`
-    First filters contacts by company "Google", then sorts the filtered results alphabetically.
+    First filters active contacts by company "Google", then sorts the filtered results alphabetically.
 
 ---
 
@@ -436,7 +456,7 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CLinkedin home folder.
 
 **Q**: Why does `sortcom` not sort all contacts after using `tag show`?<br>
-**A**: `sortcom` sorts only the **currently displayed contact list**. After `tag show`, the list is filtered, so only that subset is sorted. Use `list` first to sort all contacts.
+**A**: `sortcom` sorts only the **active (currently displayed non-deleted) contact list**. After `tag show`, the list is filtered, so only that subset is sorted. Use `list` first to sort all contacts.
 
 **Q**: Why are tag changes (rename, delete, color) not reflected in the deleted list?<br>
 **A**: The deleted list stores a **snapshot** of the contact at the time it was deleted. Changes made to tags afterward (e.g., renaming, deletion, or color updates) will not affect this snapshot.
