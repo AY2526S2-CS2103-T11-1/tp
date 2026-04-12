@@ -30,7 +30,7 @@ public class DeletedCommand extends Command {
         model.updateFilteredDeletedPersonRecordList(PREDICATE_SHOW_ALL_DELETED_PERSON_RECORDS);
 
         if (model.getFilteredDeletedPersonRecordList().isEmpty()) {
-            return new CommandResult(MESSAGE_NO_DELETED_RECORDS);
+            return new CommandResult(MESSAGE_NO_DELETED_RECORDS, false, true, false);
         }
 
         return new CommandResult(MESSAGE_SUCCESS, false, true, false);
