@@ -1,5 +1,6 @@
 @startuml
 title Sequence Diagram for the `tag rename` command
+hide footbox
 
 actor User
 
