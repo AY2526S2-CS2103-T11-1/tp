@@ -63,4 +63,14 @@ public class TagColorCommandTest {
         assertThrows(CommandException.class,
                 TagColorCommand.MESSAGE_TAG_NOT_FOUND, () -> command.execute(model));
     }
+
+    @Test
+    public void execute_tagAlreadySameColor_throwsException() throws CommandException {
+        Tag tag = new Tag("friends", "gold");
+        String color = "gold";
+        model.addTag(tag);
+        TagColorCommand command = new TagColorCommand(tag, color);
+        assertThrows(CommandException.class,
+                TagColorCommand.MESSAGE_SAME_TAG_COLOR, () -> command.execute(model));
+    }
 }
