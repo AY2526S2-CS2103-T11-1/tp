@@ -175,7 +175,7 @@ The `sortcom` command allows users to sort the active contact list alphabeticall
 
 <box type="info" seamless>
 
-**Note:** The sorting operation is applied only to the **active contact list** (i.e., the currently displayed non-deleted contacts), not the entire dataset.
+**Note:** `sortcom` applies only to the **active contact list**. If the active contact list is currently filtered, the sorting is applied to the filtered active list instead. `sortcom` does not apply to the deleted list.
 
 </box>
 
@@ -622,13 +622,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Guarantees:**
 
 * If successful, the active contact list is sorted by company name.
-* If unsuccessful, the non-deleted contact list remains unchanged.
+* If unsuccessful, the active contact list remains unchanged.
 
 #### **MSS**
 
 1. User requests to sort contacts by entering the `sortcom` command.
 2. CLinkedin sorts the active contact list by company name (case-insensitive), with name and phone number used as tie-breakers when needed.
-3. CLinkedin displays the sorted non-deleted contact list.
+3. CLinkedin displays the sorted active contact list.
 4. CLinkedin displays a success message.
 
    Use case ends.
@@ -665,7 +665,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Tag**: A short label used to categorise contacts (e.g., recruiter, fintech).
 * **Company**: The organisation or company that a contact is associated with.
 * **Remark**: Additional notes or comments about a contact.
-* **Filtered non-deleted contact list**: The subset of non-deleted contacts currently displayed after applying a command.
 * **Duplicate contact**: Two contacts with the same phone number.
 
 --------------------------------------------------------------------------------------------------------------------
