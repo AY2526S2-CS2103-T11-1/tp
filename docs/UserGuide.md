@@ -387,7 +387,7 @@ Adds a color to a tag.
 Format: `tag color TAG_NAME COLOR`
 
 * Adds a valid color to the specified `TAG_NAME`.
-* A valid color is any case-insensitive plain name, or hexadecimal value.
+* A valid color is any case-insensitive [standard JavaFX named color](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/paint/Color.html), or hexadecimal value.
 * If the tag does not exist, an error message will be shown.
 * If the color is invalid, an error message will be shown.
 
