@@ -106,18 +106,14 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_noFieldSpecifiedUnfilteredList_throwsCommandException() {
         // Add friends tag to clinkedin
         model.setTags(List.of(new Tag("friends")));
 
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
-
-        Model expectedModel = new ModelManager(new CLinkedin(model.getCLinkedin()), new UserPrefs());
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        String expectedMessage = EditCommand.MESSAGE_NO_CHANGE;
+        assertCommandFailure(editCommand, model, expectedMessage);
     }
 
     @Test
@@ -376,9 +372,9 @@ public class EditCommandTest {
     @Test
     public void execute_tagsDoNoExistPerson_throwsCommandException() {
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
-        descriptor.setTags(Set.of(new Tag("friends")));
+        descriptor.setTags(Set.of(new Tag("friendsss")));
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        String errorMessage = MESSAGE_TAGS_DO_NOT_EXIST + "[[friends]]";
+        String errorMessage = MESSAGE_TAGS_DO_NOT_EXIST + "[[friendsss]]";
         assertThrows(CommandException.class, errorMessage, () -> editCommand.execute(model));
     }
 

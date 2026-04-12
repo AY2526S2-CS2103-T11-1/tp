@@ -66,6 +66,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_DUPLICATE_PHONE = "Duplicate phone number detected";
+    public static final String MESSAGE_NO_CHANGE = "The provided detail(s) are the same as the original detail(s).";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -93,6 +94,10 @@ public class EditCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+
+        if (personToEdit.equals(editedPerson)) {
+            throw new CommandException(MESSAGE_NO_CHANGE);
+        }
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
