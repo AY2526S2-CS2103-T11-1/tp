@@ -171,15 +171,15 @@ The following sequence diagram illustrates how the `findcom` command is handled 
 
 #### Sorting contacts by company
 
-The `sortcom` command allows users to sort the currently displayed contact list alphabetically by company name.
+The `sortcom` command allows users to sort the active contact list alphabetically by company name.
 
 <box type="info" seamless>
 
-**Note:** The sorting operation is applied only to the **filtered contact list** (i.e., the currently displayed contacts), not the entire dataset.
+**Note:** `sortcom` applies only to the **active contact list**. If the active contact list is currently filtered, the sorting is applied to the filtered active list instead. `sortcom` does not apply to the deleted list.
 
 </box>
 
-When the command is executed, the system sorts the filtered contact list by company name in a case-insensitive manner. Contacts without a company are treated as having an empty value and will appear at the top of the displayed list. The sorted list is then shown to the user together with a success message.
+When the command is executed, the system sorts the active contact list by company name in a case-insensitive manner. Contacts without a company are treated as having an empty value and will appear at the top of the displayed list. If multiple contacts have the same company value, their names are used as a secondary sorting key to keep the ordering deterministic. The sorted list is then shown to the user together with a success message.
 
 The following activity diagram illustrates the flow of the `sortcom` command:
 
@@ -621,14 +621,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Guarantees:**
 
-* If successful, the currently displayed contact list is sorted by company name.
-* If unsuccessful, the contact list remains unchanged.
+* If successful, the active contact list is sorted by company name.
+* If unsuccessful, the active contact list remains unchanged.
 
 #### **MSS**
 
 1. User requests to sort contacts by entering the `sortcom` command.
-2. CLinkedin sorts the currently displayed contact list alphabetically by company name (case-insensitive).
-3. CLinkedin displays the sorted contact list.
+2. CLinkedin sorts the active contact list by company name (case-insensitive), with name and phone number used as tie-breakers when needed.
+3. CLinkedin displays the sorted active contact list.
 4. CLinkedin displays a success message.
 
    Use case ends.
@@ -665,7 +665,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Tag**: A short label used to categorise contacts (e.g., recruiter, fintech).
 * **Company**: The organisation or company that a contact is associated with.
 * **Remark**: Additional notes or comments about a contact.
-* **Filtered contact list**: The subset of contacts currently displayed after applying a command.
 * **Duplicate contact**: Two contacts with the same phone number.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -751,12 +750,12 @@ testers are expected to do more *exploratory* testing.
        Expected: No contacts are shown. Error details shown in the status message.
 
 ### Sorting contact list by company name
-- Sorting contacts by company name alphabetically
+- Sorting active contacts by company name alphabetically
 
-    1. Prerequisites: Multiple contacts in the list with company names.
+    1. Prerequisites: Multiple active contacts in the list with company names.
 
     1. Test case: `sortcom`<br>
-       Expected: Contacts are shown in alphabetical order by company name. Success message shown.
+       Expected: Active contacts are shown in alphabetical order by company name. Success message shown.
 
 ### Viewing recently deleted contacts
 - Viewing deleted contacts
@@ -895,3 +894,5 @@ We reused AB3’s core architecture (commands, parser, model), which reduced set
 ## **Appendix: Planned Enhancements**
 These enhancements are planned for future iterations:
 - Improve tag restoration behaviour: when restoring a deleted contact, tags that were renamed will be correctly mapped to their updated names instead of being removed.
+- Support more flexible phone number formats: The current implementation accepts only digit-only phone numbers of 8 to 15 digits. Future versions may support formats with spaces, country codes, and symbols such as `+`, `(`, `)`, and `-`.
+- Extend sortcom support to the deleted-contact list: Currently, sortcom only sorts the active non-deleted contact list. In a future version, we may support sorting the deleted-contact list when it is being displayed as well.
