@@ -200,7 +200,7 @@ Examples:
 
 #### 4. Deleting a contact : `delete`
 
-Deletes the specified contact from CLInkedin.
+Deletes the specified contact from CLinkedin.
 
 Format: `delete INDEX`
 
@@ -216,7 +216,7 @@ Format: `delete INDEX`
 </box>
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd contact in CLInkedin.
+* `list` followed by `delete 2` deletes the 2nd contact in CLinkedin.
 * `find Betsy` followed by `delete 1` deletes the 1st contact in the results of the `find` command.
 
 #### 5. Viewing deleted contacts : `deleted`
@@ -244,7 +244,7 @@ Format: `restore INDEX`
 * The index refers to the index number shown in the `deleted` list.
 * The `restore` command always refers to the deleted contacts list, even if the active contact list is currently displayed.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The restored contact will be added back to CLInkedin.
+* The restored contact will be added back to CLinkedin.
 * If a tag associated with the contact has been removed or renamed before restoration, the contact will be restored without that tag.
 * If restoring the contact results in duplicate phone number or existing contact conflicts, the restore will fail.
 * Once restored, the contact will be removed from the deleted list.
@@ -254,7 +254,7 @@ Examples:
 
 #### 7. Clearing all entries : `clear`
 
-Clears all entries from CLInkedin.
+Clears all entries from CLinkedin.
 
 Format: `clear`
 
@@ -453,7 +453,7 @@ CLinkedin data are saved automatically as a JSON file `[JAR file location]/data/
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, CLInkedin will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+If your changes to the data file makes its format invalid, CLinkedin will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
