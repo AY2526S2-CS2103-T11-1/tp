@@ -125,8 +125,7 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return this.equals(otherPerson);
     }
 
     //@@author rxlee04
