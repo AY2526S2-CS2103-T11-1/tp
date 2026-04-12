@@ -472,6 +472,10 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 
 **Q**: Can multiple contacts share the same email address?<br>
 **A**: Yes. While duplicate phone numbers and exact identical contacts are not allowed, you can assign the same email address to multiple contacts. This supports real-world networking scenarios where you might have multiple connections under a single company email (e.g., `hr@shopee.com`).
+
+**Q**: Why can I add two contacts with the exact same name?<br>
+**A**: Unlike the standard AB3, CLinkedin allows multiple contacts to share the same name. It is possible for different people to share a name (e.g., "John Tan"). A contact is only considered duplicate if every detail is identical.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
