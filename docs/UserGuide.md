@@ -242,7 +242,7 @@ Format: `clear`
 
 Finds contacts whose names contain any of the given keywords.
 
-Format: `find KEYWORD [;MORE_KEYWORDS]`
+Format: `find KEYWORD [;MORE_KEYWORDS]…`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords matter. e.g. `Hans Bo` will not match `Bo Hans`
@@ -261,7 +261,7 @@ Examples:
 Finds all contacts whose company name matches any of the given keywords.
 
 Format:
-`findcom KEYWORD [; KEYWORD]…​`
+`findcom KEYWORD [;MORE_KEYWORDS]…​`
 
 * The search is **case-insensitive**.
   e.g. `google`, `Google`, `GOOGLE` are treated the same.
@@ -470,7 +470,7 @@ Action              | Format, Examples
 **Delete**          | `delete INDEX`<br> e.g., `delete 3`
 **Edit**            | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`<br> e.g., `edit 2 n/James Lee e/jameslee@example.com`
 **Find**            | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**Find Company**            | `findcom COMPANY [; MORE_COMPANY]`<br> e.g., `find Google; Amazon`
+**Find Company**            | `findcom KEYWORD [MORE_KEYWORDS]`<br> e.g., `find Google; Amazon`
 **Sort Company**            | `sortcom`
 **List**            | `list`
 **Deleted**         | `deleted`
