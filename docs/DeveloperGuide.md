@@ -803,7 +803,7 @@ testers are expected to do more *exploratory* testing.
        Expected: Contacts with the company `google` are shown in the list. Success message shown.
 
     1. Test case: `findcom`<br>
-       Expected: No contacts are shown. Error details shown in the status message.
+       Expected: Error details shown in the status message.
 
 ### Sorting contact list by company name
 - Sorting active contacts by company name alphabetically
