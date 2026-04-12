@@ -475,7 +475,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### **MSS**
 
-1. User enters the `restore` command with the deleted contact's index.
+1. User requests to restore a deleted contact with a specified index.
 2. CLinkedin validates that the index is valid in the deleted contacts list.
 3. CLinkedin checks whether restoring the contact would conflict with the active contact list.
 4. CLinkedin restores the contact to the active contact list and removes it from the deleted contacts list.
@@ -633,7 +633,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### **MSS**
 
-1. User requests to find contacts by entering the `findcom` command with one or more company keywords.
+1. User requests to find contacts from one or more specified company.
 2. CLinkedin parses the input keywords.
 3. CLinkedin filters the contact list to include contacts whose company matches any of the keywords.
 4. CLinkedin displays the filtered list of contacts along with a summary message.
@@ -676,7 +676,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### **MSS**
 
-1. User requests to sort contacts by entering the `sortcom` command.
+1. User requests to sort contacts by company name.
 2. CLinkedin sorts the active contact list by company name (case-insensitive), with name and phone number used as tie-breakers when needed.
 3. CLinkedin displays the sorted active contact list.
 4. CLinkedin displays a success message.
