@@ -296,7 +296,7 @@ The following sequence diagram illustrates the execution:
 
 #### Tag rename
 
-The `tag rename` commands allow users to modify the name of an existing tag, while also replacing the tag attached to the respective contacts.
+The `tag rename` command allow users to modify the name of an existing tag, while also replacing the tag attached to the respective contacts.
 
 Because tags are immutable objects in this architecture, modifying a tag requires replacing it. The system first validates that the old tag exists. It then creates the new tag in the global `CLinkedin` tag list and attach it to the contacts containing the old tag through iteration. Finally, it removes the old tag from the tag list.
 
@@ -342,7 +342,7 @@ The sequence diagram below illustrates the execution:
 
 **Target user profile**:
 
-* NUS SOC students who collect many professional contacts (e.g. peers, seniors, alumni)
+* NUS SoC students who collect many professional contacts (e.g. peers, seniors, alumni)
 * comfortable with using command-line interfaces to manage contacts
 
 **Value proposition**: Helps NUS SoC students manage and recall networking contacts quickly by providing a structured, command-line address book tailored for technical users.
