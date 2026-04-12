@@ -201,7 +201,7 @@ public class ModelManager implements Model {
      * by company name in a case-insensitive manner.
      *
      * <p>
-     * Sorting is applied only to the active view (i.e., {@code sortedPersons}),
+     * Sorting is applied only to the filtered view (i.e., {@code sortedPersons}),
      * and does not modify the underlying {@code CLinkedin} person list.
      * </p>
      *

@@ -15,8 +15,8 @@ import seedu.clinkedin.model.Model;
 public class SortComCommand extends Command {
 
     public static final String COMMAND_WORD = "sortcom";
-    public static final String MESSAGE_EMPTY = "No active contacts to be sorted by company name.";
-    public static final String MESSAGE_SUCCESS = "Active contacts sorted by company name.";
+    public static final String MESSAGE_EMPTY = "No contacts to be sorted by company name.";
+    public static final String MESSAGE_SUCCESS = "Contacts sorted by company name.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all active contacts by company name "
             + "alphabetically (case-insensitive).\n"
             + "Example: " + COMMAND_WORD;
