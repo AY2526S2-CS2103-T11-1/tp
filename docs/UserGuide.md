@@ -36,9 +36,9 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
     * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to CLinkedin.
 
-    * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `delete 3` : Deletes the 3rd contact in the active contact list.
 
-    * `clear` : Deletes all contacts.
+    * `clear` : Clears all contacts, including deleted-contact history.
 
     * `exit` : Exits the app.
 
@@ -200,19 +200,23 @@ Examples:
 
 #### 4. Deleting a contact : `delete`
 
-Deletes the specified contact from CLInkedin.
+Deletes the specified contact from CLinkedin.
 
 Format: `delete INDEX`
 
 * Deletes the contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed contact list.
+* The index refers to the index number shown in the active contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Deleted contacts are not permanently removed immediately.
 * Deleted contacts are stored and can be viewed using the `deleted` command.
 * Contacts will be permanently removed after 7 days.
 
+<box type="info" seamless>
+**Note:** `delete` applies only to the active contact list. If the active contact list is currently filtered, the index refers to the filtered active list instead. `delete` does not apply to the `deleted` list.
+</box>
+
 Examples:
-* `list` followed by `delete 2` deletes the 2nd contact in CLInkedin.
+* `list` followed by `delete 2` deletes the 2nd contact in CLinkedin.
 * `find Betsy` followed by `delete 1` deletes the 1st contact in the results of the `find` command.
 
 #### 5. Viewing deleted contacts : `deleted`
@@ -223,6 +227,8 @@ Format: `deleted`
 
 * Displays all contacts that were deleted within the last 7 days.
 * Each deleted contact includes the date and time it was deleted.
+* The deleted list is for viewing and restoring recently deleted contacts.
+* The `delete` command does not apply to this list.
 * Contacts that exceed 7 days from deletion will no longer be shown.
 
 Examples:
@@ -236,8 +242,9 @@ Format: `restore INDEX`
 
 * Restores the contact at the specified `INDEX` from the deleted contacts list.
 * The index refers to the index number shown in the `deleted` list.
+* The `restore` command always refers to the deleted contacts list, even if the active contact list is currently displayed.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The restored contact will be added back to CLInkedin.
+* The restored contact will be added back to CLinkedin.
 * If a tag associated with the contact has been removed or renamed before restoration, the contact will be restored without that tag.
 * If restoring the contact results in duplicate phone number or existing contact conflicts, the restore will fail.
 * Once restored, the contact will be removed from the deleted list.
@@ -247,9 +254,13 @@ Examples:
 
 #### 7. Clearing all entries : `clear`
 
-Clears all entries from CLInkedin.
+Clears all entries from CLinkedin.
 
 Format: `clear`
+
+* Clears all contacts from the active contact list.
+* Clears all contacts from the deleted contacts list.
+* Contacts removed by `clear` are not stored in the deleted list.
 
 ---
 
@@ -442,7 +453,7 @@ CLinkedin data are saved automatically as a JSON file `[JAR file location]/data/
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, CLInkedin will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+If your changes to the data file makes its format invalid, CLinkedin will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
@@ -469,6 +480,15 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 
 **Q**: Why can’t I restore a contact?<br>
 **A**: This is likely because the current contact list already contains the same contact. Similar to AB3, duplicate contacts are not allowed in the main list. However, duplicates can exist in the deleted list since it stores historical snapshots. If a duplicate exists in the current list, the contact cannot be restored.
+
+**Q**: Why does `delete 1` say the person index is invalid when I am viewing the `deleted` list?<br>
+**A**: The `delete` command applies only to the active contact list, not the `deleted` list. If the active contact list is currently filtered, `delete` uses the index from that filtered active list instead. If that active filtered list does not contain index `1`, the command will report that the person index is invalid, even if an entry is visible in the `deleted` list.
+
+**Q**: Why can I use `restore INDEX` even when I am not viewing the `deleted` list?<br>
+**A**: The `restore` command always refers to the deleted contacts list, regardless of whether the active contact list or the deleted list is currently being displayed.
+
+**Q**: Why are my deleted contacts gone after using `clear`?<br>
+**A**: The `clear` command clears all stored data in CLinkedin, including both the active contact list and the deleted contacts list. Contacts removed by `clear` are not stored in the deleted list.
 
 --------------------------------------------------------------------------------------------------------------------
 
