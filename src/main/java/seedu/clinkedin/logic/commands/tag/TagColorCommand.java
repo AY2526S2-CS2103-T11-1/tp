@@ -14,6 +14,7 @@ import seedu.clinkedin.logic.commands.exceptions.CommandException;
 import seedu.clinkedin.model.Model;
 import seedu.clinkedin.model.person.Person;
 import seedu.clinkedin.model.tag.Tag;
+import seedu.clinkedin.ui.TagUtil;
 
 /**
  * Changes a tag's color
@@ -27,6 +28,7 @@ public class TagColorCommand extends TagCommand {
 
     public static final String MESSAGE_SUCCESS = "Tag color changed successfully.";
     public static final String MESSAGE_TAG_NOT_FOUND = "Tag does not exist.";
+    public static final String MESSAGE_SAME_TAG_COLOR = "Tag already has that color!";
 
     private Tag tag;
     private String color;
@@ -48,6 +50,8 @@ public class TagColorCommand extends TagCommand {
         if (!model.hasTag(tag)) {
             throw new CommandException(MESSAGE_TAG_NOT_FOUND);
         }
+
+        checkIfSameColor(model);
 
         // Replaces current list of Tags with the new Tag
         List<Tag> tagList = new ArrayList<>(model.getCLinkedin().getTagList());
@@ -72,6 +76,14 @@ public class TagColorCommand extends TagCommand {
                 Person editedPerson = editPerson(person, tag, new Tag(tag.tagName, color));
                 model.setPerson(person, editedPerson);
             }
+        }
+    }
+
+    private void checkIfSameColor(Model model) throws CommandException {
+        List<Tag> tagList = new ArrayList<>(model.getCLinkedin().getTagList());
+        int index = tagList.indexOf(tag);
+        if (TagUtil.tagColorToHexString(tagList.get(index).tagColor).equals(TagUtil.tagColorToHexString(color))) {
+            throw new CommandException(MESSAGE_SAME_TAG_COLOR);
         }
     }
 
