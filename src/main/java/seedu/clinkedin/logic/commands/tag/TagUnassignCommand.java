@@ -98,7 +98,7 @@ public class TagUnassignCommand extends TagCommand {
         List<Person> snapshot = new ArrayList<>(lastShownList);
         for (Index index : indexes) {
             Person personToEdit = snapshot.get(index.getZeroBased());
-            Person currentPerson = model.getFilteredPersonList().get(index.getZeroBased());
+            Person currentPerson = snapshot.get(index.getZeroBased());
             Person editedPerson = new Person(
                     currentPerson.getName(),
                     currentPerson.getPhone(),
