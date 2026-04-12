@@ -29,7 +29,9 @@ public class Tag {
 
     public static final String MESSAGE_INVALID_COLOR_NAME =
             "Invalid color name.\n"
-                    + "Valid formats are in case-insensitive plain name, or hexadecimal and it's shorthand values.\n"
+                    + "Only colors defined in JavaFX `Color.web()` are accepted\n"
+                    + "Valid formats are in case-insensitive standard named colors (e.g. red, blue)\n"
+                    + "Or hexadecimal and it's shorthand values.\n"
                     + "Example: #123, #ff6688, orange";
 
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";

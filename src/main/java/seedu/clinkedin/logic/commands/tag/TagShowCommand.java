@@ -41,7 +41,7 @@ public class TagShowCommand extends TagCommand {
         return new CommandResult(
                 String.format("%d contacts listed with tag '%s'.",
                         model.getFilteredPersonList().size(),
-                        tag.toString()));
+                        tag.getTagName()));
 
     }
 
