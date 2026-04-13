@@ -715,7 +715,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Tag**: A short label used to categorise contacts (e.g., recruiter, fintech).
 * **Company**: The organisation or company that a contact is associated with.
 * **Remark**: Additional notes or comments about a contact.
-* **Duplicate contact**: Two contacts with the same phone number.
+* **Duplicate contact**: Two contacts with the same details.
+* **Duplicate phone**: Two contacts with the same phone number.
 * **Active contact list**: The main contact list that commands such as `delete` operate on. If the list is currently filtered, the active contact list refers to that filtered view.
 * **Deleted contacts list**: A separate list that stores recently deleted contacts for recovery within 7 days. Commands such as `restore` operate on this list, while `delete` does not.
 

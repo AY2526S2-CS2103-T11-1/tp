@@ -39,7 +39,7 @@ public class PersonTest {
         // EP: same identity field (name), other fields different
         Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSamePerson(editedAlice));
 
         // EP: different identity field (name)
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();

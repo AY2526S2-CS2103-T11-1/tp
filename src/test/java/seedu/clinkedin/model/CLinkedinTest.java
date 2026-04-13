@@ -75,9 +75,7 @@ public class CLinkedinTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
+        List<Person> newPersons = Arrays.asList(ALICE, ALICE);
         CLinkedinStub newData = new CLinkedinStub(newPersons, Collections.emptyList(), Collections.emptyList());
 
         assertThrows(DuplicatePersonException.class, () -> cLinkedin.resetData(newData));
@@ -100,11 +98,11 @@ public class CLinkedinTest {
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsFalse() {
         cLinkedin.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(cLinkedin.hasPerson(editedAlice));
+        assertFalse(cLinkedin.hasPerson(editedAlice));
     }
 
     // ================= DELETED PERSON RECORD TESTS =================
@@ -179,15 +177,16 @@ public class CLinkedinTest {
 
     @Test
     public void restorePerson_validDeletedRecord_restoresPersonAndRemovesDeletedRecord() {
-        cLinkedin.addPerson(ALICE);
-        cLinkedin.removePerson(ALICE);
+        Person noTagAlice = new PersonBuilder(ALICE).withTags().build();
+        cLinkedin.addPerson(noTagAlice);
+        cLinkedin.removePerson(noTagAlice);
 
         DeletedPersonRecord recordToRestore = cLinkedin.getDeletedPersonRecords().get(0);
 
         cLinkedin.restorePerson(recordToRestore);
 
         assertTrue(cLinkedin.getPersonList().stream()
-                .anyMatch(person -> person.isSamePerson(ALICE)));
+                .anyMatch(person -> person.isSamePerson(noTagAlice)));
         assertEquals(0, cLinkedin.getDeletedPersonRecords().size());
     }
 
@@ -208,7 +207,8 @@ public class CLinkedinTest {
 
         Person restoredPerson = cLinkedin.getPersonList().get(0);
 
-        assertTrue(restoredPerson.isSamePerson(personWithWooperTag));
+        assertFalse(restoredPerson.isSamePerson(personWithWooperTag));
+        assertEquals(personWithWooperTag.getName(), restoredPerson.getName());
         assertFalse(restoredPerson.getTags().contains(wooperTag));
         assertEquals(0, cLinkedin.getDeletedPersonRecords().size());
     }

@@ -118,22 +118,24 @@ public class ModelManagerTest {
 
     @Test
     public void restorePerson_deletedRecordInCLinkedin_restoresPersonAndRemovesDeletedRecord() {
-        modelManager.addPerson(ALICE);
-        modelManager.deletePerson(ALICE);
+        Person noTagAlice = new PersonBuilder(ALICE).withTags().build();
+        modelManager.addPerson(noTagAlice);
+        modelManager.deletePerson(noTagAlice);
 
         DeletedPersonRecord recordToRestore = modelManager.getFilteredDeletedPersonRecordList().get(0);
 
         modelManager.restorePerson(recordToRestore);
 
         assertTrue(modelManager.getCLinkedin().getPersonList().stream()
-                .anyMatch(p -> p.isSamePerson(ALICE)));
+                .anyMatch(p -> p.isSamePerson(noTagAlice)));
         assertEquals(0, modelManager.getFilteredDeletedPersonRecordList().size());
     }
 
     @Test
     public void restorePerson_updatesFilteredLists_showsAllAfterRestore() {
-        modelManager.addPerson(ALICE);
-        modelManager.deletePerson(ALICE);
+        Person noTagAlice = new PersonBuilder(ALICE).withTags().build();
+        modelManager.addPerson(noTagAlice);
+        modelManager.deletePerson(noTagAlice);
 
         DeletedPersonRecord recordToRestore = modelManager.getFilteredDeletedPersonRecordList().get(0);
 
@@ -143,7 +145,7 @@ public class ModelManagerTest {
         modelManager.restorePerson(recordToRestore);
 
         assertTrue(modelManager.getFilteredPersonList().stream()
-                .anyMatch(p -> p.isSamePerson(ALICE)));
+                .anyMatch(p -> p.isSamePerson(noTagAlice)));
         assertEquals(0, modelManager.getFilteredDeletedPersonRecordList().size());
     }
 

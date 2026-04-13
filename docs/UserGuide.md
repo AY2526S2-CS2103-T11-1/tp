@@ -481,6 +481,12 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 **Q**: Why can’t I restore a contact?<br>
 **A**: This is likely because the current contact list already contains the same contact. Similar to AB3, duplicate contacts are not allowed in the main list. However, duplicates can exist in the deleted list since it stores historical snapshots. If a duplicate exists in the current list, the contact cannot be restored.
 
+**Q**: Can multiple contacts share the same email address?<br>
+**A**: Yes. While duplicate phone numbers and exact identical contacts are not allowed, you can assign the same email address to multiple contacts. This supports real-world networking scenarios where you might have multiple connections under a single company email (e.g., `hr@shopee.com`).
+
+**Q**: Why can I add two contacts with the exact same name?<br>
+**A**: Unlike the standard AB3, CLinkedin allows multiple contacts to share the same name. It is possible for different people to share a name (e.g., "John Tan"). A contact is only considered duplicate if every detail is identical.
+
 **Q**: Why does `delete 1` say the person index is invalid when I am viewing the `deleted` list?<br>
 **A**: The `delete` command applies only to the active contact list, not the `deleted` list. If the active contact list is currently filtered, `delete` uses the index from that filtered active list instead. If that active filtered list does not contain index `1`, the command will report that the person index is invalid, even if an entry is visible in the `deleted` list.
 
