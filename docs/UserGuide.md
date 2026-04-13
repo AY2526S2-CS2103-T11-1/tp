@@ -499,13 +499,13 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 **Q**: Why are my deleted contacts gone after using `clear`?<br>
 **A**: The `clear` command clears all stored data in CLinkedin, including both the active contact list and the deleted contacts list. Contacts removed by `clear` are not stored in the deleted list.
 
-**Q**: What happens when one of the indexes provided in `tag assign` or `tag unassign` command is invalid?  
+**Q**: What happens when one of the indexes provided in `tag assign` or `tag unassign` command is invalid?<br>
 **A**: The whole command (`tag assign 1,999 friends`) will be aborted and an error message will be shown: "Invalid index: 999."
 
-**Q**: What happens when one of the indexes provided in `tag assign` command already has the tag?
+**Q**: What happens when one of the indexes provided in `tag assign` command already has the tag?<br>
 **A**: The whole command (`tag assign 1,2 friends`) will be aborted and an error message will be shown: "Tag already assigned to contacts at index(es): 1."
 
-**Q**: What does active contact list mean?
+**Q**: What does active contact list mean?<br>
 **A**: Refer to Glossary section in the Developer Guide: **Active contact list**: The main contact list that commands such as `delete` operate on. If the list is currently filtered, the active contact list refers to that filtered view.
 
 --------------------------------------------------------------------------------------------------------------------
