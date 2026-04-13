@@ -243,7 +243,7 @@ Format: `restore INDEX`
 
 * Restores the contact at the specified `INDEX` from the deleted contacts list.
 * The index refers to the index number shown in the `deleted` list.
-* * The `restore` command always refers to the deleted contacts list, even if the active contact list is currently displayed.
+* The `restore` command always refers to the deleted contacts list, even if the active contact list is currently displayed.
 * The index **must be a positive integer** 1, 2, 3, …​
 * The restored contact will be added back to CLinkedin.
 * If a tag associated with the contact has been removed or renamed before restoration, the contact will be restored without that tag.
