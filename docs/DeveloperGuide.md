@@ -975,4 +975,5 @@ These enhancements are planned for future iterations:
 - Improve command naming consistency across the application.
     - Currently, some commands use a two-level structure with spaces, such as `tag create`, `tag assign`, and `tag delete`, while others use a single-word format such as `findcom` and `sortcom`.
 - Improve error handling for mistyped prefixes so that inputs like T/ are reported as an invalid prefix instead of as invalid address characters.
-  - Improve parameter validation for commands that do not require extra parameter (eg. `help`, `list`, `clear`, `exit`, `sortcom`): Currently, for example, `clear` accepts and ignores extra parameters (e.g., `clear 123`), executing successfully instead of rejecting the input. In a future version, extra parameters will be rejected with an appropriate error message to enforce stricter command format validation.
+- Improve parameter validation for commands that do not require extra parameter (eg. `help`, `list`, `clear`, `exit`, `sortcom`)
+    - Currently, for example, `clear` accepts and ignores extra parameters (e.g., `clear 123`), executing successfully instead of rejecting the input. In a future version, extra parameters will be rejected with an appropriate error message to enforce stricter command format validation.
