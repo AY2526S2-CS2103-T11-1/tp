@@ -87,4 +87,16 @@ public class TagUnassignCommandParserTest {
         assertParseFailure(parser, "1,2, friends",
                 "Indexes should not end with a comma.");
     }
+
+    @Test
+    public void parse_multipleTagNames_throwsParseException() {
+        assertParseFailure(parser, "1 Enemy friend",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagUnassignCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_alphanumericInIndexPart_throwsParseException() {
+        assertParseFailure(parser, "1abc friend",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagUnassignCommand.MESSAGE_USAGE));
+    }
 }
