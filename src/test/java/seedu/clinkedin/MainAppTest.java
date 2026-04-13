@@ -12,7 +12,7 @@ public class MainAppTest {
     @Test
     public void version_isCorrect() {
         assertNotNull(MainApp.VERSION);
-        assertEquals(new Version(1, 5, 1, true), MainApp.VERSION);
+        assertEquals(new Version(1, 6, 0, true), MainApp.VERSION);
     }
 
     @Test
