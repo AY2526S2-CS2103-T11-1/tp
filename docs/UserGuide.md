@@ -368,6 +368,7 @@ Format: `tag assign INDEX[,INDEX]... TAG_NAME`, `tag unassign INDEX[,INDEX]... T
 * Assigns/remove `TAG_NAME` tag to/from multiple contacts.
 * If the index provided is **out of range** or **negative** or **zero**, an error message will be shown.
 * If the tag does not exist, an error message will be shown.
+* If one of the indexes provide is invalid, the whole command will be aborted.
 
 Examples:
 * `tag assign 1 friend`
@@ -495,6 +496,12 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 
 **Q**: Why are my deleted contacts gone after using `clear`?<br>
 **A**: The `clear` command clears all stored data in CLinkedin, including both the active contact list and the deleted contacts list. Contacts removed by `clear` are not stored in the deleted list.
+
+**Q**: What happens when one of the indexes provided in `tag assign` or `tag unassign` command is invalid?  
+**A**: The whole command (`tag assign 1,999 friends`) will be aborted and an error message will be shown: "Invalid index: 999."
+
+**Q**: What happens when one of the indexes provided in `tag assign` command already has the tag?
+**A**: The whole command (`tag assign 1,2 friends`) will be aborted and an error message will be shown: "Tag already assigned to contacts at index(es): 1."
 
 --------------------------------------------------------------------------------------------------------------------
 
