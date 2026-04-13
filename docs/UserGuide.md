@@ -25,7 +25,7 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
 3. Copy the file to the folder you want to use as the _home folder_ for your CLinkedin.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinkedin.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinkedin-v1.6.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -36,7 +36,7 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
     * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to CLinkedin.
 
-    * `delete 3` : Deletes the 3rd contact in the displayed contact list.
+    * `delete 3` : Deletes the 3rd contact in the active contact list.
 
     * `clear` : Clears all contacts, including deleted-contact history.
 
@@ -186,7 +186,8 @@ Each field must still follow its respective input constraints (refers to input c
 
 </box>
 
-* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the active contact list.
+* The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
@@ -205,14 +206,14 @@ Deletes the specified contact from CLinkedin.
 Format: `delete INDEX`
 
 * Deletes the contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed contact list.
+* The index refers to the index number shown in the active contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Deleted contacts are not permanently removed immediately.
 * Deleted contacts are stored and can be viewed using the `deleted` command.
 * Contacts will be permanently removed after 7 days.
 
 <box type="info" seamless>
-**Note:** `delete` applies only to the displayed contact list. `delete` does not apply to the `deleted` list, it will refer to the previously displayed list before entering the `deleted` command.
+**Note:** `delete` applies only to the active contact list. If the active contact list is currently filtered, the index refers to the filtered active list instead. `delete` does not apply to the `deleted` list.
 </box>
 
 Examples:
@@ -242,7 +243,7 @@ Format: `restore INDEX`
 
 * Restores the contact at the specified `INDEX` from the deleted contacts list.
 * The index refers to the index number shown in the `deleted` list.
-* The `restore` command always refers to the deleted contacts list, even if the displayed contact list is currently displayed.
+* The `restore` command always refers to the deleted contacts list, even if the active contact list is currently displayed.
 * The index **must be a positive integer** 1, 2, 3, …​
 * The restored contact will be added back to CLinkedin.
 * If a tag associated with the contact has been removed or renamed before restoration, the contact will be restored without that tag.
@@ -477,6 +478,7 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 - Tags that have been **deleted or renamed** will not be restored
 - A message will be shown if some tags could not be restored
 - Tag **colors will be applied based on the current tag definitions**, as long as the tag name still exists
+- This is the current behavior. See Planned Enhancements for a possible future improvement.
 
 **Q**: Why can’t I restore a contact?<br>
 **A**: This is likely because the current contact list already contains the same contact. Similar to AB3, duplicate contacts are not allowed in the main list. However, duplicates can exist in the deleted list since it stores historical snapshots. If a duplicate exists in the current list, the contact cannot be restored.
@@ -487,14 +489,17 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 **Q**: Why can I add two contacts with the exact same name?<br>
 **A**: Unlike the standard AB3, CLinkedin allows multiple contacts to share the same name. It is possible for different people to share a name (e.g., "John Tan"). A contact is only considered duplicate if every detail is identical.
 
-**Q**: Why does `delete 6` say the person index is invalid when I am viewing the `deleted` list?<br>
-**A**: The `delete` command applies only to the displayed contact list, not the `deleted` list. If the active contact list is currently filtered, `delete` uses the index from that filtered active list instead. If that active filtered list does not contain index `6`, the command will report that the person index is invalid, even if an entry is visible in the `deleted` list.
+**Q**: Why does `delete 1` say the person index is invalid when I am viewing the `deleted` list?<br>
+**A**: The `delete` command applies only to the active contact list, not the `deleted` list. If the active contact list is currently filtered, `delete` uses the index from that filtered active list instead. If that active filtered list does not contain index `1`, the command will report that the person index is invalid, even if an entry is visible in the `deleted` list.
 
 **Q**: Why can I use `restore INDEX` even when I am not viewing the `deleted` list?<br>
 **A**: The `restore` command always refers to the deleted contacts list, regardless of whether the active contact list or the deleted list is currently being displayed.
 
 **Q**: Why are my deleted contacts gone after using `clear`?<br>
 **A**: The `clear` command clears all stored data in CLinkedin, including both the active contact list and the deleted contacts list. Contacts removed by `clear` are not stored in the deleted list.
+
+**Q**: What does active contact list mean?
+**A**: Refer to Glossary section in the Developer Guide: **Active contact list**: The main contact list that commands such as `delete` operate on. If the list is currently filtered, the active contact list refers to that filtered view.
 
 --------------------------------------------------------------------------------------------------------------------
 
