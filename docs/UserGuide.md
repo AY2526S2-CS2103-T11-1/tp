@@ -499,7 +499,7 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 **A**: The `clear` command clears all stored data in CLinkedin, including both the active contact list and the deleted contacts list. Contacts removed by `clear` are not stored in the deleted list.
 
 **Q**: What does active contact list mean?
-**A**: Refer to Glossary section in the Developer Guide.
+**A**: Refer to Glossary section in the Developer Guide: **Active contact list**: The main contact list that commands such as `delete` operate on. If the list is currently filtered, the active contact list refers to that filtered view.
 
 --------------------------------------------------------------------------------------------------------------------
 
