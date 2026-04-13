@@ -1,5 +1,6 @@
 @startuml
 title Sequence Diagram for the `tag delete` command
+hide footbox
 
 actor User
 
