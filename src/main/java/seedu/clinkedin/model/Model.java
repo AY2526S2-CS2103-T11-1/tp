@@ -20,6 +20,8 @@ public interface Model {
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    Predicate<Person> PREDICATE_SHOW_EMPTY = unused -> false;
+
     /**
      * {@code Predicate} that always evaluates to true for deleted person records.
      */

@@ -434,7 +434,7 @@ Format: `tag show TAG_NAME`
 
 * The list will be filtered to show contacts that have `TAG_NAME`.
 * Filters based on a single tag only.
-* If the tag does not exist, an error message will be shown.
+* If the tag does not exist, the empty active list with an error message will be shown.
 
 Examples:
 * `tag show friends`

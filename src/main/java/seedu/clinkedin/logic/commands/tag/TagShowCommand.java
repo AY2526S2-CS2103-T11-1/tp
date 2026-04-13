@@ -1,6 +1,7 @@
 package seedu.clinkedin.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinkedin.model.Model.PREDICATE_SHOW_EMPTY;
 
 import seedu.clinkedin.logic.commands.CommandResult;
 import seedu.clinkedin.logic.commands.exceptions.CommandException;
@@ -33,6 +34,7 @@ public class TagShowCommand extends TagCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (!model.hasTag(tag)) {
+            model.updateFilteredPersonList(PREDICATE_SHOW_EMPTY);
             throw new CommandException(MESSAGE_TAG_NOT_FOUND + tag.toString());
         }
 
