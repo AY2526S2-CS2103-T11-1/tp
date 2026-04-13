@@ -1,5 +1,6 @@
 @startuml
 title Sequence Diagram for the `tag assign` command
+hide footbox
 
 actor User
 
