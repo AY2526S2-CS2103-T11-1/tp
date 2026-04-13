@@ -772,7 +772,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `edit 1 n/Johnny`<br>
        Expected: First contact's name is updated to `Johnny`. Details of contact shown in status message.
-   
+
     1. Test case: `edit 0 n/Johnny`<br>
        Expected: No person is edited. Error details shown in the status message.
 
@@ -829,7 +829,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `restore 1`<br>
        Expected: First deleted contact is restored to the end of the active contact list. Details of restored contact shown in the status message.
-  
+
     1. Test case: `list` followed by `restore 1`<br>
        Expected: The contact at index `1` in the deleted contacts list is restored, even though the active contact list is currently displayed.
 
@@ -974,6 +974,8 @@ These enhancements are planned for future iterations:
 - Extend sortcom support to the deleted-contact list: Currently, sortcom only sorts the active non-deleted contact list. In a future version, we may support sorting the deleted-contact list when it is being displayed as well.
 - Improve command naming consistency across the application.
     - Currently, some commands use a two-level structure with spaces, such as `tag create`, `tag assign`, and `tag delete`, while others use a single-word format such as `findcom` and `sortcom`.
-- Improve error handling for mistyped prefixes so that inputs like T/ are reported as an invalid prefix instead of as invalid address characters.
+- Improve error handling for mistyped prefixes so that inputs like `T/` are reported as an invalid prefix instead of as invalid address characters.
+- Improve partial execution support for bulk `tag assign` and `tag unassign` commands: Currently, if a bulk command includes both valid and invalid indices, the entire command is aborted and no contacts are updated. In a future version, valid indices will still be processed while invalid indices are reported individually.
+- Improve index handling so that indexes with space between 2 numbers will throw an error instead of treated as a 2 digit number ie. Currently, `tag assign 1, 2 3 friends` will result in tagging `friends` to index 1 and 23. In the future, an error message will be thrown.
 - Improve parameter validation for commands that do not require extra parameter (eg. `help`, `list`, `clear`, `exit`, `sortcom`)
     - Currently, for example, `clear` accepts and ignores extra parameters (e.g., `clear 123`), executing successfully instead of rejecting the input. In a future version, extra parameters will be rejected with an appropriate error message to enforce stricter command format validation.
