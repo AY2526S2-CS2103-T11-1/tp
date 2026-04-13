@@ -36,7 +36,7 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
     * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to CLinkedin.
 
-    * `delete 3` : Deletes the 3rd contact in the active contact list.
+    * `delete 3` : Deletes the 3rd contact in the displayed contact list.
 
     * `clear` : Clears all contacts, including deleted-contact history.
 
@@ -166,7 +166,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [l/LINK] [r/REM
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Pasir Ris Drive c/Google r/Follow up next week p/1234567 t/teacher`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Pasir Ris Drive c/Google r/Follow up next week p/98125815 t/teacher`
 
 #### 2. Listing all contacts : `list`
 
@@ -205,14 +205,14 @@ Deletes the specified contact from CLinkedin.
 Format: `delete INDEX`
 
 * Deletes the contact at the specified `INDEX`.
-* The index refers to the index number shown in the active contact list.
+* The index refers to the index number shown in the displayed contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Deleted contacts are not permanently removed immediately.
 * Deleted contacts are stored and can be viewed using the `deleted` command.
 * Contacts will be permanently removed after 7 days.
 
 <box type="info" seamless>
-**Note:** `delete` applies only to the active contact list. If the active contact list is currently filtered, the index refers to the filtered active list instead. `delete` does not apply to the `deleted` list.
+**Note:** `delete` applies only to the displayed contact list. `delete` does not apply to the `deleted` list, it will refer to the previously displayed list before entering the `deleted` command.
 </box>
 
 Examples:
@@ -242,7 +242,7 @@ Format: `restore INDEX`
 
 * Restores the contact at the specified `INDEX` from the deleted contacts list.
 * The index refers to the index number shown in the `deleted` list.
-* The `restore` command always refers to the deleted contacts list, even if the active contact list is currently displayed.
+* The `restore` command always refers to the deleted contacts list, even if the displayed contact list is currently displayed.
 * The index **must be a positive integer** 1, 2, 3, …​
 * The restored contact will be added back to CLinkedin.
 * If a tag associated with the contact has been removed or renamed before restoration, the contact will be restored without that tag.
@@ -411,9 +411,9 @@ Examples:
 * `tag rename friends closefriends`
 * `tag rename colleagues coworkers`
 
-#### 6. Adding color to a tag: `tag color`
+#### 6. Changing the color of a tag: `tag color`
 
-Adds a color to a tag.
+Changes the color of a tag.
 
 Format: `tag color TAG_NAME COLOR`
 
@@ -487,8 +487,8 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 **Q**: Why can I add two contacts with the exact same name?<br>
 **A**: Unlike the standard AB3, CLinkedin allows multiple contacts to share the same name. It is possible for different people to share a name (e.g., "John Tan"). A contact is only considered duplicate if every detail is identical.
 
-**Q**: Why does `delete 1` say the person index is invalid when I am viewing the `deleted` list?<br>
-**A**: The `delete` command applies only to the active contact list, not the `deleted` list. If the active contact list is currently filtered, `delete` uses the index from that filtered active list instead. If that active filtered list does not contain index `1`, the command will report that the person index is invalid, even if an entry is visible in the `deleted` list.
+**Q**: Why does `delete 6` say the person index is invalid when I am viewing the `deleted` list?<br>
+**A**: The `delete` command applies only to the displayed contact list, not the `deleted` list. If the active contact list is currently filtered, `delete` uses the index from that filtered active list instead. If that active filtered list does not contain index `6`, the command will report that the person index is invalid, even if an entry is visible in the `deleted` list.
 
 **Q**: Why can I use `restore INDEX` even when I am not viewing the `deleted` list?<br>
 **A**: The `restore` command always refers to the deleted contacts list, regardless of whether the active contact list or the deleted list is currently being displayed.
@@ -516,7 +516,7 @@ Action              | Format, Examples
 **Delete**          | `delete INDEX`<br> e.g., `delete 3`
 **Edit**            | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`<br> e.g., `edit 2 n/James Lee e/jameslee@example.com`
 **Find**            | `find KEYWORD [;MORE_KEYWORDS]`<br> e.g., `find James; Jake`
-**Find Company**            | `findcom KEYWORD [;MORE_KEYWORDS]`<br> e.g., `find Google; Amazon`
+**Find Company**            | `findcom KEYWORD [;MORE_KEYWORDS]`<br> e.g., `findcom Google; Amazon`
 **Sort Company**            | `sortcom`
 **List**            | `list`
 **Deleted**         | `deleted`
