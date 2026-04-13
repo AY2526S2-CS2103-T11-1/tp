@@ -970,3 +970,6 @@ These enhancements are planned for future iterations:
     - For example, inputs such as `0`, out-of-range indices, and excessively large numeric values should produce the same invalid index error message instead of being treated as invalid command format.
 - Support more flexible phone number formats: The current implementation accepts only digit-only phone numbers of 8 to 15 digits. Future versions may support formats with spaces, country codes, and symbols such as `+`, `(`, `)`, and `-`.
 - Extend sortcom support to the deleted-contact list: Currently, sortcom only sorts the active non-deleted contact list. In a future version, we may support sorting the deleted-contact list when it is being displayed as well.
+- Improve command naming consistency across the application.
+    - Currently, some commands use a two-level structure with spaces, such as `tag create`, `tag assign`, and `tag delete`, while others use a single-word format such as `findcom` and `sortcom`.
+- Improve error handling for mistyped prefixes so that inputs like T/ are reported as an invalid prefix instead of as invalid address characters.
