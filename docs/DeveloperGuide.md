@@ -974,4 +974,6 @@ These enhancements are planned for future iterations:
 - Extend sortcom support to the deleted-contact list: Currently, sortcom only sorts the active non-deleted contact list. In a future version, we may support sorting the deleted-contact list when it is being displayed as well.
 - Improve command naming consistency across the application.
     - Currently, some commands use a two-level structure with spaces, such as `tag create`, `tag assign`, and `tag delete`, while others use a single-word format such as `findcom` and `sortcom`.
-- Improve error handling for mistyped prefixes so that inputs like T/ are reported as an invalid prefix instead of as invalid address characters.
+- Improve error handling for mistyped prefixes so that inputs like `T/` are reported as an invalid prefix instead of as invalid address characters.
+- Improve partial execution support for bulk `tag assign` and `tag unassign` commands: Currently, if a bulk command includes both valid and invalid indices, the entire command is aborted and no contacts are updated. In a future version, valid indices will still be processed while invalid indices are reported individually.
+- Improve index handling so that indexes with space between 2 numbers will throw an error instead of treated as a 2 digit number ie. Currently, `tag assign 1, 2 3 friends` will result in tagging `friends` to index 1 and 23. In the future, an error message will be thrown.
