@@ -1,5 +1,6 @@
 package seedu.clinkedin.logic.parser;
 
+import static seedu.clinkedin.logic.Messages.MESSAGE_FIND_REPEATED_NAMES;
 import static seedu.clinkedin.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinkedin.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinkedin.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -52,5 +53,13 @@ public class FindCommandParserTest {
         assertParseFailure(parser,
                 ";irfan",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_repeatedTwoNames_throwsParseException() {
+        assertParseFailure(parser, "AlIcE;aLiCE", MESSAGE_FIND_REPEATED_NAMES);
+
+        // multiple whitespaces between keywords
+        assertParseFailure(parser, " \n Alice; \n \t Alice  \t", MESSAGE_FIND_REPEATED_NAMES);
     }
 }
