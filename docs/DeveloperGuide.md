@@ -195,13 +195,19 @@ The `restore` command allows users to restore a previously deleted contact from 
 
 Users can use the `deleted` command to view the list of deleted contacts and identify the correct index for restoration.
 
+<box type="info" seamless>
+
+**Note:** The `restore` command always refers to the deleted contacts list, even if the `deleted` list is not currently displayed.
+
+</box>
+
 Contacts can only be restored within 7 days of deletion.
 
 When the command is executed, the system first checks whether the provided index is valid in the deleted contacts list. If the index is invalid, the command fails and an error message is shown.
 
 If the index is valid, the system checks whether restoring the contact would cause a conflict, such as a duplicate phone number or an already existing contact. If such a conflict exists, the command fails.
 
-If restoration is allowed, the contact is added back to the main contact list and removed from the deleted contacts list. Tags whose names no longer exist will not be restored. Tags whose names still exist will be restored using their current tag definitions.
+If restoration is allowed, the contact is added back to the main contact list and removed from the deleted contacts list. Tags whose original names no longer exist, including tags that have since been renamed, will not be restored. Tags whose original names still exist will be restored using their current tag definitions.
 
 The following activity diagram illustrates the decision flow of the `restore` command:
 
@@ -426,26 +432,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Preconditions:**
 * The application is running.
-* The contact list is not empty.
+* The active contact list is not empty.
 
 **Guarantees:**
-* If successful, the specified contact is removed from the contact list and stored in the deleted contacts list with a timestamp.
+* If successful, the specified contact is removed from the active contact list and stored in the deleted contacts list with a timestamp.
 * If unsuccessful, the contact list remains unchanged.
 
 #### **MSS**
 
 1. User requests to list contacts.
-2. CLinkedin displays the list of contacts.
+2. CLinkedin displays the active contact list
 3. User requests to delete a contact by entering the delete command with the contact's index.
-4. CLinkedin validates that the provided index is valid.
-5. CLinkedin removes the contact from the contact list and stores it in the deleted contacts list with a timestamp.
+4. CLinkedin validates that the provided index is valid in the active contact list.
+5. CLinkedin removes the contact from the active contact list and stores it in the deleted contacts list with a timestamp.
 6. CLinkedin displays a success message that the contact has been deleted.
 
    Use case ends.
 
 #### **Extensions**
 
-* 3a. The user provides an index that does not exist in the list.
+* 3a. The user provides an index that does not exist in the active contact list.
     * 3a1. CLinkedin shows an error message that the index is invalid.
 
       Use case resumes at step 1.
@@ -454,6 +460,50 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b1. CLinkedin shows an error message that the command format is invalid.
 
       Use case resumes at step 1.
+
+---
+
+### **Use Case: Restore deleted contact**
+
+**Preconditions:**
+* The application is running.
+* The deleted contacts list is not empty.
+
+**Guarantees:**
+* If successful, the specified contact is restored to the active contact list and removed from the deleted contacts list.
+* If unsuccessful, both lists remain unchanged.
+
+#### **MSS**
+
+1. User enters the `restore` command with the deleted contact's index.
+2. CLinkedin validates that the index is valid in the deleted contacts list.
+3. CLinkedin checks whether restoring the contact would conflict with the active contact list.
+4. CLinkedin restores the contact to the active contact list and removes it from the deleted contacts list.
+5. CLinkedin displays a success message.
+
+   Use case ends.
+
+#### **Extensions**
+
+* 2a. The index is invalid.
+    * 2a1. CLinkedin shows an error message.
+
+      Use case resumes at step 1.
+
+* 1a. The command format is invalid.
+    * 1a1. CLinkedin shows an error message.
+
+      Use case resumes at step 1.
+
+* 3a. Restoring the contact would conflict with the active contact list.
+    * 3a1. CLinkedin shows an error message.
+
+      Use case resumes at step 1.
+
+* 4a. Some original tags no longer exist in the current tag list.
+    * 4a1. CLinkedin restores the contact without those tags.
+
+      Use case resumes at step 5.
 
 ---
 
@@ -667,6 +717,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Remark**: Additional notes or comments about a contact.
 * **Duplicate contact**: Two contacts with the same details.
 * **Duplicate phone**: Two contacts with the same phone number.
+* **Active contact list**: The main contact list that commands such as `delete` operate on. If the list is currently filtered, the active contact list refers to that filtered view.
+* **Deleted contacts list**: A separate list that stores recently deleted contacts for recovery within 7 days. Commands such as `restore` operate on this list, while `delete` does not.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -726,15 +778,18 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect edit commands to try: `edit`, `edit x`, `...` (where x is large than the list size)<br>
        Expected: Similar to previous.
 ### Deleting a person
-- Deleting a person while all persons are being shown
+- Deleting a person from the active contact list
 
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
     1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+       Expected: First contact is deleted from the active contact list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
     1. Test case: `delete 0`<br>
        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+
+    1. Test case: `deleted` followed by `delete 1`<br>
+       Expected: `delete` still applies only to the active contact list. If index `1` is not valid in the active contact list, no person is deleted and an error message is shown.
 
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
@@ -764,15 +819,18 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: At least 1 contact has been deleted within the past 7 days.
 
     1. Test case: `deleted`<br>
-       Expected: Deleted contacts within the past 7 days are shown in the list. Success message shown.
+       Expected: Deleted contacts within the past 7 days are shown in the list. The list is for viewing and restoring deleted contacts. Success message shown.
 
 ### Restoring a deleted contact
-- Restoring a deleted contact from the deleted list
+- Restoring a deleted contact from the deleted contacts list
 
     1. Prerequisites: At least 1 contact has been deleted within the past 7 days.
 
     1. Test case: `restore 1`<br>
-       Expected: First deleted contact is restored to the end of the contact list. Details of restored contact shown in the status message.
+       Expected: First deleted contact is restored to the end of the active contact list. Details of restored contact shown in the status message.
+  
+    1. Test case: `list` followed by `restore 1`<br>
+       Expected: The contact at index `1` in the deleted contacts list is restored, even though the active contact list is currently displayed.
 
 ### Creating a new tag
 - Creating a tag in the system
@@ -850,6 +908,20 @@ testers are expected to do more *exploratory* testing.
     1. Test case: Modify the `addressbook.json` file so that it becomes corrupted, then launch the application.<br>
        Expected: Application starts with an empty dataset.
 
+### Clearing all entries
+- Clearing all entries from the application
+
+    1. Prerequisites: The contact list contains at least 1 contact, and the deleted contacts list contains at least 1 deleted contact.
+
+    1. Test case: `clear`<br>
+       Expected: All contacts are removed from the active contact list and the deleted contacts list.
+
+    1. Test case: `clear` followed by `deleted`<br>
+       Expected: No deleted contacts are shown because the deleted contacts list has also been cleared.
+
+    1. Other incorrect clear commands to try: `clear x`, `clear 1`, `clear anything`<br>
+       Expected: Similar to `clear`, as extra parameters are ignored.
+
 ### Further testing
 1. _{ more test cases for testers to explore ... }_
 
@@ -894,6 +966,8 @@ We reused AB3’s core architecture (commands, parser, model), which reduced set
 
 ## **Appendix: Planned Enhancements**
 These enhancements are planned for future iterations:
-- Improve tag restoration behaviour: when restoring a deleted contact, tags that were renamed will be correctly mapped to their updated names instead of being removed.
+- Improve tag restoration behaviour so that tags remain linked to a deleted contact when it is restored, even if those tags were renamed after contact deletion.
+- Improve index validation so that numeric index errors are handled more accurately.
+    - For example, inputs such as `0`, out-of-range indices, and excessively large numeric values should produce the same invalid index error message instead of being treated as invalid command format.
 - Support more flexible phone number formats: The current implementation accepts only digit-only phone numbers of 8 to 15 digits. Future versions may support formats with spaces, country codes, and symbols such as `+`, `(`, `)`, and `-`.
 - Extend sortcom support to the deleted-contact list: Currently, sortcom only sorts the active non-deleted contact list. In a future version, we may support sorting the deleted-contact list when it is being displayed as well.

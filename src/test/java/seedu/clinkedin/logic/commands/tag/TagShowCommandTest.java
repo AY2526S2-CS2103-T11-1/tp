@@ -76,7 +76,7 @@ public class TagShowCommandTest {
         String expectedMessage = String.format(
                 "%d contacts listed with tag '%s'.",
                 3,
-                tag.toString());
+                tag.getTagName());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredPersonList());
     }
