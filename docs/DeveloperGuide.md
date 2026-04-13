@@ -772,7 +772,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `edit 1 n/Johnny`<br>
        Expected: First contact's name is updated to `Johnny`. Details of contact shown in status message.
-   
+
     1. Test case: `edit 0 n/Johnny`<br>
        Expected: No person is edited. Error details shown in the status message.
 
@@ -829,7 +829,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `restore 1`<br>
        Expected: First deleted contact is restored to the end of the active contact list. Details of restored contact shown in the status message.
-  
+
     1. Test case: `list` followed by `restore 1`<br>
        Expected: The contact at index `1` in the deleted contacts list is restored, even though the active contact list is currently displayed.
 
