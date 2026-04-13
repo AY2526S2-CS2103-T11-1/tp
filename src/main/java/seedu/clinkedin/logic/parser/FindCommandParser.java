@@ -1,5 +1,6 @@
 package seedu.clinkedin.logic.parser;
 
+import static seedu.clinkedin.logic.Messages.MESSAGE_FIND_REPEATED_NAMES;
 import static seedu.clinkedin.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
@@ -34,6 +35,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         nameKeywords = Arrays.stream(nameKeywords).map(x -> x.trim()).toArray(String[]::new);
+
+        long distinct = Arrays.stream(nameKeywords).map(String::toLowerCase).distinct().count();
+        if (distinct != nameKeywords.length) {
+            throw new ParseException(MESSAGE_FIND_REPEATED_NAMES);
+        }
 
         return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }

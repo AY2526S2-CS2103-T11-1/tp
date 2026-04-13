@@ -21,6 +21,8 @@ public class Messages {
     public static final String MESSAGE_COMPANIES_LISTED_OVERVIEW = "%d contacts listed working at \"%s\".";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_FIND_REPEATED_NAMES =
+            "Your search contains duplicate keywords. Remove repeated terms and try again.";
     public static final String MESSAGE_INVALID_DELETED_PERSON_RECORD_DISPLAYED_INDEX =
             "The deleted person record index provided is invalid";
     public static final String MESSAGE_TAG_SHOW_SINGLE_TAG_ONLY =
