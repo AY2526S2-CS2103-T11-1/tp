@@ -897,4 +897,3 @@ These enhancements are planned for future iterations:
 - Improve tag restoration behaviour: when restoring a deleted contact, tags that were renamed will be correctly mapped to their updated names instead of being removed.
 - Support more flexible phone number formats: The current implementation accepts only digit-only phone numbers of 8 to 15 digits. Future versions may support formats with spaces, country codes, and symbols such as `+`, `(`, `)`, and `-`.
 - Extend sortcom support to the deleted-contact list: Currently, sortcom only sorts the active non-deleted contact list. In a future version, we may support sorting the deleted-contact list when it is being displayed as well.
-- Implement duplicate email handling: Currently, we allow duplicate emails to be used in the event that multiple contacts are from the same company and user decides to save the general company email to apply to the company when interested.
