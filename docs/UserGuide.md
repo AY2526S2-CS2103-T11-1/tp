@@ -213,7 +213,9 @@ Format: `delete INDEX`
 * Contacts will be permanently removed after 7 days.
 
 <box type="info" seamless>
+
 **Note:** `delete` applies only to the active contact list. If the active contact list is currently filtered, the index refers to the filtered active list instead. `delete` does not apply to the `deleted` list.
+
 </box>
 
 Examples:
