@@ -25,7 +25,7 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
 3. Copy the file to the folder you want to use as the _home folder_ for your CLinkedin.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinkedin.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinkedin-v1.6.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -497,6 +497,9 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 
 **Q**: Why are my deleted contacts gone after using `clear`?<br>
 **A**: The `clear` command clears all stored data in CLinkedin, including both the active contact list and the deleted contacts list. Contacts removed by `clear` are not stored in the deleted list.
+
+**Q**: What does active contact list mean?
+**A**: Refer to Glossary section in the Developer Guide.
 
 --------------------------------------------------------------------------------------------------------------------
 
