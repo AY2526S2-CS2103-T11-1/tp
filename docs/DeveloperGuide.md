@@ -296,7 +296,7 @@ The following sequence diagram illustrates the execution:
 
 #### Tag rename
 
-The `tag rename` commands allow users to modify the name of an existing tag, while also replacing the tag attached to the respective contacts.
+The `tag rename` command allow users to modify the name of an existing tag, while also replacing the tag attached to the respective contacts.
 
 Because tags are immutable objects in this architecture, modifying a tag requires replacing it. The system first validates that the old tag exists. It then creates the new tag in the global `CLinkedin` tag list and attach it to the contacts containing the old tag through iteration. Finally, it removes the old tag from the tag list.
 
@@ -342,7 +342,7 @@ The sequence diagram below illustrates the execution:
 
 **Target user profile**:
 
-* NUS SOC students who collect many professional contacts (e.g. peers, seniors, alumni)
+* NUS SoC students who collect many professional contacts (e.g. peers, seniors, alumni)
 * comfortable with using command-line interfaces to manage contacts
 
 **Value proposition**: Helps NUS SoC students manage and recall networking contacts quickly by providing a structured, command-line address book tailored for technical users.
@@ -475,7 +475,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### **MSS**
 
-1. User enters the `restore` command with the deleted contact's index.
+1. User requests to restore a deleted contact with a specified index.
 2. CLinkedin validates that the index is valid in the deleted contacts list.
 3. CLinkedin checks whether restoring the contact would conflict with the active contact list.
 4. CLinkedin restores the contact to the active contact list and removes it from the deleted contacts list.
@@ -633,7 +633,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### **MSS**
 
-1. User requests to find contacts by entering the `findcom` command with one or more company keywords.
+1. User requests to find contacts from one or more specified company.
 2. CLinkedin parses the input keywords.
 3. CLinkedin filters the contact list to include contacts whose company matches any of the keywords.
 4. CLinkedin displays the filtered list of contacts along with a summary message.
@@ -676,7 +676,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### **MSS**
 
-1. User requests to sort contacts by entering the `sortcom` command.
+1. User requests to sort contacts by company name.
 2. CLinkedin sorts the active contact list by company name (case-insensitive), with name and phone number used as tie-breakers when needed.
 3. CLinkedin displays the sorted active contact list.
 4. CLinkedin displays a success message.
@@ -737,9 +737,10 @@ testers are expected to do more *exploratory* testing.
 1. Initial launch
 
     1. Download the jar file and copy into an empty folder
+    2. Open a command terminal, navigate to the folder with the jar file
 
-    1. Double-click the jar file.
-       Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+       1. In the terminal, run `java -jar clinkedin-v1.5.1.jar`<br>
+          Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -802,7 +803,7 @@ testers are expected to do more *exploratory* testing.
        Expected: Contacts with the company `google` are shown in the list. Success message shown.
 
     1. Test case: `findcom`<br>
-       Expected: No contacts are shown. Error details shown in the status message.
+       Expected: Error details shown in the status message.
 
 ### Sorting contact list by company name
 - Sorting active contacts by company name alphabetically
