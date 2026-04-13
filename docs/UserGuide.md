@@ -45,6 +45,7 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## Command Format
 
 - `UPPER_CASE` = user input  
@@ -68,7 +69,7 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 
 - When copying commands from a PDF, ensure spaces are preserved, especially for multi-line commands.
 
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## Prefix Summary
 
@@ -84,7 +85,7 @@ CLinkedin is a **desktop app for managing contacts, optimized for use via a Comm
 | `t/` *(optional)* | Tag | Tag(s) for categorisation | `t/friend` |
 | `color/` *(optional, tag create only)* | Tag Color | Specifies the color of a tag when creating it | `color/blue` |
 
-> **Note:**  
+> **Note:**
 > The `color/` prefix is only applicable to the `tag create` command and cannot be used with other commands.
 ---
 
@@ -117,6 +118,7 @@ Format: `exit`
 Adds a contact to CLinkedin.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [l/LINK] [r/REMARK] [t/TAG]…​`
+
 <box type="warning" seamless>
 
 **Input constraints:**
@@ -138,30 +140,32 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [l/LINK] [r/REM
   - Domain labels may contain only letters, numbers, and hyphens (`-`)
   - The last domain label must be at least 2 characters long
 - **Address**
-    - Must not contain `/` or `@`
-    - Must not start or end with spaces
-    - Must not contain multiple consecutive spaces
-    - Maximum 100 characters
+  - Must not contain `/` or `@`
+  - Must not start or end with spaces
+  - Must not contain multiple consecutive spaces
+  - Maximum 100 characters
 - **Company**
-    - Contains only letters, numbers, spaces, `. , & -`
-    - Must not start or end with spaces
-    - Must not contain multiple consecutive spaces
-    - Maximum 50 characters
+  - Contains only letters, numbers, spaces, `. , & -`
+  - Must not start or end with spaces
+  - Must not contain multiple consecutive spaces
+  - Maximum 50 characters
 - **Link**
-    - Must start with `http://` or `https://`
-    - Must not contain spaces in the link
+  - Must start with `http://` or `https://` 
+  - Must not contain spaces in the link
 - **Remark**
-    - Must not contain `/`
-    - Maximum 200 characters
+  - Must not contain `/`
+  - Maximum 200 characters
 - **Tag**
-    - Must be alphanumeric (letters and numbers only)
-    - Maximum 20 characters
-    - Case-sensitive
+  - Must be alphanumeric (letters and numbers only)
+  - Maximum 20 characters
+  - Case-sensitive
 
 </box>
+
 <box type="tip" seamless>
 
 **Tip:** A contact can have any number of tags (including 0)
+
 </box>
 
 Examples:
