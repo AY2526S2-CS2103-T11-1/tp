@@ -97,6 +97,14 @@ mark {
   overflow-y: auto;
 }
 
+.page-nav-print a {
+  display: inline;
+}
+
+.page-nav-print li {
+  width: fit-content;
+}
+
 #page-nav {
   border-left: 1px solid lightgrey;
 }
