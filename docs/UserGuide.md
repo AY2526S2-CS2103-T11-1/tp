@@ -480,7 +480,7 @@ Furthermore, certain edits can cause CLinkedin to behave in unexpected ways (e.g
 - Tag **colors will be applied based on the current tag definitions**, as long as the tag name still exists
 - This is the current behavior. See Planned Enhancements for a possible future improvement.
 
-- **Q**: Why can’t I restore a contact?<br>
+**Q**: Why can’t I restore a contact?<br>
 **A**: This is likely because the current contact list already contains the same contact. Similar to AB3, duplicate contacts are not allowed in the main list. However, duplicates can exist in the deleted list since it stores historical snapshots. If a duplicate exists in the current list, the contact cannot be restored.
 
 **Q**: Can multiple contacts share the same email address?<br>
