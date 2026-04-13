@@ -967,7 +967,7 @@ We reused AB3’s core architecture (commands, parser, model), which reduced set
 
 ## **Appendix: Planned Enhancements**
 These enhancements are planned for future iterations:
-- Improve tag restoration behaviour so that tags remain linked to a deleted contact when it is restored, even if those tags were renamed after contact deletion.
+- Improve tag restoration behaviour so that tags remain linked to a deleted contact when it is restored, even if those tags were renamed after contact deletion, so that upon restoration of that contact, the changes made to the tags will be reflected instead of being deleted.
 - Improve index validation so that numeric index errors are handled more accurately.
     - For example, inputs such as `0`, out-of-range indices, and excessively large numeric values should produce the same invalid index error message instead of being treated as invalid command format.
 - Support more flexible phone number formats: The current implementation accepts only digit-only phone numbers of 8 to 15 digits. Future versions may support formats with spaces, country codes, and symbols such as `+`, `(`, `)`, and `-`.
