@@ -740,7 +740,7 @@ testers are expected to do more *exploratory* testing.
     1. Download the jar file and copy into an empty folder
     2. Open a command terminal, navigate to the folder with the jar file
 
-       1. In the terminal, run `java -jar clinkedin-v1.5.1.jar`<br>
+       1. In the terminal, run `java -jar clinkedin-v1.6.jar`<br>
           Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
